@@ -1,0 +1,55 @@
+<div class="avatar-container">
+  <!-- Si NO hay error, mostramos la lógica de imagen + skeleton -->
+  <ng-container *ngIf="!error; else initialsFallback">
+      <!-- Skeleton de PrimeNG mientras se carga la imagen -->
+      <p-skeleton
+          *ngIf="!imageLoaded"
+          shape="circle"
+          [style.width.px]="avatarSize"
+          [style.height.px]="avatarSize"
+          styleClass="avatar-skeleton"
+      ></p-skeleton>
+      
+      <!-- La imagen se muestra cuando ya se cargó -->
+      <img
+          class="avatar-image"
+          [class.hidden]="!imageLoaded"
+          [src]="imgUrl"
+          [alt]="username"
+          (load)="onImageLoad()"
+          (error)="onImageError()"
+          [style.width.px]="avatarSize"
+          [style.height.px]="avatarSize"
+      />
+  </ng-container>
+
+  <!-- Si hay error, mostramos las iniciales del usuario -->
+  <ng-template #initialsFallback>
+      <div
+          class="avatar-initials"
+          [style.width.px]="avatarSize"
+          [style.height.px]="avatarSize"
+          [style.fontSize.px]="textSize"
+      >{{ initials }}</div>
+  </ng-template>
+
+  <!-- Texto debajo de la imagen/iniciales -->
+  <div class="avatar-text">
+      <div
+          class="avatar-username text-left w-[55px] truncate"
+          [style.fontSize.px]="textSize + 2"
+      >{{ username }}</div>
+      <!-- Mostrar email solo si existe -->
+      <div
+          class="avatar-email text-left w-[55px] truncate"
+          *ngIf="email"
+          [style.fontSize.px]="textSize"
+      >{{ email }}</div>
+      <!-- Mostrar role solo si existe -->
+      <div
+          class="avatar-role text-left w-[55px] truncate"
+          *ngIf="role"
+          [style.fontSize.px]="textSize"
+      >{{ role }}</div>
+  </div>
+</div>

@@ -1,0 +1,59 @@
+.avatar-container {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    position: relative;
+    justify-content: center;
+  
+    .avatar-image {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      object-fit: cover;
+      transition: opacity 0.3s ease;
+  
+      &.hidden {
+        opacity: 0;
+        pointer-events: none;
+      }
+    }
+  
+    .avatar-spinner {
+      width: 48px;
+      height: 48px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+  
+    .avatar-initials {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background-color: #dee9fc; 
+      color: #1a2551;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 1rem;
+    }
+  
+    .avatar-text {
+      display: flex;
+      flex-direction: column;
+      .avatar-username {
+        font-weight: 600;
+        font-size: 1rem;
+      }
+      .avatar-email {
+        color: #ffffffb8; /* Ejemplo gris */
+        font-size: 0.875rem;
+      }
+      .avatar-role {
+        color: #ffffffb8; /* Ejemplo gris */
+        font-size: 0.875rem;
+      }
+    }
+  }
+  

@@ -1,0 +1,27 @@
+.loading-page-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999; // más alto que tu UI
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.4); // semitransparente
+  
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .loading-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  
+    .loading-message {
+      color: #fff; // texto blanco
+      font-size: 1.2rem;
+      font-weight: 500;
+    }
+  }
+  

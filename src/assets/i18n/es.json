@@ -1,0 +1,15 @@
+{
+    "LOGIN_TITLE": "Bienvenido a {{appName}}",
+    "LOGIN_TITLE_2": "Inicia sesión para continuar",
+    "EMAIL": "Correo",
+    "PASSWORD": "Contraseña",
+    "LOGIN_PARAGRAPH": "Por favor, introduzca su nombre de usuario y contraseña",
+    "INVALID_CREDENTIALS": "Credenciales inválidas",
+    "REMEMBER_ME": "Recuérdame",
+    "RECOVERY_PASSWORD": "¿Has olvidado tu contraseña?",
+    "BUTTON_SIGNIN": "Iniciar sesión",
+    "EMAIL_OR_PASSWORD_ERROR": "Correo o contraseña incorrecta",
+    "GO_LANDING": "Ir al landing",
+    "WELCOME_MESSAGE": "Bienvenido, {{username}}!"
+  }
+  

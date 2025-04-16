@@ -1,0 +1,23 @@
+<p-dropdown
+  [options]="languages"
+  [(ngModel)]="selectedLang"
+  (onChange)="onLanguageChange()"
+  optionLabel="label"
+  placeholder="Select Language"
+>
+  <!-- Plantilla para cada elemento de la lista -->
+  <ng-template let-lang pTemplate="item">
+    <div class="language-item">
+      <img [src]="lang.flag" alt="{{ lang.label }}" class="language-flag" />
+      <span>{{ lang.label }}</span>
+    </div>
+  </ng-template>
+  
+  <!-- Plantilla para el elemento seleccionado -->
+  <ng-template let-lang pTemplate="selectedItem">
+    <div class="language-item">
+      <img [src]="lang.flag" alt="{{ lang.label }}" class="language-flag" />
+      <span>{{ lang.label }}</span>
+    </div>
+  </ng-template>
+</p-dropdown>
