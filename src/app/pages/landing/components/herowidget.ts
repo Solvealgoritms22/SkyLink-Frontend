@@ -2,102 +2,103 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { RippleModule } from 'primeng/ripple';
+import { DatePickerModule } from 'primeng/datepicker'; // For p-datepicker
 import { TopbarWidget } from './topbarwidget.component';
 
 @Component({
     selector: 'hero-widget',
     standalone: true,
-    imports: [ButtonModule, RippleModule, CommonModule, TopbarWidget],
+    imports: [CommonModule, ButtonModule, RippleModule, DatePickerModule, TopbarWidget],
     template: `
-        <div class="h-[50rem] lg:h-[44rem] relative animate-duration-500 animate-slidefadein">
+        <div class="relative h-[53rem] animate-duration-500 animate-slidefadein overflow-hidden">
             <!-- Background Image -->
-            <img 
-                src="assets/img/hero-background.jpg"
-                alt="Hero Background"
-                class="w-full h-full object-cover absolute inset-0 -z-10"
-            />
+            <img src="assets/travel/travel-hero-bg.jpg" alt="Travel Hero Background" class="absolute inset-0 w-full h-full object-cover z-[-10]" />
 
-            <!-- Gradient Overlay -->
-            <div
-                class="absolute inset-0 -z-5 bg-[linear-gradient(106deg,rgba(0,0,0,0.36)_0.48%,rgba(0,0,0,0.10)_100%)]"
-            ></div>
+            <!-- Gradient Overlays -->
+            <div class="absolute inset-0 z-10 opacity-75 bg-[linear-gradient(180deg,rgba(0,0,0,0.50)_49.65%,rgba(0,0,0,0.00)_100%)]"></div>
+            <div class="absolute lg:opacity-100 opacity-50 z-[60] bottom-0 inset-x-0 h-[22rem] bg-[linear-gradient(180deg,rgba(255,255,255,0.00)_0%,#FFF_62.59%,#FFF_100%)] dark:bg-[linear-gradient(180deg,rgba(9,9,11,0.00)_0%,rgba(9,9,11,0.8)_62.59%,rgba(9,9,11,1)_100%)] lg:backdrop-blur-[0.75px]"></div>
+
+            <!-- Cloud and Airplane Images -->
+            <div class="absolute inset-0 overflow-y-clip container">
+                <img src="assets/travel/cloud-1.png" alt="Cloud 1" class="z-20 min-w-[520px] w-full h-auto absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2" />
+                <img src="assets/travel/cloud-2.png" alt="Cloud 2" class="z-20 w-[392px] min-w-[520px] h-auto absolute -top-24 -left-60 animate-cloud-idle animation-delay-2000" />
+                <img src="assets/travel/cloud-3.png" alt="Cloud 3" class="z-20 w-[760px] min-w-[520px] h-auto absolute bottom-80 -right-96 animate-cloud-idle" />
+                <img src="assets/travel/cloud-4.png" alt="Cloud 4" class="z-20 w-[1272px] min-w-[520px] h-auto absolute bottom-0 lg:-bottom-52 -left-20 animate-cloud-idle animation-delay-1200" />
+                <img src="assets/travel/airplane.png" alt="Airplane" class="z-50 w-[1272px] min-w-[600px] h-auto absolute bottom-40 lg:bottom-24 left-0 lg:left-20 rotate-[10deg]" />
+                <img src="assets/travel/cloud-5.png" alt="Cloud 5" class="z-40 w-[1512px] min-w-[520px] h-auto absolute top-0 lg:top-24 -left-[782px] animate-cloud-idle animation-delay-1200" />
+                <img src="assets/travel/cloud-5.png" alt="Cloud 5" class="z-[60] w-[1512px] min-w-[520px] h-auto absolute top-[460px] lg:top-60 left-[-200px] lg:-left-[400px] animate-cloud-idle animation-delay-2000" />
+                <img src="assets/travel/cloud-5.png" alt="Cloud 5" class="z-[60] w-[1512px] min-w-[520px] h-auto absolute top-[480px] lg:top-40 left-[80px] lg:left-[160px] animate-cloud-idle animation-delay-200" />
+            </div>
 
             <!-- Container -->
-            <div class="container mx-auto px-6">
-                <div class="h-[50rem] lg:h-[44rem] relative overflow-hidden rounded-3xl lg:rounded-4xl flex flex-col">
-
+            <div class="container">
+                <div class="relative rounded-b-md rounded-t-3xl lg:rounded-t-4xl h-[53rem]">
                     <!-- Top Bar -->
                     <topbar-widget></topbar-widget>
 
-                    <!-- Main Content -->
-                    <div class="flex-1 flex flex-col justify-between pb-16">
-                        <div class="mt-10 lg:mt-20 lg:ml-20 px-6 lg:px-0">
-                            <h1 class="title text-4xl lg:text-7xl max-w-2xl !leading-tight">
-                                Streamline Your Logistics Operations
-                            </h1>
-                            <p 
-                                class="mt-6 description max-w-[40rem] text-[#ffffffb8] lg:text-base text-lg"
-                                style="color: #ffffffb8;"
-                            >
-                                Optimize your supply chain with our cutting-edge logistics solutions, ensuring
-                                timely and efficient delivery of your goods worldwide.
-                            </p>
-                            <div class="mt-8 flex items-center gap-3">
-                                <a routerLink="" class="button-regular" href="/">Get Started</a>
-                                <a routerLink="" class="button-outlined" href="/">Explore</a>
-                            </div>
-                        </div>
-
-                        <!-- Customer Logos -->
-                        <div class="mb-0 mt-auto">
-                            <!-- Cinta de logos (1era repetición) -->
-                            <div
-                                class="w-full flex flex-nowrap gap-6 overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_white_128px,_white_calc(100%-128px),transparent_100%)]"
-                            >
-                                <div class="flex flex-nowrap items-center animate-infinite-scroll">
-                                    <div
-                                        class="w-44 flex items-center flex-nowrap justify-center gap-4"
-                                        *ngFor="let customer of customers"
-                                    >
-                                        <div class="h-10 w-10">
-                                            <img
-                                                [src]="customer.logo"
-                                                [alt]="customer.name + ' logo'"
-                                                class="w-full h-full object-contain"
-                                            />
-                                        </div>
-                                        <span
-                                            class="font-semibold text-white/56 text-lg"
-                                            style="color: #ffffff8f;"
-                                        >
-                                            {{ customer.name }}
-                                        </span>
-                                    </div>
-                                </div>
-                                <!-- Duplicado para el efecto de scroll infinito -->
-                                <div class="flex flex-nowrap items-center animate-infinite-scroll" aria-hidden="true">
-                                    <div
-                                        class="w-44 flex items-center flex-nowrap justify-center gap-4"
-                                        *ngFor="let customer of customers"
-                                    >
-                                        <div class="h-10 w-10">
-                                            <img
-                                                [src]="customer.logo"
-                                                [alt]="customer.name + ' logo'"
-                                                class="w-full h-full object-contain"
-                                            />
-                                        </div>
-                                        <span
-                                            class="font-semibold text-white/56 text-lg"
-                                            style="color: #ffffff8f;"
-                                        >
-                                            {{ customer.name }}
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <!-- Title -->
+                    <div class="absolute left-1/2 -translate-x-1/2 top-60 z-30 flex flex-col items-center">
+                        <div class="title text-3xl lg:text-4xl bg-[linear-gradient(180deg,rgba(255,255,255,0.80)_4.92%,rgba(255,255,255,0.40)_89.39%)] leading-none">La pasión por viajar te espera</div>
+                        <div class="title bg-[linear-gradient(180deg,#FFF_-16.99%,rgba(255,255,255,0.00)_100%)] text-8xl lg:text-[16rem] leading-none lg:-mt-14">Skylink</div>
                     </div>
+                </div>
+            </div>
+        </div>
+        <!-- Destination Selector -->
+        <div
+            class="-mt-12 items-center justify-center bg-surface-0 dark:bg-surface-950 max-w-[68rem] w-[92%] lg:w-auto mx-auto shadow-blue-card dark:shadow-none border-0 dark:border border-white/10 rounded-4xl lg:rounded-full p-6 lg:p-10 flex flex-col lg:flex-row gap-4 relative z-50"
+        >
+            <div class="lg:flex-1 lg:max-w-60">
+                <button class="w-full flex items-center gap-2 px-4 py-3 rounded-full transition-all dark:border hover:bg-gray-100 dark:hover:bg-gray-800 shadow-sm dark:shadow-none border !border-white/12">
+                    <span class="w-[7rem] truncate">Italy, Roma</span>
+                    <i class="pi pi-map-marker ml-auto"></i>
+                </button>
+            </div>
+            <p-datepicker
+                placeholder="Llegada"
+                showIcon="true"
+                iconDisplay="input"
+                styleClass="lg:flex-1 !w-full"
+                appendTo="body"
+                inputStyleClass="!rounded-full !px-4 !py-3 !transition-all hover:bg-gray-100 dark:hover:bg-gray-800 !shadow-sm dark:!shadow-none !border-white/12 !text-inherit placeholder:!text-inherit"
+            ></p-datepicker>
+            <p-datepicker
+                placeholder="Partida"
+                showIcon="true"
+                iconDisplay="input"
+                styleClass="lg:flex-1 !w-full"
+                appendTo="body"
+                inputStyleClass="!rounded-full !px-4 !py-3 !transition-all hover:bg-gray-100 dark:hover:bg-gray-800 !shadow-sm dark:!shadow-none !border-white/12 !text-inherit placeholder:!text-inherit"
+            ></p-datepicker>
+            <div class="lg:flex-1 lg:max-w-60">
+                <button class="w-full flex items-center gap-2 px-4 py-3 rounded-full transition-all dark:border hover:bg-gray-100 dark:hover:bg-gray-800 shadow-sm dark:shadow-none border !border-white/12">
+                    <i class="pi pi-map-marker"></i>
+                    <span class="w-[7rem] truncate">1 Room, 2 Guests</span>
+                </button>
+            </div>
+            <button class="button-gradient w-full lg:w-auto"><i class="pi pi-search"></i> Buscar...</button>
+        </div>
+
+        <!-- Customer Logos -->
+        <div class="container w-full flex flex-nowrap gap-6 overflow-hidden mt-24 pb-24 [mask-image:_linear-gradient(to_right,transparent_0,_white_128px,_white_calc(100%-128px),transparent_100%)]">
+            <div class="flex flex-nowrap items-center animate-infinite-scroll">
+                <div class="w-44 flex items-center flex-nowrap justify-center gap-4" *ngFor="let customer of customers">
+                    <div class="h-28 w-28 fill-surface-500 dark:fill-white/50 object-cover">
+                        <img [src]="customer.logo" [alt]="customer.name + ' logo'" class="w-full h-full object-contain fill-surface-500" />
+                    </div>
+                    <span class="font-semibold text-lg text-gray-500 dark:text-white/64">
+                        {{ customer.name }}
+                    </span>
+                </div>
+            </div>
+            <div class="flex flex-nowrap items-center animate-infinite-scroll" aria-hidden="true">
+                <div class="w-44 flex items-center flex-nowrap justify-center gap-4" *ngFor="let customer of customers">
+                    <div class="h-28 w-28 fill-surface-500 dark:fill-white/50 object-cover">
+                        <img [src]="customer.logo" [alt]="customer.name + ' logo'" class="w-full h-full object-contain fill-surface-500" />
+                    </div>
+                    <span class="font-semibold text-lg text-gray-500 dark:text-white/64">
+                        {{ customer.name }}
+                    </span>
                 </div>
             </div>
         </div>
@@ -130,78 +131,52 @@ import { TopbarWidget } from './topbarwidget.component';
                 animation: infinite-scroll 20s linear infinite;
             }
 
-            .button-regular {
-                display: flex;
-                min-width: 7rem;
-                cursor: pointer;
-                align-items: center;
-                justify-content: center;
-                gap: 0.5rem;
-                border-radius: 9999px;
-                --tw-bg-opacity: 1;
-                background-color: color-mix(in srgb, var(--p-surface-0) calc(100% * var(--tw-bg-opacity, 1)), transparent);
-                padding: 0.7rem 1.25rem;
-                font-weight: 500;
-                --tw-text-opacity: 1;
-                color: color-mix(in srgb, var(--p-surface-950) calc(100% * var(--tw-text-opacity, 1)), transparent);
-                --tw-shadow: 0px 10px 10px -8px rgba(18, 18, 23, 0.02),
-                    0px 2px 2px -1.5px rgba(18, 18, 23, 0.02),
-                    0px 1px 1px -0.5px rgba(18, 18, 23, 0.02),
-                    0px 0px 0px 1px rgba(18, 18, 23, 0.02);
-                --tw-shadow-colored: 0px 10px 10px -8px var(--tw-shadow-color),
-                    0px 2px 2px -1.5px var(--tw-shadow-color),
-                    0px 1px 1px -0.5px var(--tw-shadow-color),
-                    0px 0px 0px 1px var(--tw-shadow-color);
-                box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
-                    var(--tw-ring-shadow, 0 0 #0000),
-                    var(--tw-shadow);
-                transition-property: all;
-                transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-                transition-duration: 0.15s;
+            @keyframes cloud-idle {
+                0% {
+                    transform: translateX(0);
+                }
+                50% {
+                    transform: translateX(20px);
+                }
+                100% {
+                    transform: translateX(0);
+                }
             }
-            .button-regular:hover {
-                opacity: 0.8;
+            .animate-cloud-idle {
+                animation: cloud-idle 10s ease-in-out infinite;
             }
 
-            .button-outlined {
+            .animation-delay-200 {
+                animation-delay: 0.2s;
+            }
+            .animation-delay-1200 {
+                animation-delay: 1.2s;
+            }
+            .animation-delay-2000 {
+                animation-delay: 2s;
+            }
+
+            .button-gradient {
                 display: flex;
-                min-width: 7rem;
-                cursor: pointer;
                 align-items: center;
                 justify-content: center;
                 gap: 0.5rem;
                 border-radius: 9999px;
-                border-width: 1px;
-                border-color: #ffffff3d;
+                background: linear-gradient(180deg, #1e40af 0%, #3b82f6 100%);
                 padding: 0.7rem 1.25rem;
                 font-weight: 500;
                 --tw-text-opacity: 1;
                 color: color-mix(in srgb, var(--p-surface-0) calc(100% * var(--tw-text-opacity, 1)), transparent);
-                --tw-backdrop-blur: blur(16px);
-                -webkit-backdrop-filter: var(--tw-backdrop-blur)
-                    var(--tw-backdrop-brightness)
-                    var(--tw-backdrop-contrast)
-                    var(--tw-backdrop-grayscale)
-                    var(--tw-backdrop-hue-rotate)
-                    var(--tw-backdrop-invert)
-                    var(--tw-backdrop-opacity)
-                    var(--tw-backdrop-saturate)
-                    var(--tw-backdrop-sepia);
-                backdrop-filter: var(--tw-backdrop-blur)
-                    var(--tw-backdrop-brightness)
-                    var(--tw-backdrop-contrast)
-                    var(--tw-backdrop-grayscale)
-                    var(--tw-backdrop-hue-rotate)
-                    var(--tw-backdrop-invert)
-                    var(--tw-backdrop-opacity)
-                    var(--tw-backdrop-saturate)
-                    var(--tw-backdrop-sepia);
+                --tw-shadow: 0px 59px 16px -8px rgba(120, 149, 206, 0), 0px 38px 15px -8px rgba(120, 149, 206, 0.01), 0px 21px 13px -8px rgba(120, 149, 206, 0.04), 0px 9px 9px -4px rgba(120, 149, 206, 0.07), 0px 2px 5px 0px rgba(120, 149, 206, 0.08);
+                --tw-shadow-colored: 0px 59px 16px -8px rgba(120, 149, 206, 0), 0px 38px 15px -8px rgba(120, 149, 206, 0.01), 0px 21px 13px -8px rgba(120, 149, 206, 0.04), 0px 9px 9px -4px rgba(120, 149, 206, 0.07),
+                    0px 2px 5px 0px rgba(120, 149, 206, 0.08);
+                box-shadow: var(0 0 #0000, 0 0 #0000), var(0 0 #0000 0 0 #0000), var(--tw-shadow);
                 transition-property: all;
                 transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
                 transition-duration: 0.15s;
             }
-            .button-outlined:hover {
-                background: rgba(255, 255, 255, 0.1);
+            .button-gradient:hover {
+                opacity: 0.8;
             }
 
             .container {
@@ -213,9 +188,6 @@ import { TopbarWidget } from './topbarwidget.component';
             }
 
             .title {
-                background-image: linear-gradient(180deg, #ffffffd9 5%, #fff 90%);
-                font-size: 3.75rem;
-                line-height: 1;
                 font-weight: 600;
                 line-height: 125%;
                 color: transparent;
@@ -223,16 +195,21 @@ import { TopbarWidget } from './topbarwidget.component';
                 -webkit-background-clip: text;
                 -webkit-text-fill-color: transparent;
             }
+            .shadow-blue-card {
+                --tw-shadow: 0px 59px 16px -8px rgba(120, 149, 206, 0), 0px 38px 15px -8px rgba(120, 149, 206, 0.01), 0px 21px 13px -8px rgba(120, 149, 206, 0.04), 0px 9px 9px -4px rgba(120, 149, 206, 0.07), 0px 2px 5px 0px rgba(120, 149, 206, 0.08);
+                --tw-shadow-colored: 0px 59px 16px -8px rgba(120, 149, 206, 0), 0px 38px 15px -8px rgba(120, 149, 206, 0.01), 0px 21px 13px -8px rgba(120, 149, 206, 0.04), 0px 9px 9px -4px rgba(120, 149, 206, 0.07),
+                    0px 2px 5px 0px rgba(120, 149, 206, 0.08);
+                box-shadow: var(--tw-shadow);
+            }
         `
     ]
 })
 export class HeroWidget {
-    // Cambia 'logo' para que apunte al archivo SVG individual de cada cliente:
     customers = [
-        { name: 'Trimzales',  logo: 'assets/logos/trimzales.svg' },
-        { name: 'ZenTrailMs',  logo: 'assets/logos/zentrailms.svg' },
-        { name: 'Wavelength',  logo: 'assets/logos/wavelength.svg' },
-        { name: 'AlphaHex',    logo: 'assets/logos/alphahex.svg' },
-        { name: 'Mistranet',   logo: 'assets/logos/mistranet.svg' }
+        { name: '', logo: 'assets/logos/Logo_web_Arajet.png' },
+        { name: '', logo: 'assets/logos/skyhighdominicana-logo.png' },
+        { name: '', logo: 'assets/logos/logotipo-aircentury.png' },
+        { name: '', logo: 'assets/logos/logo-red-air.png' },
+        { name: '', logo: 'assets/logos/americanairlines.jpg' }
     ];
 }

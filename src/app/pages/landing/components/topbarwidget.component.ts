@@ -50,7 +50,7 @@ import { CommonModule } from '@angular/common';
                 </button>
                 <button class="button-outlined text-xs" *ngIf="!authService.isLoggedIn" routerLink="/auth/register">
                     <i class="fa-sharp-duotone fa-solid fa-registered mr-1"></i>
-                    Register
+                    Registrar
                 </button>
             </div>
             <!-- Mobile Menu Toggle -->
@@ -110,6 +110,7 @@ import { CommonModule } from '@angular/common';
             font-weight: 500;
             --tw-text-opacity: 1;
             color: color-mix(in srgb, var(--p-surface-0) calc(100% * var(--tw-text-opacity, 1)), transparent);
+            background-color: rgba(0, 0, 0, 0.3); /* Fondo oscuro con transparencia */
             --tw-backdrop-blur: blur(16px);
             -webkit-backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity)
                 var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
@@ -120,7 +121,7 @@ import { CommonModule } from '@angular/common';
             transition-duration: 0.15s;
         }
         .button-outlined:hover {
-            background: rgba(255, 255, 255, 0.1);
+            background-color: rgba(0, 0, 0, 0.2);
         }
     `
 })

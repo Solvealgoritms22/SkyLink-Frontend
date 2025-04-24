@@ -8,41 +8,41 @@ import { AnimateOnScroll } from 'primeng/animateonscroll';
     imports: [CommonModule, AnimateOnScroll],
     template: `
         <div id="features" class="container mt-24 lg:mt-48 px-6 lg:px-20 mx-auto max-w-[73rem] flex flex-col gap-24 lg:gap-60">
-            <!-- Feature 1: Business -->
+            <!-- Feature 1: Reservas -->
             <div pAnimateOnScroll enterClass="animate-slidefadein" class="flex md:flex-row flex-col-reverse items-center justify-between gap-16 lg:gap-20 animate-duration-500">
                 <div class="flex-1">
-                    <div class="badge">Business</div>
-                    <h3 class="text-3xl lg:text-5xl text-surface-950 dark:text-surface-0 font-semibold leading-tight mt-4">Optimize Your Supply Chain with Confidence</h3>
-                    <p class="text-lg lg:text-xl text-surface-500 dark:text-white/64 mt-6">Utilize our advanced logistics solutions to streamline your supply chain and enhance efficiency.</p>
+                    <div class="badge">Reservas</div>
+                    <h3 class="text-3xl lg:text-5xl text-surface-950 dark:text-surface-0 font-semibold leading-tight mt-4">Reserva tu Vuelo con Facilidad y Seguridad</h3>
+                    <p class="text-lg lg:text-xl text-surface-500 dark:text-white/64 mt-6">Utiliza nuestra plataforma SkyLink para encontrar y reservar vuelos de manera rápida, segura y personalizada.</p>
                     <ul class="flex flex-col gap-3.5 mt-8">
-                        <li class="flex items-center gap-3 text-surface-500 dark:text-white/64 text-lg lg:text-xl"><i class="pi pi-check-circle !text-base"></i> Real-Time Tracking</li>
-                        <li class="flex items-center gap-3 text-surface-500 dark:text-white/64 text-lg lg:text-xl"><i class="pi pi-check-circle !text-base"></i> Automated Inventory Management</li>
-                        <li class="flex items-center gap-3 text-surface-500 dark:text-white/64 text-lg lg:text-xl"><i class="pi pi-check-circle !text-base"></i> Secure Freight Services</li>
+                        <li class="flex items-center gap-3 text-surface-500 dark:text-white/64 text-lg lg:text-xl"><i class="pi pi-check-circle !text-base"></i> Búsqueda de Vuelos en Tiempo Real</li>
+                        <li class="flex items-center gap-3 text-surface-500 dark:text-white/64 text-lg lg:text-xl"><i class="pi pi-check-circle !text-base"></i> Selección de Asientos Personalizada</li>
+                        <li class="flex items-center gap-3 text-surface-500 dark:text-white/64 text-lg lg:text-xl"><i class="pi pi-check-circle !text-base"></i> Pagos Seguros en Línea</li>
                     </ul>
-                    <a class="cursor-pointer button-gradient mt-8">Get Started</a>
+                    <a class="cursor-pointer button-gradient mt-8">Comenzar Ahora</a>
                 </div>
                 <div class="w-full md:flex-1 h-[31rem] relative rounded-4xl overflow-hidden shadow-blue-card">
                     <div class="absolute inset-0 -z-1 bg-[linear-gradient(0deg,rgba(0,0,0,0.20)_0%,rgba(0,0,0,0.20)_100%)]"></div>
-                    <img alt="Logistic Feature Image" class="object-cover -z-2 absolute w-full h-full" src="assets/img/feature-business.jpg" />
+                    <img alt="SkyLink Reservas" class="object-cover -z-2 absolute w-full h-full" src="assets/img/scale-gallery-2.jpg" />
                 </div>
             </div>
 
-            <!-- Feature 2: Optimize -->
+            <!-- Feature 2: Experiencia -->
             <div pAnimateOnScroll enterClass="animate-slidefadein" class="flex items-center justify-between gap-16 lg:gap-20 md:flex-row-reverse flex-col-reverse animate-duration-500">
                 <div class="flex-1">
-                    <div class="badge">Optimize</div>
-                    <h3 class="text-3xl lg:text-5xl text-surface-950 dark:text-surface-0 font-semibold leading-tight mt-4">Enhance Your Logistics Operations</h3>
-                    <p class="text-lg lg:text-xl text-surface-500 dark:text-white/64 mt-6">Boost your logistics performance with our cutting-edge tools designed for optimal efficiency.</p>
+                    <div class="badge">Experiencia</div>
+                    <h3 class="text-3xl lg:text-5xl text-surface-950 dark:text-surface-0 font-semibold leading-tight mt-4">Vive una Experiencia de Viaje Inigualable</h3>
+                    <p class="text-lg lg:text-xl text-surface-500 dark:text-white/64 mt-6">Mejora tu experiencia de viaje con herramientas diseñadas para hacer que cada vuelo sea perfecto.</p>
                     <ul class="flex flex-col gap-3.5 mt-8">
-                        <li class="flex items-center gap-3 text-surface-500 dark:text-white/64 text-lg lg:text-xl"><i class="pi pi-check-circle !text-base"></i> Route Optimization</li>
-                        <li class="flex items-center gap-3 text-surface-500 dark:text-white/64 text-lg lg:text-xl"><i class="pi pi-check-circle !text-base"></i> Integrated Communication Systems</li>
-                        <li class="flex items-center gap-3 text-surface-500 dark:text-white/64 text-lg lg:text-xl"><i class="pi pi-check-circle !text-base"></i> Real-Time Data Analytics</li>
+                        <li class="flex items-center gap-3 text-surface-500 dark:text-white/64 text-lg lg:text-xl"><i class="pi pi-check-circle !text-base"></i> Notificaciones de Vuelo en Tiempo Real</li>
+                        <li class="flex items-center gap-3 text-surface-500 dark:text-white/64 text-lg lg:text-xl"><i class="pi pi-check-circle !text-base"></i> Gestión de Equipaje Simplificada</li>
+                        <li class="flex items-center gap-3 text-surface-500 dark:text-white/64 text-lg lg:text-xl"><i class="pi pi-check-circle !text-base"></i> Opciones de Personalización de Viaje</li>
                     </ul>
-                    <a class="cursor-pointer button-gradient mt-8">Get Started</a>
+                    <a class="cursor-pointer button-gradient mt-8">Comenzar Ahora</a>
                 </div>
                 <div class="w-full md:flex-1 h-[31rem] relative rounded-4xl overflow-hidden shadow-blue-card">
                     <div class="absolute inset-0 -z-1 bg-[linear-gradient(0deg,rgba(0,0,0,0.20)_0%,rgba(0,0,0,0.20)_100%)]"></div>
-                    <img alt="Logistic Feature Image" class="object-cover -z-2 absolute w-full h-full" src="assets/img/feature-optimize.jpg" />
+                    <img alt="SkyLink Experiencia" class="object-cover -z-2 absolute w-full h-full" src="assets/img/scale-gallery-3.jpg" />
                 </div>
             </div>
         </div>

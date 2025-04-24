@@ -13,7 +13,7 @@ import { CommonModule } from '@angular/common';
             <div class="animate-duration-500 animate-slidefadein">
                 <footer class="container mx-auto px-5 pt-5 lg:pt-[5.5rem] pb-10 rounded-3xl lg:rounded-4xl overflow-hidden relative shadow-none">
                     <!-- Background Image -->
-                    <img alt="Footer Image" class="object-cover absolute w-full h-full top-0 bottom-0 left-0 right-0" src="assets/footer/footer-image.jpg" style="z-index: 1;" />
+                    <img alt="Footer Image" class="object-cover absolute w-full h-full top-0 bottom-0 left-0 right-0" src="assets/footer/escape-gallery-bg.jpg" style="z-index: 1;" />
 
                     <!-- Gradient Overlay -->
                     <div class="absolute inset-0 bg-gradient-to-b from-[rgba(0,0,0,0.56)] via-[rgba(0,0,0,0.56)] to-[rgba(0,0,0,0.00)]" style="z-index: 2;"></div>
@@ -40,14 +40,14 @@ import { CommonModule } from '@angular/common';
                                 <a
                                     href="https://youtube.com"
                                     target="_blank"
-                                    class="h-8 px-4 cursor-pointer flex items-center justify-center rounded-full backdrop-blur-sm text-surface-0 border border-[#ffffff1f] bg-[#ffffff0a] hover:bg-[#ffffff1f]  transition-all"
+                                    class="h-8 px-4 cursor-pointer flex items-center justify-center rounded-full backdrop-blur-sm text-surface-0 border border-[#ffffff1f] bg-[#ffffff0a] hover:bg-[#ffffff1f] transition-all"
                                 >
                                     <i class="pi pi-youtube !text-sm"></i>
                                 </a>
                                 <a
                                     href="https://twitter.com"
                                     target="_blank"
-                                    class="h-8 px-4 cursor-pointer flex items-center justify-center rounded-full backdrop-blur-sm text-surface-0 border border-[#ffffff1f] bg-[#ffffff0a] hover:bg-[#ffffff1f]  transition-all"
+                                    class="h-8 px-4 cursor-pointer flex items-center justify-center rounded-full backdrop-blur-sm text-surface-0 border border-[#ffffff1f] bg-[#ffffff0a] hover:bg-[#ffffff1f] transition-all"
                                 >
                                     <i class="pi pi-twitter !text-sm"></i>
                                 </a>
@@ -62,43 +62,41 @@ import { CommonModule } from '@angular/common';
                         </div>
 
                         <!-- Links Columns -->
-                        <div class="flex flex-wrap items-start justify-between gap-x-28 gap-y-7">
-                            <!-- Landings -->
+                        <div class="flex flex-wrap items-start justify-between gap-y-7">
+                            <!-- SkyLink Servicios -->
                             <div class="p-2 flex flex-col gap-2">
-                                <div class="px-3 py-2 text-surface-0 text-xl font-medium">Landings</div>
+                                <div class="px-3 py-2 text-surface-0 text-xl font-medium">Servicios SkyLink</div>
                                 <div class="flex flex-col gap-2">
-                                    <a routerLink="/" class="px-3 py-2 w-fit text-[#ffffffb8] hover:text-white hover:bg-white/10 rounded-full transition-all">Travel</a>
-                                    <a routerLink="/saas" class="px-3 py-2 w-fit text-[#ffffffb8] hover:text-white hover:bg-white/10 rounded-full transition-all">SaaS</a>
-                                    <a routerLink="/startup" class="px-3 py-2 w-fit text-[#ffffffb8] hover:text-white hover:bg-white/10 rounded-full transition-all">Startup</a>
-                                    <a routerLink="/enterprise" class="px-3 py-2 w-fit text-[#ffffffb8] hover:text-white hover:bg-white/10 rounded-full transition-all">Enterprise</a>
-                                    <a routerLink="/e-learning" class="px-3 py-2 w-fit text-[#ffffffb8] hover:text-white hover:bg-white/10 rounded-full transition-all">E-Learning</a>
-                                    <a routerLink="/real-estate" class="px-3 py-2 w-fit text-[#ffffffb8] hover:text-white hover:bg-white/10 rounded-full transition-all">Real Estate</a>
-                                    <a routerLink="/logistic" class="px-3 py-2 w-fit text-[#ffffffb8] hover:text-white hover:bg-white/10 rounded-full transition-all">Logistics</a>
-                                    <a routerLink="/agency" class="px-3 py-2 w-fit text-[#ffffffb8] hover:text-white hover:bg-white/10 rounded-full transition-all">Agency</a>
+                                    <a routerLink="/" class="px-3 py-2 w-fit text-[#ffffffb8] hover:text-white hover:bg-white/10 rounded-full transition-all">Reservas de Vuelos</a>
+                                    <a routerLink="/travel-packages" class="px-3 py-2 w-fit text-[#ffffffb8] hover:text-white hover:bg-white/10 rounded-full transition-all">Paquetes de Viaje</a>
+                                    <a routerLink="/seat-selection" class="px-3 py-2 w-fit text-[#ffffffb8] hover:text-white hover:bg-white/10 rounded-full transition-all">Selección de Asientos</a>
+                                    <a routerLink="/flight-status" class="px-3 py-2 w-fit text-[#ffffffb8] hover:text-white hover:bg-white/10 rounded-full transition-all">Estado de Vuelos</a>
+                                    <a routerLink="/travel-insurance" class="px-3 py-2 w-fit text-[#ffffffb8] hover:text-white hover:bg-white/10 rounded-full transition-all">Seguro de Viaje</a>
+                                    <a routerLink="/check-in" class="px-3 py-2 wininv-fit text-[#ffffffb8] hover:text-white hover:bg-white/10 rounded-full transition-all">Check-In en Línea</a>
                                 </div>
                             </div>
 
-                            <!-- Secondary Pages -->
+                            <!-- Páginas Informativas -->
                             <div class="p-2 flex flex-col gap-2">
-                                <div class="px-3 py-2 text-surface-0 text-xl font-medium">Secondary Pages</div>
+                                <div class="px-3 py-2 text-surface-0 text-xl font-medium">Páginas Informativas</div>
                                 <div class="flex flex-col gap-2">
-                                    <a routerLink="/second-pages/about" class="px-3 py-2 w-fit text-[#ffffffb8] hover:text-white hover:bg-white/10 rounded-full transition-all">About</a>
-                                    <a routerLink="/second-pages/pricing" class="px-3 py-2 w-fit text-[#ffffffb8] hover:text-white hover:bg-white/10 rounded-full transition-all">Pricing</a>
-                                    <a routerLink="/second-pages/blog" class="px-3 py-2 w-fit text-[#ffffffb8] hover:text-white hover:bg-white/10 rounded-full transition-all">Blog</a>
-                                    <a routerLink="/second-pages/blog/detail" class="px-3 py-2 w-fit text-[#ffffffb8] hover:text-white hover:bg-white/10 rounded-full transition-all">Blog Detail</a>
-                                    <a routerLink="/second-pages/contact" class="px-3 py-2 w-fit text-[#ffffffb8] hover:text-white hover:bg-white/10 rounded-full transition-all">Contact</a>
+                                    <a routerLink="/about" class="px-3 py-2 w-fit text-[#ffffffb8] hover:text-white hover:bg-white/10 rounded-full transition-all">Sobre Nosotros</a>
+                                    <a routerLink="/promotions" class="px-3 py-2 w-fit text-[#ffffffb8] hover:text-white hover:bg-white/10 rounded-full transition-all">Promociones</a>
+                                    <a routerLink="/blog" class="px-3 py-2 w-fit text-[#ffffffb8] hover:text-white hover:bg-white/10 rounded-full transition-all">Blog de Viajes</a>
+                                    <a routerLink="/blog/detail" class="px-3 py-2 w-fit text-[#ffffffb8] hover:text-white hover:bg-white/10 rounded-full transition-all">Artículos de Viaje</a>
+                                    <a routerLink="/contact" class="px-3 py-2 w-fit text-[#ffffffb8] hover:text-white hover:bg-white/10 rounded-full transition-all">Contacto</a>
                                 </div>
                             </div>
 
-                            <!-- Account Pages -->
+                            <!-- Cuenta de Usuario -->
                             <div class="p-2 flex flex-col gap-2">
-                                <div class="px-3 py-2 text-surface-0 text-xl font-medium">Account Pages</div>
+                                <div class="px-3 py-2 text-surface-0 text-xl font-medium">Cuenta de Usuario</div>
                                 <div class="flex flex-col gap-2">
-                                    <a routerLink="/second-pages/signup" class="px-3 py-2 w-fit text-[#ffffffb8] hover:text-white hover:bg-white/10 rounded-full transition-all">Sign Up</a>
-                                    <a routerLink="/second-pages/signin" class="px-3 py-2 w-fit text-[#ffffffb8] hover:text-white hover:bg-white/10 rounded-full transition-all">Sign In</a>
-                                    <a routerLink="/404" class="px-3 py-2 w-fit text-[#ffffffb8] hover:text-white hover:bg-white/10 rounded-full transition-all">Error</a>
-                                    <a routerLink="/second-pages/reset-password" class="px-3 py-2 w-fit text-[#ffffffb8] hover:text-white hover:bg-white/10 rounded-full transition-all">Password Reset</a>
-                                    <a routerLink="/second-pages/account" class="px-3 py-2 w-fit text-[#ffffffb8] hover:text-white hover:bg-white/10 rounded-full transition-all">Account General</a>
+                                    <a routerLink="/signup" class="px-3 py-2 w-fit text-[#ffffffb8] hover:text-white hover:bg-white/10 rounded-full transition-all">Crear Cuenta</a>
+                                    <a routerLink="/signin" class="px-3 py-2 w-fit text-[#ffffffb8] hover:text-white hover:bg-white/10 rounded-full transition-all">Iniciar Sesión</a>
+                                    <a routerLink="/404" class="px-3 py-2 w-fit text-[#ffffffb8] hover:text-white hover:bg-white/10 rounded-full transition-all">Página no Encontrada</a>
+                                    <a routerLink="/reset-password" class="px-3 py-2 w-fit text-[#ffffffb8] hover:text-white hover:bg-white/10 rounded-full transition-all">Recuperar Contraseña</a>
+                                    <a routerLink="/account" class="px-3 py-2 w-fit text-[#ffffffb8] hover:text-white hover:bg-white/10 rounded-full transition-all">Mi Cuenta</a>
                                 </div>
                             </div>
                         </div>
@@ -118,9 +116,7 @@ import { CommonModule } from '@angular/common';
                     </div>
 
                     <!-- Copyright -->
-                    <div class="w-full lg:w-[calc(100%-5rem)] mt-8 lg:mt-32 pt-10 flex items-center justify-center text-surface-0 border-t border-dashed border-[#ffffff1a]" style="z-index: 4; position: relative;">
-                        © {{ currentYear }} {{ configService.appName }}
-                    </div>
+                    <div class="w-full lg:w-[calc(100%-5rem)] mt-8 lg:mt-32 pt-10 flex items-center justify-center text-surface-0 border-t border-dashed border-[#ffffff1a]" style="z-index: 4; position: relative;">© {{ currentYear }} SkyLink</div>
                 </footer>
             </div>
         </div>

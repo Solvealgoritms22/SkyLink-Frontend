@@ -12,21 +12,22 @@ import { AnimateOnScroll } from 'primeng/animateonscroll';
             <div class="flex flex-col lg:flex-row items-center gap-12 lg:gap-28">
                 <!-- Text Content -->
                 <div class="flex-1">
-                    <h2 class="text-3xl lg:text-7xl font-semibold text-surface-950 dark:text-surface-0 [text-shadow:var(--black-card-shadow)]">Who We Are</h2>
+                    <h2 class="text-3xl lg:text-7xl font-semibold text-surface-950 dark:text-surface-0 [text-shadow:var(--black-card-shadow)]">Quiénes Somos</h2>
                     <p class="mt-8 text-lg text-surface-500 dark:text-white/64">
-                        With over 20 years of experience in the logistics industry, we are committed to providing tailored logistics solutions that enhance your supply chain efficiency and reliability. Our mission is to empower businesses with
-                        innovative strategies, advanced technology, and dedicated customer support.
+                        Con más de 15 años de experiencia en la industria de viajes, en SkyLink ofrecemos soluciones de reservación de vuelos que garantizan comodidad, seguridad y confianza. Nuestra misión es facilitar tus viajes con tecnología
+                        innovadora y un servicio al cliente excepcional.
                     </p>
                     <div class="mt-16">
-                        <h6 class="text-2xl font-semibold text-surface-950 dark:text-surface-0 [text-shadow:var(--black-card-shadow)]">Our Mission</h6>
+                        <h6 class="text-2xl font-semibold text-surface-950 dark:text-surface-0 [text-shadow:var(--black-card-shadow)]">Nuestra Misión</h6>
                         <p class="mt-6 text-lg text-surface-500 dark:text-white/64">
-                            We strive to deliver efficient, reliable, and scalable logistics solutions, continuously innovating to meet the evolving needs of our clients while promoting sustainability and integrity.
+                            Nos esforzamos por ofrecer una experiencia de reservación de vuelos eficiente, confiable y personalizada, innovando constantemente para satisfacer las necesidades de nuestros usuarios mientras promovemos la sostenibilidad
+                            y la excelencia.
                         </p>
                     </div>
                 </div>
                 <!-- Image -->
                 <div pAnimateOnScroll enterClass="animate-enter fade-in-10 zoom-in-50 animate-duration-1000" class="relative w-full max-w-[35rem] h-[31rem] overflow-hidden">
-                    <img src="assets/img/who-we-are.png" alt="Logistic Who We Are Image" class="object-contain w-full h-full" />
+                    <img src="assets/img/travel-Photoroom.png" alt="SkyLink Quiénes Somos" class="object-contain w-full h-full" />
                 </div>
             </div>
 
@@ -39,12 +40,12 @@ import { AnimateOnScroll } from 'primeng/animateonscroll';
                     leaveClass="animate-leave fade-out-0"
                     class="relative min-h-[30rem] rounded-4xl overflow-hidden shadow-blue-card dark:shadow-none animate-duration-500 animate-slidefadein"
                 >
-                    <img alt="Logistic Who We Are Detail Image" class="object-cover -z-2 absolute w-full h-full" src="assets/img/who-we-are-detail-1.jpg" />
+                    <img alt="SkyLink Experiencia" class="object-cover -z-2 absolute w-full h-full" src="assets/img/scale-gallery-5.jpg" />
                     <div class="absolute inset-0 -z-1 bg-[linear-gradient(180deg,rgba(0,0,0,0.14)_0%,rgba(0,0,0,0.70)_100%)]"></div>
                     <div class="absolute bottom-6 left-6 right-6">
-                        <h3 class="text-8xl font-bold text-white">20+</h3>
-                        <h5 class="font-semibold text-2xl text-white">Years on the market</h5>
-                        <p class="mt-2 text-[#ffffffb8]">Leverage our extensive experience for top-notch logistics solutions tailored to your needs.</p>
+                        <h3 class="text-8xl font-bold text-white">15+</h3>
+                        <h5 class="font-semibold text-2xl text-white">Años en el Mercado</h5>
+                        <p class="mt-2 text-[#ffffffb8]">Aprovecha nuestra experiencia para disfrutar de un servicio de reservación de vuelos de primera clase.</p>
                     </div>
                 </div>
                 <!-- Card 2 -->
@@ -54,12 +55,12 @@ import { AnimateOnScroll } from 'primeng/animateonscroll';
                     leaveClass="animate-leave fade-out-0"
                     class="relative min-h-[30rem] rounded-4xl overflow-hidden shadow-blue-card dark:shadow-none animate-duration-500 animate-slidefadein"
                 >
-                    <img alt="Logistic Who We Are Detail Image" class="object-cover -z-2 absolute w-full h-full" src="assets/img/who-we-are-detail-2.jpg" />
+                    <img alt="SkyLink Premios" class="object-cover -z-2 absolute w-full h-full" src="assets/img/scale-gallery-4.jpg" />
                     <div class="absolute inset-0 -z-1 bg-[linear-gradient(180deg,rgba(0,0,0,0.14)_0%,rgba(0,0,0,0.70)_100%)]"></div>
                     <div class="absolute bottom-6 left-6 right-6">
-                        <h3 class="text-8xl font-bold text-white">17+</h3>
-                        <h5 class="font-semibold text-2xl text-white">Award-Winning Service</h5>
-                        <p class="mt-2 text-[#ffffffb8]">Recognized with industry awards, we deliver outstanding service and high standards.</p>
+                        <h3 class="text-8xl font-bold text-white">10+</h3>
+                        <h5 class="font-semibold text-2xl text-white">Premios de la Industria</h5>
+                        <p class="mt-2 text-[#ffffffb8]">Reconocidos por nuestro compromiso con la excelencia y la satisfacción del cliente.</p>
                     </div>
                 </div>
                 <!-- Card 3 -->
@@ -69,12 +70,12 @@ import { AnimateOnScroll } from 'primeng/animateonscroll';
                     leaveClass="animate-leave fade-out-0"
                     class="relative min-h-[30rem] rounded-4xl overflow-hidden shadow-blue-card dark:shadow-none animate-duration-500 animate-slidefadein"
                 >
-                    <img alt="Logistic Who We Are Detail Image" class="object-cover -z-2 absolute w-full h-full" src="assets/img/who-we-are-detail-3.jpg" />
+                    <img alt="SkyLink Innovación" class="object-cover -z-2 absolute w-full h-full" src="assets/img/scale-gallery-1.jpg" />
                     <div class="absolute inset-0 -z-1 bg-[linear-gradient(180deg,rgba(0,0,0,0.14)_0%,rgba(0,0,0,0.70)_100%)]"></div>
                     <div class="absolute bottom-6 left-6 right-6">
-                        <h3 class="text-8xl font-bold text-white">172+</h3>
-                        <h5 class="font-semibold text-2xl text-white">Innovation in Logistics</h5>
-                        <p class="mt-2 text-[#ffffffb8]">We invest in cutting-edge technologies to keep you ahead of market trends.</p>
+                        <h3 class="text-8xl font-bold text-white">100+</h3>
+                        <h5 class="font-semibold text-2xl text-white">Innovaciones en Viajes</h5>
+                        <p class="mt-2 text-[#ffffffb8]">Invertimos en tecnología de punta para ofrecerte la mejor experiencia de reservación.</p>
                     </div>
                 </div>
                 <!-- Card 4 -->
@@ -84,12 +85,12 @@ import { AnimateOnScroll } from 'primeng/animateonscroll';
                     leaveClass="animate-leave fade-out-0"
                     class="relative min-h-[30rem] rounded-4xl overflow-hidden shadow-blue-card dark:shadow-none animate-duration-500 animate-slidefadein"
                 >
-                    <img alt="Logistic Who We Are Detail Image" class="object-cover -z-2 absolute w-full h-full" src="assets/img/who-we-are-detail-4.jpg" />
+                    <img alt="SkyLink Global" class="object-cover -z-2 absolute w-full h-full" src="assets/img/grid-paris.jpg" />
                     <div class="absolute inset-0 -z-1 bg-[linear-gradient(180deg,rgba(0,0,0,0.14)_0%,rgba(0,0,0,0.70)_100%)]"></div>
                     <div class="absolute bottom-6 left-6 right-6">
-                        <h3 class="text-8xl font-bold text-white">27+</h3>
-                        <h5 class="font-semibold text-2xl text-white">Local Expertise</h5>
-                        <p class="mt-2 text-[#ffffffb8]">Our global network and local experts provide personalized service and insights.</p>
+                        <h3 class="text-8xl font-bold text-white">50+</h3>
+                        <h5 class="font-semibold text-2xl text-white">Destinos Globales</h5>
+                        <p class="mt-2 text-[#ffffffb8]">Nuestra red global te conecta con destinos en todo el mundo con un servicio personalizado.</p>
                     </div>
                 </div>
             </div>
