@@ -4,19 +4,25 @@ import { ButtonModule } from 'primeng/button';
 import { RippleModule } from 'primeng/ripple';
 import { DatePickerModule } from 'primeng/datepicker'; // For p-datepicker
 import { TopbarWidget } from './topbarwidget.component';
+import { FlightService, Flight } from '../../service/flight.service';
+import { FlightTicketComponent } from './flight-ticket';
+import { AnimateOnScroll } from 'primeng/animateonscroll';
+import { PaginatorModule } from 'primeng/paginator';
 
 @Component({
     selector: 'hero-widget',
     standalone: true,
-    imports: [CommonModule, ButtonModule, RippleModule, DatePickerModule, TopbarWidget],
+    imports: [CommonModule, ButtonModule, RippleModule, DatePickerModule, TopbarWidget, FlightTicketComponent, PaginatorModule, AnimateOnScroll],
     template: `
-        <div class="relative h-[53rem] animate-duration-500 animate-slidefadein overflow-hidden">
+        <div class="relative h-[53rem] overflow-hidden">
             <!-- Background Image -->
-            <img src="assets/travel/travel-hero-bg.jpg" alt="Travel Hero Background" class="absolute inset-0 w-full h-full object-cover z-[-10]" />
+            <img src="assets/travel/travel-hero-bg.jpg" alt="Travel Hero Background" class="absolute inset-0 w-full h-full object-cover z-10" />
 
             <!-- Gradient Overlays -->
             <div class="absolute inset-0 z-10 opacity-75 bg-[linear-gradient(180deg,rgba(0,0,0,0.50)_49.65%,rgba(0,0,0,0.00)_100%)]"></div>
-            <div class="absolute lg:opacity-100 opacity-50 z-[60] bottom-0 inset-x-0 h-[22rem] bg-[linear-gradient(180deg,rgba(255,255,255,0.00)_0%,#FFF_62.59%,#FFF_100%)] dark:bg-[linear-gradient(180deg,rgba(9,9,11,0.00)_0%,rgba(9,9,11,0.8)_62.59%,rgba(9,9,11,1)_100%)] lg:backdrop-blur-[0.75px]"></div>
+            <div
+                class="absolute lg:opacity-100 opacity-50 z-[60] bottom-0 inset-x-0 h-[22rem] bg-[linear-gradient(180deg,rgba(255,255,255,0.00)_0%,#FFF_62.59%,#FFF_100%)] dark:bg-[linear-gradient(180deg,rgba(9,9,11,0.00)_0%,rgba(9,9,11,0.8)_62.59%,rgba(9,9,11,1)_100%)] lg:backdrop-blur-[0.75px]"
+            ></div>
 
             <!-- Cloud and Airplane Images -->
             <div class="absolute inset-0 overflow-y-clip container">
@@ -38,7 +44,7 @@ import { TopbarWidget } from './topbarwidget.component';
 
                     <!-- Title -->
                     <div class="absolute left-1/2 -translate-x-1/2 top-60 z-30 flex flex-col items-center">
-                        <div class="title text-3xl lg:text-4xl bg-[linear-gradient(180deg,rgba(255,255,255,0.80)_4.92%,rgba(255,255,255,0.40)_89.39%)] leading-none">La pasión por viajar te espera</div>
+                        <div class="title text-center text-3xl lg:text-4xl bg-[linear-gradient(180deg,rgba(255,255,255,0.80)_4.92%,rgba(255,255,255,0.40)_89.39%)] leading-none mb-1">La pasión por viajar te espera</div>
                         <div class="title bg-[linear-gradient(180deg,#FFF_-16.99%,rgba(255,255,255,0.00)_100%)] text-8xl lg:text-[16rem] leading-none lg:-mt-14">Skylink</div>
                     </div>
                 </div>
@@ -46,7 +52,7 @@ import { TopbarWidget } from './topbarwidget.component';
         </div>
         <!-- Destination Selector -->
         <div
-            class="-mt-12 items-center justify-center bg-surface-0 dark:bg-surface-950 max-w-[68rem] w-[92%] lg:w-auto mx-auto shadow-blue-card dark:shadow-none border-0 dark:border border-white/10 rounded-4xl lg:rounded-full p-6 lg:p-10 flex flex-col lg:flex-row gap-4 relative z-50"
+            class="-mt-12 items-center justify-center bg-surface-0 dark:bg-surface-950 max-w-[68rem] w-[92%] lg:w-auto mx-auto shadow-blue-card dark:shadow-none border-0 dark:border border-white/10 rounded-xl lg:rounded-full p-6 lg:p-10 flex flex-col lg:flex-row gap-4 relative z-[60]"
         >
             <div class="lg:flex-1 lg:max-w-60">
                 <button class="w-full flex items-center gap-2 px-4 py-3 rounded-full transition-all dark:border hover:bg-gray-100 dark:hover:bg-gray-800 shadow-sm dark:shadow-none border !border-white/12">
@@ -54,29 +60,56 @@ import { TopbarWidget } from './topbarwidget.component';
                     <i class="pi pi-map-marker ml-auto"></i>
                 </button>
             </div>
-            <p-datepicker
-                placeholder="Llegada"
-                showIcon="true"
-                iconDisplay="input"
-                styleClass="lg:flex-1 !w-full"
-                appendTo="body"
-                inputStyleClass="!rounded-full !px-4 !py-3 !transition-all hover:bg-gray-100 dark:hover:bg-gray-800 !shadow-sm dark:!shadow-none !border-white/12 !text-inherit placeholder:!text-inherit"
-            ></p-datepicker>
-            <p-datepicker
-                placeholder="Partida"
-                showIcon="true"
-                iconDisplay="input"
-                styleClass="lg:flex-1 !w-full"
-                appendTo="body"
-                inputStyleClass="!rounded-full !px-4 !py-3 !transition-all hover:bg-gray-100 dark:hover:bg-gray-800 !shadow-sm dark:!shadow-none !border-white/12 !text-inherit placeholder:!text-inherit"
-            ></p-datepicker>
             <div class="lg:flex-1 lg:max-w-60">
                 <button class="w-full flex items-center gap-2 px-4 py-3 rounded-full transition-all dark:border hover:bg-gray-100 dark:hover:bg-gray-800 shadow-sm dark:shadow-none border !border-white/12">
-                    <i class="pi pi-map-marker"></i>
                     <span class="w-[7rem] truncate">1 Room, 2 Guests</span>
+                    <i class="pi pi-map-marker"></i>
                 </button>
             </div>
+            <p-datepicker
+                placeholder="Fecha de partida"
+                showIcon="true"
+                iconDisplay="input"
+                styleClass="lg:flex-1 !w-full"
+                appendTo="body"
+                inputStyleClass="!rounded-full !px-4 !py-3 !transition-all hover:bg-gray-100 dark:hover:bg-gray-800 !shadow-sm dark:!shadow-none !border-white/12 !text-inherit placeholder:!text-inherit"
+            ></p-datepicker>
+            <p-datepicker
+                placeholder="Fecha de regreso"
+                showIcon="true"
+                iconDisplay="input"
+                styleClass="lg:flex-1 !w-full"
+                appendTo="body"
+                inputStyleClass="!rounded-full !px-4 !py-3 !transition-all hover:bg-gray-100 dark:hover:bg-gray-800 !shadow-sm dark:!shadow-none !border-white/12 !text-inherit placeholder:!text-inherit"
+            ></p-datepicker>
             <button class="button-gradient w-full lg:w-auto"><i class="pi pi-search"></i> Buscar...</button>
+        </div>
+
+        <!-- Botón Ver vuelos -->
+        <div class="w-full flex justify-center mt-4 p-4">
+            <button class="w-48 flex justify-center items-center gap-4 flex-col text-slate-500 bg-transparent font-medium" (click)="toggleFlights()">
+                Ver vuelos
+                <i class="fa-solid fa-beat-fade fa-xl text-slate-500" [ngClass]="{ 'fa-chevron-down': !showFlights, 'fa-chevron-up': showFlights }"></i>
+            </button>
+        </div>
+
+        <!-- Listado de vuelos -->
+        <div *ngIf="showFlights" class="container mt-8 flex flex-col gap-6">
+            <div #scrollArea class="grid gap-8 animate-duration-1000 justify-center items-center grid-cols-3 xl:grid-cols-3 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1">
+                <flight-ticket *ngFor="let flight of pagedFlights" [flight]="flight" class="pt-[20px] pb-[20px]" pAnimateOnScroll [root]="scrollArea" [threshold]="0.1" enterClass="animate-slidefadein" leaveClass="animate-slidefadein" />
+                <!-- placeholders del mismo tamaño -->
+                <div #scrollArea2 *ngFor="let _ of placeholders" class="grid justify-center pt-[20px] pb-[20px]">
+                    <div pAnimateOnScroll [root]="scrollArea2" [threshold]="0.1" enterClass="animate-slidefadein" leaveClass="animate-slidefadein" class="placeholder border-dashed border-2 flex items-center justify-center font-semibold flex-col">
+                        <i class="fa-duotone fa-solid fa-ticket-airline fa-2xl-custom opacity-[0.2]"></i>
+                        <div class="flex justify-center items-center gap-2">
+                            <!--<i class="fa-light fa-ban fa-xl"></i>-->
+                            <!--<span class="">No disponible</span>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Paginador PrimeNG -->
+            <p-paginator *ngIf="total > rows" [rows]="rows" [totalRecords]="total" styleClass="justify-center" (onPageChange)="updatePage($event)"></p-paginator>
         </div>
 
         <!-- Customer Logos -->
@@ -105,20 +138,6 @@ import { TopbarWidget } from './topbarwidget.component';
     `,
     styles: [
         `
-            @keyframes slidefadein {
-                from {
-                    opacity: 0;
-                    transform: translateY(20px);
-                }
-                to {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
-            }
-            .animate-slidefadein {
-                animation: slidefadein 0.5s ease-out forwards;
-            }
-
             @keyframes infinite-scroll {
                 0% {
                     transform: translateX(0);
@@ -201,6 +220,86 @@ import { TopbarWidget } from './topbarwidget.component';
                     0px 2px 5px 0px rgba(120, 149, 206, 0.08);
                 box-shadow: var(--tw-shadow);
             }
+            .p-paginator .p-paginator-pages button {
+                @apply rounded-full text-sm mx-1 w-9 h-9;
+            }
+            .ticket {
+                position: relative;
+                width: 20rem;
+                border-radius: 2rem;
+                background: #fff;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                overflow: hidden;
+                font-family: 'Montserrat', sans-serif;
+                --brand: #1e40af;
+                flex-direction: column;
+                height: 30rem;
+                display: flex;
+            }
+            .ticket2 {
+                justify-content: center;
+                align-items: center;
+                position: relative;
+                width: 20rem;
+                background: transparent;
+                overflow: visible;
+                height: 30rem;
+                display: flex;
+                cursor: pointer;
+            }
+            /* mismo tamaño que .ticket */
+            .placeholder {
+                width: 20rem; /* coincide con .ticket */
+                min-height: 30rem; /* coincide con .ticket */
+                border-radius: 2rem; /* igual radio */
+                background: #f5f5f5; /* gris neutro */
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                min-width: 20rem;
+                color: #9b9b9b;
+                border-color: #cdcdcd;
+                font-style: italic;
+            }
+            .dark .placeholder {
+                background: gray;
+            }
+            /* Animación de entrada (scroll hacia abajo) */
+            .animate-slidefadein {
+                animation: slideFadeIn 0.6s ease-out forwards;
+            }
+
+            /* Animación de salida (scroll hacia arriba) */
+            .animate-slidefadeout {
+                animation: slideFadeOut 0.6s ease-in forwards;
+            }
+
+            /* Keyframes para la animación de entrada */
+            @keyframes slideFadeIn {
+                0% {
+                    opacity: 0;
+                    transform: translateY(30px) scale(0.95);
+                }
+                100% {
+                    opacity: 1;
+                    transform: translateY(0) scale(1);
+                }
+            }
+
+            /* Keyframes para la animación de salida */
+            @keyframes slideFadeOut {
+                0% {
+                    opacity: 1;
+                    transform: translateY(0) scale(1);
+                }
+                100% {
+                    opacity: 0;
+                    transform: translateY(-30px) scale(0.95);
+                }
+            }
+            .fa-2xl-custom {
+                font-size: 11em;
+                line-height: 0.03125em;
+                vertical-align: -0.1875em;
+            }
         `
     ]
 })
@@ -212,4 +311,38 @@ export class HeroWidget {
         { name: '', logo: 'assets/logos/logo-red-air.png' },
         { name: '', logo: 'assets/logos/americanairlines.jpg' }
     ];
+
+    flights: Flight[] = [];
+    showFlights = false;
+    pagedFlights: Flight[] = [];
+    placeholders: number[] = [];
+
+    constructor(private flightSvc: FlightService) {}
+
+    rows = 3; // tarjetas por página
+    total = 0;
+
+    toggleFlights() {
+        this.showFlights = !this.showFlights;
+        if (this.showFlights && this.flights.length === 0) {
+            this.flightSvc.getFlights().subscribe((f) => {
+                this.flights = f;
+                this.total = f.length;
+                this.updatePage({ page: 0, rows: this.rows }); // inicial
+            });
+        }
+    }
+
+    updatePage(event: { page?: number; rows?: number }) {
+        const page = event.page ?? 0;
+        const rows = event.rows ?? this.rows;
+
+        const start = page * rows;
+        const end = start + rows;
+        this.pagedFlights = this.flights.slice(start, end);
+
+        // calcula cuántos huecos hay
+        const empty = rows - this.pagedFlights.length;
+        this.placeholders = Array(Math.max(0, empty)).fill(0);
+    }
 }

@@ -26,17 +26,17 @@ import { CommonModule } from '@angular/common';
                     <a (click)="router.navigate([''], { fragment: 'home' })" class="inline-flex cursor-pointer items-center gap-2 rounded-full py-1 pr-2 pl-3 text-[#ffffffb8] hover:text-white hover:bg-white/8 transition-all">Home</a>
                 </li>
                 <li>
-                    <a (click)="router.navigate([''], { fragment: 'weare' })" class="inline-flex cursor-pointer items-center gap-2 rounded-full py-1 pr-2 pl-3 text-[#ffffffb8] hover:text-white hover:bg-white/8 transition-all">About</a>
+                    <a (click)="router.navigate([''], { fragment: 'weare' })" class="inline-flex cursor-pointer items-center gap-2 rounded-full py-1 pr-2 pl-3 text-[#ffffffb8] hover:text-white hover:bg-white/8 transition-all">Nosotros</a>
                 </li>
                 <li>
-                    <a (click)="router.navigate([''], { fragment: 'features' })" class="inline-flex cursor-pointer items-center gap-2 rounded-full py-1 pr-2 pl-3 text-[#ffffffb8] hover:text-white hover:bg-white/8 transition-all">Features</a>
+                    <a (click)="router.navigate([''], { fragment: 'features' })" class="inline-flex cursor-pointer items-center gap-2 rounded-full py-1 pr-2 pl-3 text-[#ffffffb8] hover:text-white hover:bg-white/8 transition-all">Características</a>
                 </li>
                 <li>
                     <a (click)="router.navigate([''], { fragment: 'testimonial' })" class="inline-flex cursor-pointer items-center gap-2 rounded-full py-1 pr-2 pl-3 text-[#ffffffb8] hover:text-white hover:bg-white/8 transition-all">Testimonial</a>
                 </li>
-                <li>
+                 <!--<li>
                     <a (click)="router.navigate([''], { fragment: 'solutions' })" class="inline-flex cursor-pointer items-center gap-2 rounded-full py-1 pr-2 pl-3 text-[#ffffffb8] hover:text-white hover:bg-white/8 transition-all">Solutions</a>
-                </li>
+                </li>-->
             </ul>
 
             <!-- Desktop Buttons -->
@@ -62,23 +62,23 @@ import { CommonModule } from '@angular/common';
         </nav>
 
         <!-- Mobile Menu -->
-        <div class="lg:hidden bg-black bg-opacity-30 backdrop-blur-md border-t border-dashed border-white/10 py-4 px-6 absolute right-0 rounded-md" *ngIf="isMobileMenuOpen">
+        <div class="lg:hidden bg-black bg-opacity-30 backdrop-blur-md border-t border-dashed border-white/10 py-4 px-6 absolute right-0 rounded-md z-40" *ngIf="isMobileMenuOpen">
             <ul class="flex flex-col gap-3">
                 <li>
                     <a (click)="navigateAndClose([''], 'home')" class="inline-flex cursor-pointer items-center gap-2 rounded-full py-1 pr-2 pl-3 text-[#ffffffb8] hover:text-white hover:bg-white/8 transition-all">Home</a>
                 </li>
                 <li>
-                    <a (click)="navigateAndClose([''], 'weare')" class="inline-flex cursor-pointer items-center gap-2 rounded-full py-1 pr-2 pl-3 text-[#ffffffb8] hover:text-white hover:bg-white/8 transition-all">About</a>
+                    <a (click)="navigateAndClose([''], 'weare')" class="inline-flex cursor-pointer items-center gap-2 rounded-full py-1 pr-2 pl-3 text-[#ffffffb8] hover:text-white hover:bg-white/8 transition-all">Nosotros</a>
                 </li>
                 <li>
-                    <a (click)="navigateAndClose([''], 'features')" class="inline-flex cursor-pointer items-center gap-2 rounded-full py-1 pr-2 pl-3 text-[#ffffffb8] hover:text-white hover:bg-white/8 transition-all">Features</a>
+                    <a (click)="navigateAndClose([''], 'features')" class="inline-flex cursor-pointer items-center gap-2 rounded-full py-1 pr-2 pl-3 text-[#ffffffb8] hover:text-white hover:bg-white/8 transition-all">Características</a>
                 </li>
                 <li>
                     <a (click)="navigateAndClose([''], 'testimonial')" class="inline-flex cursor-pointer items-center gap-2 rounded-full py-1 pr-2 pl-3 text-[#ffffffb8] hover:text-white hover:bg-white/8 transition-all">Testimonial</a>
                 </li>
-                <li>
+                <!--<li>
                     <a (click)="navigateAndClose([''], 'solutions')" class="inline-flex cursor-pointer items-center gap-2 rounded-full py-1 pr-2 pl-3 text-[#ffffffb8] hover:text-white hover:bg-white/8 transition-all">Solutions</a>
-                </li>
+                </li>-->
             </ul>
             <div class="flex flex-col gap-2 mt-4">
                 <button class="button-outlined text-xs" *ngIf="!authService.isLoggedIn" (click)="navigateAndClose('/auth/login')" routerLink="/auth/login">

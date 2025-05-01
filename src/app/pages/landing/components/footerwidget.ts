@@ -9,7 +9,7 @@ import { CommonModule } from '@angular/common';
     standalone: true,
     imports: [RouterModule, CommonModule],
     template: `
-        <div class="mt-64 mb-4">
+        <div class="mt-64">
             <div class="animate-duration-500 animate-slidefadein">
                 <footer class="container mx-auto px-5 pt-5 lg:pt-[5.5rem] pb-10 rounded-3xl lg:rounded-4xl overflow-hidden relative shadow-none">
                     <!-- Background Image -->
@@ -82,7 +82,7 @@ import { CommonModule } from '@angular/common';
                                 <div class="flex flex-col gap-2">
                                     <a routerLink="/about" class="px-3 py-2 w-fit text-[#ffffffb8] hover:text-white hover:bg-white/10 rounded-full transition-all">Sobre Nosotros</a>
                                     <a routerLink="/promotions" class="px-3 py-2 w-fit text-[#ffffffb8] hover:text-white hover:bg-white/10 rounded-full transition-all">Promociones</a>
-                                    <a routerLink="/blog" class="px-3 py-2 w-fit text-[#ffffffb8] hover:text-white hover:bg-white/10 rounded-full transition-all">Blog de Viajes</a>
+                                    <!--<a routerLink="/blog" class="px-3 py-2 w-fit text-[#ffffffb8] hover:text-white hover:bg-white/10 rounded-full transition-all">Blog de Viajes</a>-->
                                     <a routerLink="/blog/detail" class="px-3 py-2 w-fit text-[#ffffffb8] hover:text-white hover:bg-white/10 rounded-full transition-all">Artículos de Viaje</a>
                                     <a routerLink="/contact" class="px-3 py-2 w-fit text-[#ffffffb8] hover:text-white hover:bg-white/10 rounded-full transition-all">Contacto</a>
                                 </div>
@@ -94,7 +94,6 @@ import { CommonModule } from '@angular/common';
                                 <div class="flex flex-col gap-2">
                                     <a routerLink="/signup" class="px-3 py-2 w-fit text-[#ffffffb8] hover:text-white hover:bg-white/10 rounded-full transition-all">Crear Cuenta</a>
                                     <a routerLink="/signin" class="px-3 py-2 w-fit text-[#ffffffb8] hover:text-white hover:bg-white/10 rounded-full transition-all">Iniciar Sesión</a>
-                                    <a routerLink="/404" class="px-3 py-2 w-fit text-[#ffffffb8] hover:text-white hover:bg-white/10 rounded-full transition-all">Página no Encontrada</a>
                                     <a routerLink="/reset-password" class="px-3 py-2 w-fit text-[#ffffffb8] hover:text-white hover:bg-white/10 rounded-full transition-all">Recuperar Contraseña</a>
                                     <a routerLink="/account" class="px-3 py-2 w-fit text-[#ffffffb8] hover:text-white hover:bg-white/10 rounded-full transition-all">Mi Cuenta</a>
                                 </div>
@@ -116,7 +115,7 @@ import { CommonModule } from '@angular/common';
                     </div>
 
                     <!-- Copyright -->
-                    <div class="w-full lg:w-[calc(100%-5rem)] mt-8 lg:mt-32 pt-10 flex items-center justify-center text-surface-0 border-t border-dashed border-[#ffffff1a]" style="z-index: 4; position: relative;">© {{ currentYear }} SkyLink</div>
+                    <div class="w-full lg:w-[calc(100%-5rem)] mt-8 lg:mt-32 pt-10 flex items-center justify-center text-surface-0 border-t border-dashed border-[#ffffff1a] font-bold" style="z-index: 4; position: relative;">© {{ currentYear }} SkyLink</div>
                 </footer>
             </div>
         </div>

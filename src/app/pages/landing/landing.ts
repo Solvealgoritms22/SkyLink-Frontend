@@ -15,7 +15,7 @@ import { SolutionsWidget } from './components/solutionswidget';
 @Component({
     selector: 'app-landing',
     standalone: true,
-    imports: [RouterModule, SolutionsWidget, FeaturesWidget, HeroWidget, WeareWidget, TestimonialWidget, FooterWidget, RippleModule, StyleClassModule, ButtonModule, DividerModule, WeareWidget, TestimonialWidget],
+    imports: [RouterModule, FeaturesWidget, HeroWidget, WeareWidget, TestimonialWidget, FooterWidget, RippleModule, StyleClassModule, ButtonModule, DividerModule, WeareWidget, TestimonialWidget],
     template: `
         <!-- Al aplicar clases 'bg-surface-0' y 'dark:bg-surface-900', el fondo cambiará según el modo -->
         <div class="bg-surface-0 dark:bg-surface-900">
@@ -24,7 +24,7 @@ import { SolutionsWidget } from './components/solutionswidget';
                 <weare-widget></weare-widget>
                 <features-widget></features-widget>
                 <testimonial-widget></testimonial-widget>
-                <solutions-widget></solutions-widget>
+                <!--<solutions-widget></solutions-widget>-->
                 <footer-widget></footer-widget>
             </div>
         </div>
