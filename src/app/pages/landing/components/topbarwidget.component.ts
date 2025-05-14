@@ -46,7 +46,7 @@ import { CommonModule } from '@angular/common';
                     Login
                 </button>
                 <button class="button-outlined" *ngIf="authService.isLoggedIn" routerLink="/dashboard">
-                    <app-avatar [imgUrl]="userWithImage.img" [username]="userWithImage.name" [role]="userWithImage.role" [avatarSize]="28" [textSize]="8"></app-avatar>
+                    <app-avatar [imgUrl]="userWithImage.img" [username]="userWithImage.name + ' ' + userWithImage.lastname"[role]="userWithImage.role" [avatarSize]="28" [textSize]="8"></app-avatar>
                 </button>
                 <button class="button-outlined text-xs" *ngIf="!authService.isLoggedIn" routerLink="/auth/register">
                     <i class="fa-sharp-duotone fa-solid fa-registered mr-1"></i>
@@ -130,6 +130,7 @@ export class TopbarWidget implements OnInit {
     isMobileMenuOpen: boolean = false;
     userWithImage = {
         name: '',
+        lastname: '',
         email: '',
         role: '',
         img: ''
@@ -151,6 +152,7 @@ export class TopbarWidget implements OnInit {
                 // Ajusta según la estructura real que retorne tu `getUser()`.
                 this.userWithImage = {
                     name: user.name,
+                    lastname: user.lastname,
                     email: user.email,
                     role: user.role,
                     img: user.img

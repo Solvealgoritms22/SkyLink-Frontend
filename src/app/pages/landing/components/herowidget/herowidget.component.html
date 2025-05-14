@@ -1,0 +1,426 @@
+<p-toast position="top-center" /> <!-- Alertas -->
+
+<div class="relative h-[53rem] overflow-hidden">
+    <!-- Background Image -->
+    <img src="assets/travel/travel-hero-bg.jpg" alt="Travel Hero Background" class="absolute inset-0 w-full h-full object-cover z-10" />
+
+    <!-- Gradient Overlays -->
+    <div class="absolute inset-0 z-10 opacity-75 bg-[linear-gradient(180deg,rgba(0,0,0,0.50)_49.65%,rgba(0,0,0,0.00)_100%)]"></div>
+    <div
+        class="absolute lg:opacity-100 opacity-50 z-[60] bottom-0 inset-x-0 h-[22rem] bg-[linear-gradient(180deg,rgba(255,255,255,0.00)_0%,#FFF_62.59%,#FFF_100%)] dark:bg-[linear-gradient(180deg,rgba(9,9,11,0.00)_0%,rgba(9,9,11,0.8)_62.59%,rgba(9,9,11,1)_100%)] lg:backdrop-blur-[0.75px]"
+    ></div>
+
+    <!-- Cloud and Airplane Images -->
+    <div class="absolute inset-0 overflow-y-clip container">
+        <img src="assets/travel/cloud-1.png" alt="Cloud 1" class="z-20 min-w-[520px] w-full h-auto absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2" />
+        <img src="assets/travel/cloud-2.png" alt="Cloud 2" class="z-20 w-[392px] min-w-[520px] h-auto absolute -top-24 -left-60 animate-cloud-idle animation-delay-2000" />
+        <img src="assets/travel/cloud-3.png" alt="Cloud 3" class="z-20 w-[760px] min-w-[520px] h-auto absolute bottom-80 -right-96 animate-cloud-idle" />
+        <img src="assets/travel/cloud-4.png" alt="Cloud 4" class="z-20 w-[1272px] min-w-[520px] h-auto absolute bottom-0 lg:-bottom-52 -left-20 animate-cloud-idle animation-delay-1200" />
+        <img src="assets/travel/airplane.png" alt="Airplane" class="z-50 w-[1272px] min-w-[600px] h-auto absolute bottom-40 lg:bottom-24 left-0 lg:left-20 rotate-[10deg]" />
+        <img src="assets/travel/cloud-5.png" alt="Cloud 5" class="z-40 w-[1512px] min-w-[520px] h-auto absolute top-0 lg:top-24 -left-[782px] animate-cloud-idle animation-delay-1200" />
+        <img src="assets/travel/cloud-5.png" alt="Cloud 5" class="z-[60] w-[1512px] min-w-[520px] h-auto absolute top-[460px] lg:top-60 left-[-200px] lg:-left-[400px] animate-cloud-idle animation-delay-2000" />
+        <img src="assets/travel/cloud-5.png" alt="Cloud 5" class="z-[60] w-[1512px] min-w-[520px] h-auto absolute top-[480px] lg:top-40 left-[80px] lg:left-[160px] animate-cloud-idle animation-delay-200" />
+    </div>
+
+    <!-- Container -->
+    <div class="container">
+        <div class="relative rounded-b-md rounded-t-3xl lg:rounded-t-4xl h-[53rem]">
+            <!-- Top Bar -->
+            <topbar-widget></topbar-widget>
+
+            <!-- Title -->
+            <div class="absolute left-1/2 -translate-x-1/2 top-60 z-30 flex flex-col items-center">
+                <div class="title text-center text-3xl lg:text-4xl bg-[linear-gradient(180deg,rgba(255,255,255,0.80)_4.92%,rgba(255,255,255,0.40)_89.39%)] leading-none mb-1">La pasión por viajar te espera</div>
+                <div class="title bg-[linear-gradient(180deg,#FFF_-16.99%,rgba(255,255,255,0.00)_100%)] text-8xl lg:text-[16rem] leading-none lg:-mt-14">Skylink</div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Destination Selector -->
+<div
+    class="-mt-12 items-center justify-center bg-surface-0 dark:bg-surface-950 max-w-[68rem] w-[92%] lg:w-auto mx-auto shadow-blue-card dark:shadow-none border-0 dark:border border-white/10 rounded-xl lg:rounded-full p-6 lg:p-10 flex flex-col lg:flex-row gap-4 relative z-[60]"
+>
+    <!-- Lugar de partida -->
+    <div class="lg:flex-1 lg:max-w-60">
+        <div class="relative w-full flex items-center gap-2 rounded-full transition-all border border-slate-300 focus-within:border-[#10b981] hover:bg-gray-100 dark:border dark:hover:bg-gray-800 shadow-sm dark:shadow-none">
+            <select [(ngModel)]="selectedOrigin" required class="appearance-none w-full truncate bg-transparent text-inherit focus:outline-none pr-8 px-4 py-3 select-placeholder">
+                <!-- placeholder VISIBLE -->
+                <option value="" disabled hidden>Salida</option>
+                <option *ngFor="let o of origins" [value]="o.value">{{ o.label }}</option>
+            </select>
+            <i class="pi pi-map-marker ml-auto pr-2 pointer-events-none !text-slate-400"></i>
+        </div>
+    </div>
+
+    <!-- Destino -->
+    <div class="lg:flex-1 lg:max-w-60">
+        <div class="relative w-full flex items-center gap-2 rounded-full transition-all border border-slate-300 focus-within:border-[#10b981] hover:bg-gray-100 dark:border dark:hover:bg-gray-800 shadow-sm dark:shadow-none">
+            <select [(ngModel)]="selectedDestination" required class="appearance-none w-full bg-transparent text-inherit focus:outline-none pr-8 px-4 py-3 select-placeholder truncate">
+                <option value="" disabled hidden>Destino</option>
+                <option *ngFor="let d of destinations" [value]="d.value">{{ d.label }}</option>
+            </select>
+            <i class="pi pi-map-marker ml-auto pr-2 pointer-events-none !text-slate-400"></i>
+        </div>
+    </div>
+
+    <p-datepicker
+        [(ngModel)]="selectedDepartureDate"
+        [disabledDates]="disabledDepartureDates"
+        placeholder="Fecha de salida"
+        showIcon="true"
+        iconDisplay="input"
+        styleClass="lg:flex-1 !w-full"
+        appendTo="body"
+        inputStyleClass="!rounded-full !px-4 !py-3 !transition-all hover:bg-gray-100 dark:hover:bg-gray-800 !shadow-sm dark:!shadow-none !border-white/12 !text-inherit placeholder:!text-inherit"
+        (onSelect)="recalculateTotal()"
+    ></p-datepicker>
+    <p-datepicker
+        [(ngModel)]="selectedReturnDate"
+        [disabledDates]="disabledReturnDates"
+        placeholder="Fecha de retorno"
+        showIcon="true"
+        iconDisplay="input"
+        styleClass="lg:flex-1 !w-full"
+        appendTo="body"
+        inputStyleClass="!rounded-full !px-4 !py-3 !transition-all hover:bg-gray-100 dark:hover:bg-gray-800 !shadow-sm dark:!shadow-none !border-white/12 !text-inherit placeholder:!text-inherit"
+        [minDate]="selectedDepartureDate"
+        (onSelect)="recalculateTotal()"
+    ></p-datepicker>
+
+    <button class="button-gradient w-full lg:w-auto flex items-center justify-center gap-2" (click)="search()" [disabled]="searching">
+        <!-- spinner pequeñito junto al texto -->
+        <i *ngIf="!searching" class="pi pi-search"></i>
+        <p-progressSpinner
+            *ngIf="searching"
+            fill="transparent"
+            [style]="{
+                '--p-progressspinner-color-1': '#fff',
+                '--p-progressspinner-color-2': '#fff',
+                '--p-progressspinner-color-3': '#fff',
+                '--p-progressspinner-color-4': '#fff',
+                width: '18px',
+                height: '18px'
+            }"
+        ></p-progressSpinner>
+        <span>Buscar…</span>
+    </button>
+</div>
+
+<!-- Botón Ver vuelos -->
+<div class="w-full flex justify-center mt-4 p-4">
+    <button class="w-48 flex justify-center items-center gap-4 flex-col text-slate-500 bg-transparent font-medium" (click)="toggleFlights()">
+        Ver vuelos
+        <i class="fa-solid fa-beat-fade fa-xl text-slate-500" [ngClass]="{ 'fa-chevron-down': !showFlights, 'fa-chevron-up': showFlights }"></i>
+    </button>
+</div>
+
+<!-- Listado de vuelos -->
+<div *ngIf="showFlights" class="container mt-8 flex flex-col gap-6">
+    <!-- Spinner centrado -->
+    <div *ngIf="loading" class="flex justify-center items-center h-[25rem]">
+        <p-progressSpinner [style]="{ width: '50px', height: '50px' }" styleClass="text-white"></p-progressSpinner>
+    </div>
+
+    <!-- Contenido de vuelos -->
+    <div *ngIf="!loading" #scrollArea class="grid gap-8 animate-duration-1000 justify-center items-center grid-cols-3 xl:grid-cols-3 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 xs">
+        <div *ngFor="let flight of pagedFlights" (click)="reserveFlight(flight)" class="pt-[20px] pb-[20px] cursor-pointer hover:scale-[1.02] transition-transform">
+            <flight-ticket [flight]="flight" pAnimateOnScroll [root]="scrollArea" [threshold]="0.1" enterClass="animate-slidefadein" leaveClass="animate-slidefadein"></flight-ticket>
+        </div>
+
+        <!-- Placeholders -->
+        <div *ngFor="let _ of placeholders" class="grid justify-center pt-[20px] pb-[20px]">
+            <div class="placeholder border-dashed border-2 flex items-center justify-center font-semibold flex-col">
+                <i class="fa-duotone fa-solid fa-ticket-airline fa-2xl-custom opacity-[0.2]"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- Paginador PrimeNG -->
+    <p-paginator *ngIf="total > rows && !loading" [rows]="rows" [totalRecords]="total" styleClass="justify-center" (onPageChange)="updatePage($event)"></p-paginator>
+</div>
+
+<p-dialog header="Resultados de tu búsqueda" [(visible)]="displayModal" [modal]="true" [closable]="true" [style]="{ width: '90vw', maxWidth: '600px' }">
+    <ng-container *ngIf="loading">
+        <div class="flex justify-center py-12">
+            <p-progressSpinner styleClass="spinner-white" [style]="{ width: '50px', height: '50px' }"></p-progressSpinner>
+        </div>
+    </ng-container>
+
+    <ng-container *ngIf="!loading && filteredFlights.length">
+        <div class="flex flex-col space-y-4">
+            <div *ngFor="let f of filteredFlights" class="flex flex-wrap md:flex-nowrap items-center justify-between p-4 border rounded-lg shadow-sm transition-all hover:shadow-md gap-1">
+                <!-- Detalles del vuelo -->
+                <div class="space-y-1">
+                    <!-- Aerolínea -->
+                    <div class="flex items-center gap-2">
+                        <img *ngIf="f.logo" [src]="f.logo" [alt]="f.airline" class="w-6 h-6 object-contain" />
+                        <span class="font-medium">{{ f.airline }}</span>
+                    </div>
+
+                    <!-- Ruta -->
+                    <div class="flex items-center gap-2">
+                        <i class="pi pi-map-marker text-green-600"></i>
+                        <span class="font-semibold">{{ f.origin }}</span>
+                        <i class="fa-duotone fa-regular fa-arrow-right-arrow-left mr-5"></i>
+                        <span class="font-semibold">{{ f.destination }}</span>
+                    </div>
+
+                    <!-- Fecha, hora y clase -->
+                    <div class="text-sm text-gray-600 dark:text-gray-300">{{ f.date | date: 'longDate' }} | {{ formatTime(f.time) }} | {{ f.flightClass }}</div>
+
+                    <!-- Asientos -->
+                    <div class="text-sm text-gray-600 dark:text-gray-300">Asientos disponibles: {{ f.seats }}</div>
+
+                    <!-- Precio -->
+                    <div class="text-lg font-bold text-green-600 dark:text-green-400">US$ {{ f.price }}</div>
+                </div>
+
+                <!-- Botón “Reservar” estilo ticket -->
+                <button (click)="reserveFlight(f)" class="flex items-center gap-2 px-4 py-3 rounded-full transition-all border !border-white/12 shadow-sm hover:bg-gray-100 dark:border dark:hover:bg-gray-800 dark:shadow-none">
+                    <i class="pi pi-ticket text-green-600"></i>
+                    <span class="font-medium">Reservar</span>
+                </button>
+            </div>
+        </div>
+    </ng-container>
+
+    <p *ngIf="!loading && !filteredFlights.length" class="p-4 text-center">No se encontraron vuelos.</p>
+</p-dialog>
+<!-- Modal de configuración de reserva -->
+<p-dialog header="Configurar tu vuelo" [(visible)]="reservationDialog" [modal]="true" [closable]="false" [style]="{ width: '90vw', maxWidth: '600px' }">
+    <div *ngIf="selectedFlight" class="space-y-4">
+        <!-- Resumen básico -->
+        <div class="border-b pb-2">
+            <h3 class="font-semibold">{{ selectedFlight.airline }}</h3>
+            <p class="text-sm text-gray-600">{{ selectedFlight.origin }} → {{ selectedFlight.destination }}</p>
+            <p class="text-sm text-gray-600">{{ selectedFlight.date | date: 'longDate' }} | {{ formatTime(selectedFlight.time) }}</p>
+        </div>
+
+        <!-- 1. Selección de trayecto -->
+        <div>
+            <label class="block mb-1 font-medium">Trayecto</label>
+            <div class="flex gap-4">
+                <label class="inline-flex items-center">
+                    <input type="radio" name="tripType" value="oneway" [(ngModel)]="selectedTripType" (ngModelChange)="recalculateTotal()" class="mr-2" />
+                    Solo ida
+                </label>
+                <label class="inline-flex items-center">
+                    <input type="radio" name="tripType" value="roundtrip" [(ngModel)]="selectedTripType" (ngModelChange)="recalculateTotal()" class="mr-2" />
+                    Ida y vuelta
+                </label>
+            </div>
+        </div>
+
+        <!-- 1.b Fecha de retorno (sólo para roundtrip) -->
+        <div *ngIf="selectedTripType === 'roundtrip'">
+            <label class="block mb-1 font-medium">Fecha de regreso</label>
+            <!-- Usa p-datepicker o un <input type="date"> -->
+            <p-datepicker [(ngModel)]="selectedReturnDate" (onSelect)="recalculateTotal()" placeholder="Selecciona fecha de regreso" appendTo="body" styleClass="w-full py-2"></p-datepicker>
+        </div>
+
+        <!-- 2. Cantidad de pasajeros -->
+        <div>
+            <label class="block mb-1 font-medium">Pasajeros</label>
+            <input type="number" min="1" [max]="selectedFlight.seats" [(ngModel)]="passengerCount" (ngModelChange)="onPassengerCountChange()" class="w-24 px-3 py-2 border rounded mb-1" />
+            <p class="text-xs text-gray-500">Máximo {{ selectedFlight.seats }} asientos disponibles</p>
+        </div>
+
+        <!-- 3. Detalles de cada pasajero -->
+        <div *ngFor="let p of passengerDetails; let i = index" class="border p-4 rounded-lg">
+            <h4 class="font-semibold mb-2">Pasajero {{ i + 1 }}</h4>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm">Nombre</label>
+                    <input type="text" [(ngModel)]="p.firstName" [disabled]="i === 0" class="w-full px-3 py-2 border rounded" />
+                </div>
+                <div>
+                    <label class="block text-sm">Apellido</label>
+                    <input type="text" [(ngModel)]="p.lastName" [disabled]="i === 0" class="w-full px-3 py-2 border rounded" />
+                </div>
+                <div>
+                    <label class="block text-sm">Fecha de nacimiento</label>
+                    <input type="date" [(ngModel)]="p.fechaNacimiento" [disabled]="i === 0" class="w-full px-3 py-2 border rounded" />
+                </div>
+                <div>
+                    <label class="block text-sm">Género</label>
+                    <select [(ngModel)]="p.gender" [disabled]="i === 0" class="w-full px-3 py-2 border rounded">
+                        <option value="" disabled>Selecciona género</option>
+                        <option value="Masculino">Masculino</option>
+                        <option value="Femenino">Femenino</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm">Nacionalidad</label>
+                    <input type="text" [(ngModel)]="p.nationality" [disabled]="i === 0" class="w-full px-3 py-2 border rounded" />
+                </div>
+                <div>
+                    <label class="block text-sm">Pasaporte (opcional)</label>
+                    <input type="text" [(ngModel)]="p.passportNumber" [disabled]="i === 0" class="w-full px-3 py-2 border rounded" />
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. Selección de clase -->
+        <div>
+            <label class="block mb-1 font-medium">Clase</label>
+            <select [(ngModel)]="selectedClass" (ngModelChange)="recalculateTotal()" class="w-full px-3 py-2 border rounded">
+                <option *ngFor="let c of classOptions" [value]="c.value">{{ c.label }}</option>
+            </select>
+        </div>
+
+        <!-- 5. Resumen de precio -->
+        <div class="border-t pt-2 flex justify-between items-center">
+            <span class="font-medium">Total:</span>
+            <span class="text-lg font-bold text-green-600">US$ {{ totalPrice }}</span>
+        </div>
+
+        <!-- 6. Botones -->
+        <div class="flex justify-end gap-2 pt-2">
+            <button (click)="reservationDialog = false" class="px-4 py-2 rounded border hover:bg-gray-100">Cancelar</button>
+            <button (click)="confirmReservation()" class="px-4 py-2 rounded-full bg-green-600 text-white hover:bg-green-700">Pagar y Reservar</button>
+        </div>
+    </div>
+</p-dialog>
+
+<!-- Confirmación de Reserva -->
+<p-dialog header="" [(visible)]="invoiceDialog" [modal]="true" [closable]="false" [style]="{ width: '50vw', maxWidth: '500px' }" [breakpoints]="{ '960px': '75vw', '640px': '95vw' }">
+    <div *ngIf="selectedFlight" class="space-y-6 p-4">
+        <!-- Encabezado con icono -->
+        <div class="flex items-center gap-3">
+            <i class="fa-regular fa-circle-check text-green-500 ml-1 text-3xl mt-2"></i>
+            <h2 class="text-2xl font-bold text-gray-800 dark:text-gray-100">¡Reserva Confirmada!</h2>
+        </div>
+
+        <!-- Mensaje secundario -->
+        <p class="text-gray-600 dark:text-gray-300">
+            <i class="fa-regular fa-envelope text-green-500 ml-1 text-lg"></i>
+            Se ha enviado un correo con las instrucciones para completar el pago.
+        </p>
+
+        <!-- Resumen de la reserva en tarjeta -->
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-4 space-y-3">
+            <!-- Sección Aero Ruta -->
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                    <img *ngIf="selectedFlight.logo" [src]="selectedFlight.logo" alt="logo" class="w-8 h-8 object-contain" />
+                    <span class="font-semibold text-gray-800 dark:text-gray-100">
+                        {{ selectedFlight.airline }}
+                    </span>
+                </div>
+
+                <div class="text-gray-500 dark:text-gray-400 text-sm">
+                    {{ selectedTripType === 'roundtrip' ? 'Ida y Vuelta' : 'Solo Ida' }}
+                </div>
+            </div>
+
+            <!-- Detalles de ruta, fecha y hora -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                <div class="flex items-center gap-2">
+                    <i class="pi pi-calendar text-blue-500"></i>
+                    <span class="text-gray-700 dark:text-gray-200">
+                        {{ selectedFlight.date | date: 'longDate' }}
+                    </span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <i class="pi pi-clock text-purple-500"></i>
+                    <span class="text-gray-700 dark:text-gray-200">
+                        {{ formatTime(selectedFlight.time) }}
+                    </span>
+                </div>
+            </div>
+
+            <!-- Lista de pasajeros -->
+            <div>
+                <h4 class="font-medium text-gray-800 dark:text-gray-100 mb-2">Pasajeros ({{ passengerCount }})</h4>
+                <ul class="space-y-1">
+                    <li *ngFor="let p of passengerDetails; let i = index" class="flex items-center gap-2 text-gray-600 dark:text-gray-300">
+                        <i class="fa-regular fa-user text-green-500 text-lg"></i>
+                        <span>
+                            {{ i + 1 }}. {{ p.firstName }} {{ p.lastName }} — <span class="italic">{{ p.gender }}</span> — {{ p.nationality }} —
+                            {{ p.fechaNacimiento | date: 'longDate' }}
+                        </span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Total y countdown -->
+            <div class="flex items-center justify-between pt-3 border-t dark:border-gray-700">
+                <div class="flex items-center gap-1">
+                    <span class="text-lg font-bold text-gray-800 dark:text-gray-100"> US$ {{ totalPrice }} </span>
+                </div>
+                <div class="flex items-center gap-1">
+                    <span class="text-sm text-gray-700 dark:text-gray-200">
+                        Tiempo para pago:
+                        <span class="font-medium text-red-600">{{ countdownDisplay }}</span>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cerrar -->
+        <div class="flex justify-end gap-2">
+            <button (click)="closeInvoiceViewOnly()" class="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200 rounded-lg font-medium transition">
+                <i class="pi pi-times"></i>
+                Cerrar
+            </button>
+            <!-- Cancela la reserva y libera asientos -->
+            <button (click)="cancelReservationManually()" class="px-3 py-2 rounded-full bg-red-600 text-white hover:bg-red-700">Cancelar reserva</button>
+        </div>
+    </div>
+</p-dialog>
+
+<!-- Widget flotante cuando el diálogo está minimizado -->
+<ng-container *ngIf="invoiceMinimized">
+    <div *ngFor="let f of filteredFlights" class="fixed z-20 items-center bottom-4 left-4 bg-white dark:bg-gray-800 shadow-lg rounded-lg px-4 py-3 flex gap-2 cursor-pointer ring-1 ring-black/5 dark:ring-white/10" (click)="reopenInvoice()">
+        <i class="pi pi-clock text-yellow-500"></i>
+            <span class="font-medium">
+                {{ countdownDisplay }} |
+                {{ f.destination.length > 16 ? (f.destination | slice: 0 : 16) + '...' : f.destination }}
+            </span> 
+        <i class="pi pi-chevron-up ml-1 text-gray-500"></i>
+    </div>
+</ng-container>
+
+<!-- Login provisional -->
+<p-dialog header="Iniciar Sesión" [(visible)]="loginDialog" [modal]="true" [closable]="false" [breakpoints]="{ '960px': '75vw', '640px': '95vw' }">
+    <div class="p-4 space-y-4">
+        <p>Debe iniciar sesión para realizar la reservación.</p>
+
+        <input type="email" placeholder="Correo electrónico" [(ngModel)]="loginEmail" class="w-full px-3 py-2 border rounded" />
+        <input type="password" placeholder="Contraseña" [(ngModel)]="loginPassword" class="w-full px-3 py-2 border rounded" />
+        <p *ngIf="loginError" class="text-red-600">{{ loginError }}</p>
+
+        <div class="flex justify-end gap-2">
+            <button (click)="loginDialog = false" [disabled]="loginLoading" class="px-4 py-2 rounded border hover:bg-gray-100">Cancelar</button>
+            <button (click)="onLoginSubmit()" [disabled]="loginLoading || !loginEmail || !loginPassword" class="px-4 py-2 rounded-full bg-blue-600 text-white flex items-center gap-2">
+                <i *ngIf="!loginLoading" class="pi pi-sign-in"></i>
+                <p-progressSpinner *ngIf="loginLoading" styleClass="w-5 h-5 text-white"></p-progressSpinner>
+                Entrar
+            </button>
+        </div>
+    </div>
+</p-dialog>
+
+<!-- Customer Logos -->
+<div class="container w-full flex flex-nowrap gap-6 overflow-hidden mt-24 pb-24 [mask-image:_linear-gradient(to_right,transparent_0,_white_128px,_white_calc(100%-128px),transparent_100%)]">
+    <div class="flex flex-nowrap items-center animate-infinite-scroll">
+        <div class="w-44 flex items-center flex-nowrap justify-center gap-4" *ngFor="let customer of customers">
+            <div class="h-28 w-28 fill-surface-500 dark:fill-white/50 object-cover">
+                <img [src]="customer.logo" [alt]="customer.name + ' logo'" class="w-full h-full object-contain fill-surface-500" />
+            </div>
+            <span class="font-semibold text-lg text-gray-500 dark:text-white/64">
+                {{ customer.name }}
+            </span>
+        </div>
+    </div>
+    <div class="flex flex-nowrap items-center animate-infinite-scroll" aria-hidden="true">
+        <div class="w-44 flex items-center flex-nowrap justify-center gap-4" *ngFor="let customer of customers">
+            <div class="h-28 w-28 fill-surface-500 dark:fill-white/50 object-cover">
+                <img [src]="customer.logo" [alt]="customer.name + ' logo'" class="w-full h-full object-contain fill-surface-500" />
+            </div>
+            <span class="font-semibold text-lg text-gray-500 dark:text-white/64">
+                {{ customer.name }}
+            </span>
+        </div>
+    </div>
+</div>

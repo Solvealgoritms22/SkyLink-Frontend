@@ -45,7 +45,7 @@ export class AuthService {
   private mockLogin(email: string, password: string): Promise<boolean> {
     return new Promise((resolve, reject) => {
       // Credenciales de prueba
-      const mockEmail = 'test@test';
+      const mockEmail = 'skylink@gmail.com';
       const mockPassword = '123456';
 
       if (email === mockEmail && password === mockPassword) {
@@ -169,18 +169,28 @@ private generateMockJwt(email: string): string {
       return {
         id: 1,
         img: 'images/profiles/testuser.png',
-        name: 'User Test',
+        name: 'Darling',
+        lastname: 'Fajardo',
         email: payload.sub,
-        role: 'admin'
+        nacionalidad: 'Rep. Dominicana',
+        genero: 'Masculino',
+        fechaNacimiento: '1998-08-18',
+        phone: '+1(809) 401-7444',
+        role: 'user'
       };
     } catch (error) {
       // Si algo falla en la decodificación, puedes retornar un mock fijo
       return {
         id: 1,
         img: 'images/profiles/testuser.png',
-        name: 'Fail Decode',
-        email: 'test@test',
-        role: 'admin'
+        name: 'Fail',
+        lastname: 'Decode',
+        email: 'darlingf1998@gmail.com',
+        nacionalidad: 'Rep. Dominicana',
+        genero: 'Masculino',
+        fechaNacimiento: '1998-08-18',
+        phone: '+1(809) 401-7444',
+        role: 'user'
       };
     }
   }

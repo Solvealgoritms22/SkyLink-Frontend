@@ -7,4 +7,12 @@
 html {
     scroll-behavior: smooth;
 }
+
+/* Aplica todas tus clases a p-select#pn_id_5 */
+p-select#pn_id_5 {
+    @apply w-full flex items-center gap-2 px-4 py-3 rounded-full transition-all
+           border shadow-sm hover:bg-gray-100 dark:border dark:shadow-none dark:hover:bg-gray-800;
+    /* !border-white/12 */
+    border-color: rgba(255,255,255,0.12) !important;
+  }
   

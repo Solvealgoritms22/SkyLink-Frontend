@@ -1,0 +1,171 @@
+@keyframes infinite-scroll {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+.animate-infinite-scroll {
+    animation: infinite-scroll 20s linear infinite;
+}
+
+@keyframes cloud-idle {
+    0% {
+        transform: translateX(0);
+    }
+    50% {
+        transform: translateX(20px);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+.animate-cloud-idle {
+    animation: cloud-idle 10s ease-in-out infinite;
+}
+
+.animation-delay-200 {
+    animation-delay: 0.2s;
+}
+.animation-delay-1200 {
+    animation-delay: 1.2s;
+}
+.animation-delay-2000 {
+    animation-delay: 2s;
+}
+
+.button-gradient {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border-radius: 9999px;
+    background: linear-gradient(180deg, #1e40af 0%, #3b82f6 100%);
+    padding: 0.7rem 1.25rem;
+    font-weight: 500;
+    --tw-text-opacity: 1;
+    color: color-mix(in srgb, var(--p-surface-0) calc(100% * var(--tw-text-opacity, 1)), transparent);
+    --tw-shadow: 0px 59px 16px -8px rgba(120, 149, 206, 0), 0px 38px 15px -8px rgba(120, 149, 206, 0.01), 0px 21px 13px -8px rgba(120, 149, 206, 0.04), 0px 9px 9px -4px rgba(120, 149, 206, 0.07), 0px 2px 5px 0px rgba(120, 149, 206, 0.08);
+    --tw-shadow-colored: 0px 59px 16px -8px rgba(120, 149, 206, 0), 0px 38px 15px -8px rgba(120, 149, 206, 0.01), 0px 21px 13px -8px rgba(120, 149, 206, 0.04), 0px 9px 9px -4px rgba(120, 149, 206, 0.07),
+        0px 2px 5px 0px rgba(120, 149, 206, 0.08);
+    box-shadow: var(0 0 #0000, 0 0 #0000), var(0 0 #0000 0 0 #0000), var(--tw-shadow);
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 0.15s;
+}
+.button-gradient:hover {
+    opacity: 0.8;
+}
+
+.container {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 1152px;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.title {
+    font-weight: 600;
+    line-height: 125%;
+    color: transparent;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.shadow-blue-card {
+    --tw-shadow: 0px 59px 16px -8px rgba(120, 149, 206, 0), 0px 38px 15px -8px rgba(120, 149, 206, 0.01), 0px 21px 13px -8px rgba(120, 149, 206, 0.04), 0px 9px 9px -4px rgba(120, 149, 206, 0.07), 0px 2px 5px 0px rgba(120, 149, 206, 0.08);
+    --tw-shadow-colored: 0px 59px 16px -8px rgba(120, 149, 206, 0), 0px 38px 15px -8px rgba(120, 149, 206, 0.01), 0px 21px 13px -8px rgba(120, 149, 206, 0.04), 0px 9px 9px -4px rgba(120, 149, 206, 0.07),
+        0px 2px 5px 0px rgba(120, 149, 206, 0.08);
+    box-shadow: var(--tw-shadow);
+}
+.p-paginator .p-paginator-pages button {
+    @apply rounded-full text-sm mx-1 w-9 h-9;
+}
+.ticket {
+    position: relative;
+    width: 20rem;
+    border-radius: 2rem;
+    background: #fff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+    font-family: 'Montserrat', sans-serif;
+    --brand: #1e40af;
+    flex-direction: column;
+    height: 30rem;
+    display: flex;
+}
+.ticket2 {
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 20rem;
+    background: transparent;
+    overflow: visible;
+    height: 30rem;
+    display: flex;
+    cursor: pointer;
+}
+/* mismo tamaño que .ticket */
+.placeholder {
+    width: 20rem; /* coincide con .ticket */
+    min-height: 30rem; /* coincide con .ticket */
+    border-radius: 2rem; /* igual radio */
+    background: #f5f5f5; /* gris neutro */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    min-width: 20rem;
+    color: #9b9b9b;
+    border-color: #cdcdcd;
+    font-style: italic;
+}
+.dark .placeholder {
+    background: gray;
+}
+/* Animación de entrada (scroll hacia abajo) */
+.animate-slidefadein {
+    animation: slideFadeIn 0.6s ease-out forwards;
+}
+
+/* Animación de salida (scroll hacia arriba) */
+.animate-slidefadeout {
+    animation: slideFadeOut 0.6s ease-in forwards;
+}
+
+/* Keyframes para la animación de entrada */
+@keyframes slideFadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(30px) scale(0.95);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Keyframes para la animación de salida */
+@keyframes slideFadeOut {
+    0% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-30px) scale(0.95);
+    }
+}
+.fa-2xl-custom {
+    font-size: 11em;
+    line-height: 0.03125em;
+    vertical-align: -0.1875em;
+}
+/* el primer <option> (con value="") se muestra en gris tenue */
+.select-placeholder option[value=''] {
+    color: #6b7280; /* gray-500 */
+}
+@media (max-width: 575px) {
+    .xs {
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+    }
+}

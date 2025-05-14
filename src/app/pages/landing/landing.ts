@@ -5,7 +5,7 @@ import { RippleModule } from 'primeng/ripple';
 import { StyleClassModule } from 'primeng/styleclass';
 import { ButtonModule } from 'primeng/button';
 import { DividerModule } from 'primeng/divider';
-import { HeroWidget } from './components/herowidget';
+import { HeroWidget } from './components/herowidget/herowidget';
 import { WeareWidget } from './components/wearewidget';
 import { TestimonialWidget } from './components/testimonialwidget';
 import { FooterWidget } from './components/footerwidget';
