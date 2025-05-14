@@ -17,11 +17,12 @@ import { AuthService } from '../../../../core/services/auth.service';
 import { Passenger } from '../../../../core/models/passenger.model';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
+import { RouterLink } from '@angular/router';
 
 @Component({
     selector: 'hero-widget',
     standalone: true,
-    imports: [CommonModule, ToastModule, ButtonModule, RippleModule, DatePickerModule, TopbarWidget, FlightTicketComponent, PaginatorModule, AnimateOnScroll, ProgressSpinnerModule, FormsModule, DropdownModule, DialogModule, SelectModule],
+    imports: [CommonModule, ToastModule, ButtonModule, RippleModule, DatePickerModule, TopbarWidget, FlightTicketComponent, PaginatorModule, AnimateOnScroll, ProgressSpinnerModule, FormsModule, DropdownModule, DialogModule, SelectModule, RouterLink],
     providers: [MessageService],
     templateUrl: 'herowidget.component.html',
     styleUrl: 'herowidget.css'

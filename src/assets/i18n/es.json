@@ -1,15 +1,25 @@
+
 {
-    "LOGIN_TITLE": "Bienvenido a {{appName}}",
-    "LOGIN_TITLE_2": "Inicia sesión para continuar",
-    "EMAIL": "Correo",
-    "PASSWORD": "Contraseña",
-    "LOGIN_PARAGRAPH": "Por favor, introduzca su nombre de usuario y contraseña",
-    "INVALID_CREDENTIALS": "Credenciales inválidas",
-    "REMEMBER_ME": "Recuérdame",
-    "RECOVERY_PASSWORD": "¿Has olvidado tu contraseña?",
-    "BUTTON_SIGNIN": "Iniciar sesión",
-    "EMAIL_OR_PASSWORD_ERROR": "Correo o contraseña incorrecta",
-    "GO_LANDING": "Ir al landing",
-    "WELCOME_MESSAGE": "Bienvenido, {{username}}!"
-  }
-  
+  "LOGIN_TITLE": "Bienvenido a {{appName}}",
+  "LOGIN_TITLE_2": "Inicia sesión para continuar",
+  "EMAIL": "Correo",
+  "PASSWORD": "Contraseña",
+  "LOGIN_PARAGRAPH": "Por favor, introduce tu correo y contraseña",
+  "INVALID_CREDENTIALS": "Credenciales inválidas",
+  "REMEMBER_ME": "Recuérdame",
+  "RECOVERY_PASSWORD": "¿Olvidaste tu contraseña?",
+  "BUTTON_SIGNIN": "Iniciar sesión",
+  "EMAIL_OR_PASSWORD_ERROR": "Correo o contraseña incorrectos",
+  "GO_LANDING": "Ir al inicio",
+  "WELCOME_MESSAGE": "¡Bienvenido, {{username}}!",
+
+
+  "REGISTER_TITLE": "Crea tu cuenta en {{appName}}",
+  "REGISTER_SUBTITLE": "Sólo te tomará unos segundos",
+  "FIRST_NAME": "Nombre",
+  "LAST_NAME": "Apellido",
+  "CONFIRM_PASSWORD": "Confirmar contraseña",
+  "ACCEPT_TERMS": "Acepto los términos y condiciones",
+  "BUTTON_SIGNUP": "Registrarme",
+  "ALREADY_HAVE_ACCOUNT": "¿Ya tienes una cuenta?"
+}

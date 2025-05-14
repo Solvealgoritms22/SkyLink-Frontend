@@ -1,15 +1,25 @@
- {
-    "LOGIN_TITLE": "Welcome to {{appName}}",
-    "LOGIN_TITLE_2": "Sign in to continue",
-    "EMAIL": "Email",
-    "PASSWORD": "Password",
-    "LOGIN_PARAGRAPH": "Please enter your username and password",
-    "INVALID_CREDENTIALS": "Invalid credentials",
-    "REMEMBER_ME": "Remember me",
-    "RECOVERY_PASSWORD": "Forgot password?",
-    "BUTTON_SIGNIN": "Sign In",
-    "EMAIL_OR_PASSWORD_ERROR": "Email or password is incorrect",
-    "GO_LANDING": "Go to landing",
-    "WELCOME_MESSAGE": "Welcome, {{username}}!"
-  }
-  
+
+{
+  "LOGIN_TITLE": "Welcome to {{appName}}",
+  "LOGIN_TITLE_2": "Sign in to continue",
+  "EMAIL": "Email",
+  "PASSWORD": "Password",
+  "LOGIN_PARAGRAPH": "Please enter your email and password",
+  "INVALID_CREDENTIALS": "Invalid credentials",
+  "REMEMBER_ME": "Remember me",
+  "RECOVERY_PASSWORD": "Forgot password?",
+  "BUTTON_SIGNIN": "Sign in",
+  "EMAIL_OR_PASSWORD_ERROR": "Email or password is incorrect",
+  "GO_LANDING": "Go to landing",
+  "WELCOME_MESSAGE": "Welcome, {{username}}!",
+
+
+  "REGISTER_TITLE": "Create your {{appName}} account",
+  "REGISTER_SUBTITLE": "It only takes a few seconds",
+  "FIRST_NAME": "First name",
+  "LAST_NAME": "Last name",
+  "CONFIRM_PASSWORD": "Confirm password",
+  "ACCEPT_TERMS": "I accept the terms and conditions",
+  "BUTTON_SIGNUP": "Sign up",
+  "ALREADY_HAVE_ACCOUNT": "Already have an account?"
+}
