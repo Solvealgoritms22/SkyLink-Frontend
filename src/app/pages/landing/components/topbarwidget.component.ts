@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { StyleClassModule } from 'primeng/styleclass';
 import { Router, RouterModule } from '@angular/router';
 import { RippleModule } from 'primeng/ripple';
@@ -8,6 +8,7 @@ import { AppConfigService } from '../../../core/services/app-config.service';
 import { AuthService } from '../../../core/services/auth.service';
 import { AvatarComponent } from '../../../shared';
 import { CommonModule } from '@angular/common';
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'topbar-widget',
@@ -34,7 +35,7 @@ import { CommonModule } from '@angular/common';
                 <li>
                     <a (click)="router.navigate([''], { fragment: 'testimonial' })" class="inline-flex cursor-pointer items-center gap-2 rounded-full py-1 pr-2 pl-3 text-[#ffffffb8] hover:text-white hover:bg-white/8 transition-all">Testimonial</a>
                 </li>
-                 <!--<li>
+                <!--<li>
                     <a (click)="router.navigate([''], { fragment: 'solutions' })" class="inline-flex cursor-pointer items-center gap-2 rounded-full py-1 pr-2 pl-3 text-[#ffffffb8] hover:text-white hover:bg-white/8 transition-all">Solutions</a>
                 </li>-->
             </ul>
@@ -46,7 +47,7 @@ import { CommonModule } from '@angular/common';
                     Login
                 </button>
                 <button class="button-outlined" *ngIf="authService.isLoggedIn" routerLink="/dashboard">
-                    <app-avatar [imgUrl]="userWithImage.img" [username]="userWithImage.name + ' ' + userWithImage.lastname"[role]="userWithImage.role" [avatarSize]="28" [textSize]="8"></app-avatar>
+                    <app-avatar [imgUrl]="userWithImage.img" [username]="userWithImage.name + ' ' + userWithImage.lastname" [role]="userWithImage.role" [avatarSize]="28" [textSize]="8"></app-avatar>
                 </button>
                 <button class="button-outlined text-xs" *ngIf="!authService.isLoggedIn" routerLink="/auth/register">
                     <i class="fa-sharp-duotone fa-solid fa-registered mr-1"></i>
@@ -125,7 +126,7 @@ import { CommonModule } from '@angular/common';
         }
     `
 })
-export class TopbarWidget implements OnInit {
+export class TopbarWidget implements OnInit, OnDestroy {
     sanitizedLogo: any;
     isMobileMenuOpen: boolean = false;
     userWithImage = {
@@ -135,6 +136,7 @@ export class TopbarWidget implements OnInit {
         role: '',
         img: ''
     };
+    private sub!: Subscription;
     constructor(
         public router: Router,
         public configService: AppConfigService,
@@ -145,11 +147,8 @@ export class TopbarWidget implements OnInit {
     }
 
     ngOnInit() {
-        // Llamamos a getUser() al iniciar
-        this.authService
-            .getUser()
-            .then((user) => {
-                // Ajusta según la estructura real que retorne tu `getUser()`.
+        this.sub = this.authService.user$.subscribe((user) => {
+            if (user) {
                 this.userWithImage = {
                     name: user.name,
                     lastname: user.lastname,
@@ -157,11 +156,14 @@ export class TopbarWidget implements OnInit {
                     role: user.role,
                     img: user.img
                 };
-            })
-            .catch((err) => {
-                console.error('Error al obtener usuario:', err);
-                // Podrías mostrar un mensaje de error o fallback
-            });
+            } else {
+                /* sesión cerrada */
+                this.userWithImage = { name: '', lastname: '', email: '', role: '', img: '' };
+            }
+        });
+    }
+    ngOnDestroy() {
+        this.sub.unsubscribe();
     }
     toggleMobileMenu(): void {
         this.isMobileMenuOpen = !this.isMobileMenuOpen;

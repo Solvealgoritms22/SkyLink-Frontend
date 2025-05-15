@@ -47,7 +47,7 @@ export class HeroWidget {
     loginDialog = false; // login provisional
     private intervalId: any;
     reservedCount = 0;
-    countdown = 50; // 15 min
+    countdown = 50; // 50 segundos
     get countdownDisplay(): string {
         const m = Math.floor(this.countdown / 60)
             .toString()

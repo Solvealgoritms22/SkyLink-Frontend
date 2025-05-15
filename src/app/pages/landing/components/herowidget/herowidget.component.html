@@ -1,4 +1,4 @@
-<p-toast position="top-center" />
+<p-toast position="top-center" [baseZIndex]="70"/>
 <!-- Alertas -->
 
 <div class="relative h-[53rem] overflow-hidden">
@@ -372,7 +372,7 @@
 
 <!-- Widget flotante cuando el diálogo está minimizado -->
 <ng-container *ngIf="invoiceMinimized">
-    <div *ngFor="let f of filteredFlights" class="fixed z-20 items-center bottom-4 left-4 bg-white dark:bg-gray-800 shadow-lg rounded-lg px-4 py-3 flex gap-2 cursor-pointer ring-1 ring-black/5 dark:ring-white/10" (click)="reopenInvoice()">
+    <div *ngFor="let f of filteredFlights" class="fixed z-[60] mb-[5px] items-center bottom-4 left-4 bg-white dark:bg-gray-800 shadow-md rounded-lg px-4 py-3 flex gap-2 cursor-pointer ring-1 ring-black/5 dark:ring-white/10" (click)="reopenInvoice()">
         <i class="pi pi-clock text-yellow-500"></i>
         <span class="font-medium">
             {{ countdownDisplay }} |

@@ -29,10 +29,5 @@ import { SolutionsWidget } from './components/solutionswidget';
             </div>
         </div>
     `,
-    styles: `
-        .st0 {
-            fill: url('https://www.renderforest.com/logo-maker/icons/5d138947eed7881cc87b789d/ae4868bda062b974596d1ba514f26933.svg');
-        }
-    `
 })
 export class Landing {}
