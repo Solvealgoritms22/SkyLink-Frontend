@@ -103,7 +103,7 @@
                 height: '18px'
             }"
         ></p-progressSpinner>
-        <span>Buscar…</span>
+        <span>Buscar vuelo</span>
     </button>
 </div>
 
@@ -371,16 +371,27 @@
 </p-dialog>
 
 <!-- Widget flotante cuando el diálogo está minimizado -->
-<ng-container *ngIf="invoiceMinimized">
-    <div *ngFor="let f of filteredFlights" class="fixed z-[60] mb-[5px] items-center bottom-4 left-4 bg-white dark:bg-gray-800 shadow-md rounded-lg px-4 py-3 flex gap-2 cursor-pointer ring-1 ring-black/5 dark:ring-white/10" (click)="reopenInvoice()">
-        <i class="pi pi-clock text-yellow-500"></i>
-        <span class="font-medium">
-            {{ countdownDisplay }} |
-            {{ f.destination.length > 16 ? (f.destination | slice: 0 : 16) + '...' : f.destination }}
-        </span>
-        <i class="pi pi-chevron-up ml-1 text-gray-500"></i>
-    </div>
-</ng-container>
+<div
+  *ngIf="invoiceMinimized && reservedFlight"
+  class="fixed bottom-5 z-[60] left-4 bg-white dark:bg-gray-800 shadow-lg
+         rounded-lg px-4 py-3 flex items-center gap-2 cursor-pointer
+         ring-1 ring-black/5 dark:ring-white/10"
+  (click)="reopenInvoice()"
+>
+  <i class="pi pi-clock text-yellow-500"></i>
+
+  <span class="font-medium">
+    {{ countdownDisplay }} |
+    {{
+      reservedFlight.destination.length > 20
+        ? (reservedFlight.destination | slice:0:20) + '...'
+        : reservedFlight.destination
+    }}
+  </span>
+
+  <i class="pi pi-chevron-up ml-1 text-gray-500"></i>
+</div>
+
 
 <!-- Login provisional -->
 <p-dialog header="Iniciar Sesión" [(visible)]="loginDialog" [modal]="true" [closable]="false" [breakpoints]="{ '960px': '75vw', '640px': '95vw' }">

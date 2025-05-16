@@ -1,11 +1,12 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { catchError, shareReplay } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 
 export interface Flight {
     id: number;
+    flightNumber: string;
     airline: string;
     origin: string;
     destination: string;
@@ -25,12 +26,14 @@ export interface Flight {
 export class FlightService {
     private http = inject(HttpClient);
     private baseUrl = environment.apiUrl;
+    private cachedFlights$: Observable<Flight[]> | null = null;
 
     // Conjunto de datos dummy
     private dummyFlights: Flight[] = [
         {
             id: 3,
             airline: 'Arajet',
+            flightNumber: 'AB94495965630',
             origin: 'Santo Domingo – Las Américas (SDQ)',
             destination: 'Newark – Liberty International (EWR)',
             date: '2025-06-05',
@@ -46,6 +49,7 @@ export class FlightService {
         {
             id: 4,
             airline: 'Dominicana',
+            flightNumber: 'AB94495965631',
             origin: 'Santo Domingo – Las Américas (SDQ)',
             destination: 'Miami – International Airport (MIA)',
             date: '2025-06-06',
@@ -59,6 +63,7 @@ export class FlightService {
         },
         {
             id: 5,
+            flightNumber: 'AB94495965632',
             airline: 'Air Century',
             origin: 'Santiago de los Caballeros – Cibao (STI)',
             destination: 'Panamá – Tocumen International (PTY)',
@@ -74,6 +79,7 @@ export class FlightService {
         },
         {
             id: 6,
+            flightNumber: 'AB94495965633',
             airline: 'Arajet',
             origin: 'Punta Cana – International Airport (PUJ)',
             destination: 'Toronto – Pearson International (YYZ)',
@@ -88,6 +94,7 @@ export class FlightService {
         },
         {
             id: 7,
+            flightNumber: 'AB94495965634',
             airline: 'Red Air',
             origin: 'Santo Domingo – La Isabela (JBQ)',
             destination: 'Caracas – Simón Bolívar International (CCS)',
@@ -103,6 +110,7 @@ export class FlightService {
         },
         {
             id: 8,
+            flightNumber: 'AB94495965635',
             airline: 'American Airlines',
             origin: 'Santo Domingo – Las Américas (SDQ)',
             destination: 'Madrid – Adolfo Suárez Barajas (MAD)',
@@ -118,6 +126,7 @@ export class FlightService {
         // Adiciones sin aerolíneas nuevas (id 9–32)
         {
             id: 9,
+            flightNumber: 'AB94495965636',
             airline: 'Dominicana',
             origin: 'Santiago de los Caballeros – Cibao (STI)',
             destination: 'Miami – International Airport (MIA)',
@@ -133,6 +142,7 @@ export class FlightService {
         },
         {
             id: 10,
+            flightNumber: 'AB944959656317',
             airline: 'Air Century',
             origin: 'Punta Cana – International Airport (PUJ)',
             destination: 'Madrid – Adolfo Suárez Barajas (MAD)',
@@ -148,6 +158,7 @@ export class FlightService {
         },
         {
             id: 11,
+            flightNumber: 'AB94495965638',
             airline: 'Arajet',
             origin: 'Santo Domingo – Las Américas (SDQ)',
             destination: 'Toronto – Pearson International (YYZ)',
@@ -162,6 +173,7 @@ export class FlightService {
         },
         {
             id: 12,
+            flightNumber: 'AB94495965639',
             airline: 'Red Air',
             origin: 'Punta Cana – International Airport (PUJ)',
             destination: 'Newark – Liberty International (EWR)',
@@ -176,6 +188,7 @@ export class FlightService {
         },
         {
             id: 13,
+            flightNumber: 'AB94495965640',
             airline: 'American Airlines',
             origin: 'Santiago de los Caballeros – Cibao (STI)',
             destination: 'Madrid – Adolfo Suárez Barajas (MAD)',
@@ -190,6 +203,7 @@ export class FlightService {
         },
         {
             id: 14,
+            flightNumber: 'AB94495965641',
             airline: 'Dominicana',
             origin: 'Santo Domingo – La Isabela (JBQ)',
             destination: 'Panamá – Tocumen International (PTY)',
@@ -204,6 +218,7 @@ export class FlightService {
         },
         {
             id: 15,
+            flightNumber: 'AB94495965642',
             airline: 'Air Century',
             origin: 'Santo Domingo – Las Américas (SDQ)',
             destination: 'Caracas – Simón Bolívar International (CCS)',
@@ -218,6 +233,7 @@ export class FlightService {
         },
         {
             id: 16,
+            flightNumber: 'AB94495965643',
             airline: 'Arajet',
             origin: 'Punta Cana – International Airport (PUJ)',
             destination: 'Madrid – Adolfo Suárez Barajas (MAD)',
@@ -232,6 +248,7 @@ export class FlightService {
         },
         {
             id: 17,
+            flightNumber: 'AB94495965644',
             airline: 'Red Air',
             origin: 'Santiago de los Caballeros – Cibao (STI)',
             destination: 'Miami – International Airport (MIA)',
@@ -246,6 +263,7 @@ export class FlightService {
         },
         {
             id: 18,
+            flightNumber: 'AB94495965645',
             airline: 'American Airlines',
             origin: 'Santo Domingo – Las Américas (SDQ)',
             destination: 'Toronto – Pearson International (YYZ)',
@@ -260,6 +278,7 @@ export class FlightService {
         },
         {
             id: 19,
+            flightNumber: 'AB94495965646',
             airline: 'Dominicana',
             origin: 'Punta Cana – International Airport (PUJ)',
             destination: 'Newark – Liberty International (EWR)',
@@ -275,6 +294,7 @@ export class FlightService {
         {
             id: 20,
             airline: 'Air Century',
+            flightNumber: 'AB94495965647',
             origin: 'Santo Domingo – La Isabela (JBQ)',
             destination: 'Madrid – Adolfo Suárez Barajas (MAD)',
             date: '2025-06-22',
@@ -288,6 +308,7 @@ export class FlightService {
         },
         {
             id: 21,
+            flightNumber: 'AB94495965648',
             airline: 'Arajet',
             origin: 'Santiago de los Caballeros – Cibao (STI)',
             destination: 'Caracas – Simón Bolívar International (CCS)',
@@ -302,6 +323,7 @@ export class FlightService {
         },
         {
             id: 22,
+            flightNumber: 'AB94495965649',
             airline: 'Red Air',
             origin: 'Santo Domingo – Las Américas (SDQ)',
             destination: 'Panamá – Tocumen International (PTY)',
@@ -316,6 +338,7 @@ export class FlightService {
         },
         {
             id: 23,
+            flightNumber: 'AB94495965650',
             airline: 'American Airlines',
             origin: 'Punta Cana – International Airport (PUJ)',
             destination: 'Madrid – Adolfo Suárez Barajas (MAD)',
@@ -330,6 +353,7 @@ export class FlightService {
         },
         {
             id: 24,
+            flightNumber: 'AB94495965651',
             airline: 'Dominicana',
             origin: 'Santo Domingo – La Isabela (JBQ)',
             destination: 'Toronto – Pearson International (YYZ)',
@@ -344,6 +368,7 @@ export class FlightService {
         },
         {
             id: 25,
+            flightNumber: 'AB94495965652',
             airline: 'Air Century',
             origin: 'Santo Domingo – Las Américas (SDQ)',
             destination: 'Caracas – Simón Bolívar International (CCS)',
@@ -358,6 +383,7 @@ export class FlightService {
         },
         {
             id: 26,
+            flightNumber: 'AB94495965653',
             airline: 'Arajet',
             origin: 'Punta Cana – International Airport (PUJ)',
             destination: 'Madrid – Adolfo Suárez Barajas (MAD)',
@@ -372,6 +398,7 @@ export class FlightService {
         },
         {
             id: 27,
+            flightNumber: 'AB94495965654',
             airline: 'Red Air',
             origin: 'Santiago de los Caballeros – Cibao (STI)',
             destination: 'Newark – Liberty International (EWR)',
@@ -386,6 +413,7 @@ export class FlightService {
         },
         {
             id: 28,
+            flightNumber: 'AB94495965655',
             airline: 'American Airlines',
             origin: 'Santo Domingo – La Isabela (JBQ)',
             destination: 'Panamá – Tocumen International (PTY)',
@@ -400,6 +428,7 @@ export class FlightService {
         },
         {
             id: 29,
+            flightNumber: 'AB94495965656',
             airline: 'Dominicana',
             origin: 'Santo Domingo – Las Américas (SDQ)',
             destination: 'Toronto – Pearson International (YYZ)',
@@ -414,6 +443,7 @@ export class FlightService {
         },
         {
             id: 30,
+            flightNumber: 'AB944959656357',
             airline: 'Air Century',
             origin: 'Punta Cana – International Airport (PUJ)',
             destination: 'Madrid – Adolfo Suárez Barajas (MAD)',
@@ -428,6 +458,7 @@ export class FlightService {
         },
         {
             id: 31,
+            flightNumber: 'AB94495965658',
             airline: 'Arajet',
             origin: 'Santiago de los Caballeros – Cibao (STI)',
             destination: 'Caracas – Simón Bolívar International (CCS)',
@@ -442,6 +473,7 @@ export class FlightService {
         },
         {
             id: 32,
+            flightNumber: 'AB94495965659',
             airline: 'Dominicana',
             origin: 'Santo Domingo – Las Américas (SDQ)',
             destination: 'Newark – Liberty International (EWR)',
@@ -457,12 +489,15 @@ export class FlightService {
     ];
 
     getFlights(): Observable<Flight[]> {
-        return this.http.get<Flight[]>(`${this.baseUrl}/flights`).pipe(
-            catchError((error) => {
-                console.log('Error al obtener los vuelos del backend:', error);
-                // Retornar los datos dummy si falla la llamada al backend
-                return of(this.dummyFlights);
-            })
-        );
+        if (!this.cachedFlights$) {
+            this.cachedFlights$ = this.http.get<Flight[]>(`${this.baseUrl}/flights`).pipe(
+                catchError((error) => {
+                    console.log('Error al obtener los vuelos del backend:', error);
+                    return of(this.dummyFlights);
+                }),
+                shareReplay(1) // Cachea la respuesta
+            );
+        }
+        return this.cachedFlights$;
     }
 }
