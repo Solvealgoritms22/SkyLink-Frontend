@@ -190,7 +190,7 @@ export class AuthService {
                 genero: 'Masculino',
                 fechaNacimiento: '1998-08-18',
                 phone: '+1(809) 401-7444',
-                role: 'user'
+                role: 'cliente'
             };
         } catch (error) {
             // Si algo falla en la decodificación, puedes retornar un mock fijo
@@ -204,7 +204,7 @@ export class AuthService {
                 genero: 'Masculino',
                 fechaNacimiento: '1998-08-18',
                 phone: '+1(809) 401-7444',
-                role: 'user'
+                role: 'cliente'
             };
         }
     }

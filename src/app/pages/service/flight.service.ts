@@ -485,6 +485,36 @@ export class FlightService {
             banner: 'assets/banners/sky.png',
             logo: 'https://skyhighdo.com/wp-content/uploads/2025/04/skyhighdo-favicon-2025-150x150.png',
             flightClass: 'Económica'
+        },
+        {
+            id: 33,
+            flightNumber: 'AB94495965660',
+            airline: 'Skylink',
+            origin: 'Santo Domingo – Las Américas (SDQ)',
+            destination: 'Newark – Liberty International (EWR)',
+            date: '2025-07-04',
+            time: '10:30',
+            seats: 23,
+            price: 195,
+            color: '#020202eb',
+            banner: 'assets/banners/skylink.png',
+            logo: 'assets/logos/skylink/skylink-logo-1-transparent.png',
+            flightClass: 'Económica'
+        },
+        {
+            id: 34,
+            flightNumber: 'AB94495965661',
+            airline: 'Skylink',
+            origin: 'Santo Domingo – Las Américas (SDQ)',
+            destination: 'Newark – Liberty International (EWR)',
+            date: '2025-07-02',
+            time: '13:00',
+            seats: 12,
+            price: 430,
+            color: '#020202eb',
+            banner: 'assets/banners/skylink.png',
+            logo: 'assets/logos/skylink/skylink-logo-1-transparent.png',
+            flightClass: 'Enterprise'
         }
     ];
 

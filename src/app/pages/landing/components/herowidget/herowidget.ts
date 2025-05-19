@@ -51,9 +51,11 @@ export class HeroWidget implements OnDestroy {
     loginDialog = false;
     private intervalId: any;
     reservedCount = 0;
-    countdown = 50;
+    countdown = 60;
     get countdownDisplay(): string {
-        const m = Math.floor(this.countdown / 60).toString().padStart(2, '0');
+        const m = Math.floor(this.countdown / 60)
+            .toString()
+            .padStart(2, '0');
         const s = (this.countdown % 60).toString().padStart(2, '0');
         return `${m}:${s}`;
     }
@@ -68,6 +70,7 @@ export class HeroWidget implements OnDestroy {
     filteredFlights: Flight[] = [];
     pagedFlights: Flight[] = [];
     placeholders: number[] = [];
+    assignedSeats: number[] = [];
     showFlights = false;
     rows = 3;
     total = 0;
@@ -303,7 +306,15 @@ export class HeroWidget implements OnDestroy {
             }
         }
 
+        /* 2.  Calcular y guardar los Nº de asiento */
         if (this.selectedFlight) {
+            const startSeat = this.selectedFlight.seats - this.passengerCount + 1; // p.e. 22
+            this.assignedSeats = Array.from(
+                { length: this.passengerCount },
+                (_, i) => startSeat + i // 22,23,24
+            );
+
+            /* 3.  Reducir stock y continuar flujo */
             this.reservedCount = this.passengerCount;
             this.selectedFlight.seats -= this.reservedCount;
         }
