@@ -81,7 +81,12 @@
     box-shadow: var(--tw-shadow);
 }
 .p-paginator .p-paginator-pages button {
-    @apply rounded-full text-sm mx-1 w-9 h-9;
+    border-radius: 9999px;
+    font-size: 0.875rem;
+    margin-left: 0.25rem;
+    margin-right: 0.25rem;
+    width: 2.25rem;
+    height: 2.25rem;
 }
 .ticket {
     position: relative;
