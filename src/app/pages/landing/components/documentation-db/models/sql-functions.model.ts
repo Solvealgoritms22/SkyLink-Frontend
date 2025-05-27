@@ -2,12 +2,16 @@
  * Modelo de datos para las definiciones de funciones SQL
  */
 export const functionsScript = {
-  fn_calculate_fare: `CREATE FUNCTION fn_calculate_fare(base DECIMAL(10,2), multiplier DECIMAL(3,2))
+  fn_calculate_fare: `DELIMITER //
+CREATE FUNCTION fn_calculate_fare(
+    base        DECIMAL(10,2),
+    multiplier  DECIMAL(5,2)    
+)
 RETURNS DECIMAL(10,2)
 DETERMINISTIC
 BEGIN
-    RETURN base * multiplier;
-END`,
+    RETURN base * multiplier;      
+END //`,
   fn_distance_km: `CREATE FUNCTION fn_distance_km(lat1 DECIMAL(9,6), lon1 DECIMAL(9,6), lat2 DECIMAL(9,6), lon2 DECIMAL(9,6))
 RETURNS INT
 DETERMINISTIC
