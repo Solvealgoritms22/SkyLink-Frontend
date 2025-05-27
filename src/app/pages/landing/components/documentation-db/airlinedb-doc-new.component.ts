@@ -28,7 +28,6 @@ import { RippleModule } from 'primeng/ripple';
 import { ScrollPanelModule } from 'primeng/scrollpanel';
 import { ToastModule } from 'primeng/toast';
 
-import { CodeCardComponent } from './code-card.component';
 import { TableSectionComponent } from './sections/table-section.component';
 import { FunctionSectionComponent } from './sections/function-section.component';
 import { ProcedureSectionComponent } from './sections/procedure-section.component';
@@ -47,7 +46,15 @@ import {
   triggersScript,
   viewsScript,
   eventsScript,
-  securityScript
+  securityScript,
+  dataDictionary,
+  generalInfoData,
+  functionDetails,
+  procedureDetails,
+  triggerDetails,
+  eventDetails,
+  viewDetails,
+  securityDetails
 } from './models';
 
 @Component({
@@ -72,466 +79,519 @@ import {
   ],
   providers: [MessageService],
   template: `
-    <div class="flex h-screen font-sans bg-surface-900 text-slate-100">
-      <!-- Botón hamburguesa / atajo Ctrl+B -->
-      <button pButton type="button" title="Menú (Ctrl+B)"
-              aria-label="Abrir menú"
-              icon="pi pi-bars"
-              class="p-button-text p-button-rounded fixed top-4 left-4 z-50 text-white"
-              [class.hidden]="sidebarVisible && isDesktop"
-              (click)="toggleSidebar()"></button>
+    <div class="documentation-dark-theme">
+      <div class="flex h-screen font-sans bg-surface-900 text-slate-100">
+        <!-- Botón hamburguesa / atajo Ctrl+B -->
+        <button pButton type="button" title="Menú (Ctrl+B)"
+                aria-label="Abrir menú"
+                icon="pi pi-bars"
+                class="p-button-text p-button-rounded fixed top-4 left-4 z-50 text-white"
+                [class.hidden]="sidebarVisible && isDesktop"
+                (click)="toggleSidebar()"></button>
 
-      <!-- Sidebar oscuro pegajoso -->
-      <p-sidebar [(visible)]="sidebarVisible"
-                 [modal]="!isDesktop"
-                 [dismissible]="false"
-                 [showCloseIcon]="true"              
-                 [baseZIndex]="1000"
-                 styleClass="dark sidebar-dark-theme">
-        <ng-template pTemplate="content">
-          <div class="p-3 h-full flex flex-col">
-            <header class="flex items-center gap-3 mb-6 select-none">
-              <i class="pi pi-database text-primary text-2xl"></i>
-              <h1 class="text-xl font-semibold text-primary">Airline DB</h1>
-            </header>
-            <p-scrollPanel [ngStyle]="{'width': '100%', 'flex': '1 1 auto'}">
-              <p-panelMenu [model]="menuItems" [style]="{'border':'none','width':'100%'}"
-                           styleClass="sidebar-menu"></p-panelMenu>
-            </p-scrollPanel>
-          </div>
-        </ng-template>
-      </p-sidebar>
-      
-      <!-- Área principal -->
-      <main class="flex-1 overflow-y-auto p-6 md:p-10 bg-surface-900 transition-all"
-            [class.ml-0]="!sidebarVisible || !isDesktop"
-            [class.ml-72]="sidebarVisible && isDesktop">
+        <!-- Sidebar oscuro pegajoso -->
+        <p-sidebar [(visible)]="sidebarVisible"
+                   [modal]="!isDesktop"
+                   [dismissible]="false"
+                   [showCloseIcon]="true"              
+                   [baseZIndex]="1000"
+                   styleClass="dark sidebar-dark-theme">
+          <ng-template pTemplate="content">
+            <div class="p-3 h-full flex flex-col">
+              <header class="flex items-center gap-3 mb-6 select-none">
+                <i class="pi pi-database text-primary text-2xl"></i>
+                <h1 class="text-xl font-semibold text-primary">Airline DB</h1>
+              </header>
+              <p-scrollPanel [ngStyle]="{'width': '100%', 'flex': '1 1 auto'}">
+                <p-panelMenu [model]="menuItems" [style]="{'border':'none','width':'100%'}"
+                             styleClass="sidebar-menu"></p-panelMenu>
+              </p-scrollPanel>
+            </div>
+          </ng-template>
+        </p-sidebar>
+        
+        <!-- Área principal -->
+        <main class="flex-1 overflow-y-auto p-6 md:p-10 bg-surface-900 transition-all"
+              [class.ml-0]="!sidebarVisible || !isDesktop"
+              [class.ml-72]="sidebarVisible && isDesktop">
 
-        <ng-container [ngSwitch]="activeSection">
-          <!-- Información General -->
+          <ng-container [ngSwitch]="activeSection">          <!-- Información General -->
           <app-general-info-section *ngSwitchCase="'database'" 
-                      [sqlCode]="generalInfo">
+                      [sqlCode]="generalInfo"
+                      [generalInfoDetail]="generalInfoData">
           </app-general-info-section>
           
           <!-- Tablas -->
           <app-table-section *ngSwitchCase="'table_airports'"
             tableName="airports"
             description="Almacena información de aeropuertos incluyendo código IATA, nombre, ciudad, país, coordenadas y zona horaria."
-            [sqlCode]="tablesScript.airports">
+            [sqlCode]="tablesScript.airports"
+            [tableDetail]="dataDictionary.airports">
           </app-table-section>
 
           <app-table-section *ngSwitchCase="'table_airlines'"
             tableName="airlines"
             description="Registra datos de aerolíneas como código IATA, nombre y señal de llamada."
-            [sqlCode]="tablesScript.airlines">
+            [sqlCode]="tablesScript.airlines"
+            [tableDetail]="dataDictionary.airlines">
           </app-table-section>
 
           <app-table-section *ngSwitchCase="'table_aircraft'"
             tableName="aircraft"
             description="Guarda información de aeronaves incluyendo número de cola, aerolínea, modelo, capacidad y año de fabricación."
-            [sqlCode]="tablesScript.aircraft">
+            [sqlCode]="tablesScript.aircraft"
+            [tableDetail]="dataDictionary.aircraft">
           </app-table-section>
 
           <app-table-section *ngSwitchCase="'table_routes'"
             tableName="routes"
             description="Define rutas de vuelo entre aeropuertos con su aerolínea operadora y distancia."
-            [sqlCode]="tablesScript.routes">
+            [sqlCode]="tablesScript.routes"
+            [tableDetail]="dataDictionary.routes">
           </app-table-section>
 
           <app-table-section *ngSwitchCase="'table_flights'"
             tableName="flights"
             description="Almacena detalles de vuelos programados incluyendo ruta, aeronave, horarios y estado."
-            [sqlCode]="tablesScript.flights">
+            [sqlCode]="tablesScript.flights"
+            [tableDetail]="dataDictionary.flights">
           </app-table-section>
 
           <app-table-section *ngSwitchCase="'table_passengers'"
             tableName="passengers"
             description="Contiene datos de pasajeros como nombre, fecha de nacimiento, email y teléfono."
-            [sqlCode]="tablesScript.passengers">
+            [sqlCode]="tablesScript.passengers"
+            [tableDetail]="dataDictionary.passengers">
           </app-table-section>
 
           <app-table-section *ngSwitchCase="'table_fare_classes'"
             tableName="fare_classes"
             description="Define clases de tarifa con su código, descripción y multiplicador de precio."
-            [sqlCode]="tablesScript.fare_classes">
+            [sqlCode]="tablesScript.fare_classes"
+            [tableDetail]="dataDictionary.fare_classes">
           </app-table-section>
 
           <app-table-section *ngSwitchCase="'table_flight_fares'"
             tableName="flight_fares"
             description="Gestiona precios y asientos disponibles por vuelo y clase de tarifa."
-            [sqlCode]="tablesScript.flight_fares">
+            [sqlCode]="tablesScript.flight_fares"
+            [tableDetail]="dataDictionary.flight_fares">
           </app-table-section>
 
           <app-table-section *ngSwitchCase="'table_loyalty_programs'"
             tableName="loyalty_programs"
             description="Administra programas de lealtad con diferentes niveles y balance de puntos."
-            [sqlCode]="tablesScript.loyalty_programs">
+            [sqlCode]="tablesScript.loyalty_programs"
+            [tableDetail]="dataDictionary.loyalty_programs">
           </app-table-section>
 
           <app-table-section *ngSwitchCase="'table_bookings'"
             tableName="bookings"
             description="Registra reservas con código único, fecha, estado y monto total."
-            [sqlCode]="tablesScript.bookings">
+            [sqlCode]="tablesScript.bookings"
+            [tableDetail]="dataDictionary.bookings">
           </app-table-section>
 
           <app-table-section *ngSwitchCase="'table_booking_passengers'"
             tableName="booking_passengers"
             description="Asocia pasajeros a reservas con su clase de tarifa y puntos otorgados."
-            [sqlCode]="tablesScript.booking_passengers">
+            [sqlCode]="tablesScript.booking_passengers"
+            [tableDetail]="dataDictionary.booking_passengers">
           </app-table-section>
 
           <app-table-section *ngSwitchCase="'table_tickets'"
             tableName="tickets"
             description="Almacena boletos emitidos con información de reserva, vuelo, pasajero, asiento y precio."
-            [sqlCode]="tablesScript.tickets">
+            [sqlCode]="tablesScript.tickets"
+            [tableDetail]="dataDictionary.tickets">
           </app-table-section>
 
           <app-table-section *ngSwitchCase="'table_payments'"
             tableName="payments"
             description="Gestiona pagos de reservas con monto, método y estado."
-            [sqlCode]="tablesScript.payments">
+            [sqlCode]="tablesScript.payments"
+            [tableDetail]="dataDictionary.payments">
           </app-table-section>
 
           <app-table-section *ngSwitchCase="'table_baggage'"
             tableName="baggage"
             description="Registra equipajes por boleto con peso y etiqueta única."
-            [sqlCode]="tablesScript.baggage">
+            [sqlCode]="tablesScript.baggage"
+            [tableDetail]="dataDictionary.baggage">
           </app-table-section>
 
           <app-table-section *ngSwitchCase="'table_staff'"
             tableName="staff"
             description="Contiene datos del personal con nombre, rol, fecha de contratación y aerolínea."
-            [sqlCode]="tablesScript.staff">
+            [sqlCode]="tablesScript.staff"
+            [tableDetail]="dataDictionary.staff">
           </app-table-section>
 
           <app-table-section *ngSwitchCase="'table_crew_assignments'"
             tableName="crew_assignments"
             description="Asigna personal a vuelos con su posición específica."
-            [sqlCode]="tablesScript.crew_assignments">
+            [sqlCode]="tablesScript.crew_assignments"
+            [tableDetail]="dataDictionary.crew_assignments">
           </app-table-section>
 
           <app-table-section *ngSwitchCase="'table_checkins'"
             tableName="checkins"
             description="Registra el check-in de pasajeros con hora y cantidad de equipaje."
-            [sqlCode]="tablesScript.checkins">
+            [sqlCode]="tablesScript.checkins"
+            [tableDetail]="dataDictionary.checkins">
           </app-table-section>
 
           <app-table-section *ngSwitchCase="'table_boarding_passes'"
             tableName="boarding_passes"
-            description="Gestiona tarjetas de embarque con puerta, hora de abordaje y número de asiento."
-            [sqlCode]="tablesScript.boarding_passes">
+            description="Gestiona tarjetas de embarque with puerta, hora de abordaje y número de asiento."
+            [sqlCode]="tablesScript.boarding_passes"
+            [tableDetail]="dataDictionary.boarding_passes">
           </app-table-section>
 
           <app-table-section *ngSwitchCase="'table_maintenance_logs'"
             tableName="maintenance_logs"
             description="Registra mantenimientos programados para aeronaves con fecha, descripción y estado."
-            [sqlCode]="tablesScript.maintenance_logs">
+            [sqlCode]="tablesScript.maintenance_logs"
+            [tableDetail]="dataDictionary.maintenance_logs">
           </app-table-section>
 
           <app-table-section *ngSwitchCase="'table_flight_status_history'"
             tableName="flight_status_history"
             description="Historial de cambios de estado de vuelos con fecha y hora."
-            [sqlCode]="tablesScript.flight_status_history">
+            [sqlCode]="tablesScript.flight_status_history"
+            [tableDetail]="dataDictionary.flight_status_history">
           </app-table-section>
 
           <app-table-section *ngSwitchCase="'table_audit_logs'"
             tableName="audit_logs"
             description="Registro de operaciones de auditoría en la base de datos (inserción, actualización, eliminación)."
-            [sqlCode]="tablesScript.audit_logs">
+            [sqlCode]="tablesScript.audit_logs"
+            [tableDetail]="dataDictionary.audit_logs">
           </app-table-section>
 
           <app-table-section *ngSwitchCase="'table_reservations_history'"
             tableName="reservations_history"
             description="Historial de cambios de estado de reservas."
-            [sqlCode]="tablesScript.reservations_history">
+            [sqlCode]="tablesScript.reservations_history"
+            [tableDetail]="dataDictionary.reservations_history">
           </app-table-section>
 
           <app-table-section *ngSwitchCase="'table_seat_inventory'"
             tableName="seat_inventory"
             description="Gestiona inventario de asientos por vuelo y clase de tarifa."
-            [sqlCode]="tablesScript.seat_inventory">
+            [sqlCode]="tablesScript.seat_inventory"
+            [tableDetail]="dataDictionary.seat_inventory">
           </app-table-section>
 
           <!-- Funciones -->
           <app-function-section *ngSwitchCase="'fn_calculate_fare'"
             functionName="fn_calculate_fare"
             description="Calcula la tarifa final multiplicando la tarifa base por un multiplicador."
-            [sqlCode]="functionsScript.fn_calculate_fare">
+            [sqlCode]="functionsScript.fn_calculate_fare"
+            [functionDetail]="functionDetails['fn_calculate_fare']">
           </app-function-section>
 
           <app-function-section *ngSwitchCase="'fn_distance_km'"
             functionName="fn_distance_km"
             description="Calcula la distancia en kilómetros entre dos puntos geográficos mediante la fórmula haversine."
-            [sqlCode]="functionsScript.fn_distance_km">
+            [sqlCode]="functionsScript.fn_distance_km"
+            [functionDetail]="functionDetails['fn_distance_km']">
           </app-function-section>
 
           <app-function-section *ngSwitchCase="'fn_flight_duration'"
             functionName="fn_flight_duration"
             description="Calcula la duración de un vuelo en minutos entre la hora de salida y llegada."
-            [sqlCode]="functionsScript.fn_flight_duration">
+            [sqlCode]="functionsScript.fn_flight_duration"
+            [functionDetail]="functionDetails['fn_flight_duration']">
           </app-function-section>
 
           <app-function-section *ngSwitchCase="'fn_available_seats'"
             functionName="fn_available_seats"
             description="Calcula los asientos disponibles para un vuelo y clase de tarifa."
-            [sqlCode]="functionsScript.fn_available_seats">
+            [sqlCode]="functionsScript.fn_available_seats"
+            [functionDetail]="functionDetails['fn_available_seats']">
           </app-function-section>
 
           <app-function-section *ngSwitchCase="'fn_flight_occupancy'"
             functionName="fn_flight_occupancy"
             description="Calcula el porcentaje de ocupación de un vuelo."
-            [sqlCode]="functionsScript.fn_flight_occupancy">
+            [sqlCode]="functionsScript.fn_flight_occupancy"
+            [functionDetail]="functionDetails['fn_flight_occupancy']">
           </app-function-section>
 
           <app-function-section *ngSwitchCase="'fn_format_currency'"
             functionName="fn_format_currency"
             description="Formatea un valor monetario con símbolo y decimales."
-            [sqlCode]="functionsScript.fn_format_currency">
+            [sqlCode]="functionsScript.fn_format_currency"
+            [functionDetail]="functionDetails['fn_format_currency']">
           </app-function-section>
 
           <app-function-section *ngSwitchCase="'fn_loyalty_tier'"
             functionName="fn_loyalty_tier"
             description="Determina el nivel de lealtad basado en la cantidad de puntos."
-            [sqlCode]="functionsScript.fn_loyalty_tier">
+            [sqlCode]="functionsScript.fn_loyalty_tier"
+            [functionDetail]="functionDetails['fn_loyalty_tier']">
           </app-function-section>
 
           <app-function-section *ngSwitchCase="'fn_flight_number_format'"
             functionName="fn_flight_number_format"
             description="Genera un número de vuelo formateado según el estándar."
-            [sqlCode]="functionsScript.fn_flight_number_format">
-          </app-function-section>
-
-          <app-function-section *ngSwitchCase="'fn_total_baggage_weight'"
+            [sqlCode]="functionsScript.fn_flight_number_format"
+            [functionDetail]="functionDetails['fn_flight_number_format']">
+          </app-function-section>          <app-function-section *ngSwitchCase="'fn_total_baggage_weight'"
             functionName="fn_total_baggage_weight"
             description="Calcula el peso total del equipaje para un boleto."
-            [sqlCode]="functionsScript.fn_total_baggage_weight">
+            [sqlCode]="functionsScript.fn_total_baggage_weight"
+            [functionDetail]="functionDetails['fn_total_baggage_weight']">
           </app-function-section>
 
           <app-function-section *ngSwitchCase="'fn_seats_by_class'"
             functionName="fn_seats_by_class"
             description="Devuelve el total de asientos para una clase en un vuelo."
-            [sqlCode]="functionsScript.fn_seats_by_class">
+            [sqlCode]="functionsScript.fn_seats_by_class"
+            [functionDetail]="functionDetails['fn_seats_by_class']">
           </app-function-section>
 
-          <!-- Procedimientos -->
-          <app-procedure-section *ngSwitchCase="'sp_create_booking'"
+          <!-- Procedimientos -->          <app-procedure-section *ngSwitchCase="'sp_create_booking'"
             procedureName="sp_create_booking"
             description="Crea una nueva reserva para un pasajero, calcula la tarifa y genera un código único."
-            [sqlCode]="proceduresScript.sp_create_booking">
+            [sqlCode]="proceduresScript.sp_create_booking"
+            [procedureDetail]="procedureDetails['sp_create_booking']">
           </app-procedure-section>
 
           <app-procedure-section *ngSwitchCase="'sp_confirm_booking'"
             procedureName="sp_confirm_booking"
             description="Confirma una reserva y registra el cambio en el historial."
-            [sqlCode]="proceduresScript.sp_confirm_booking">
+            [sqlCode]="proceduresScript.sp_confirm_booking"
+            [procedureDetail]="procedureDetails['sp_confirm_booking']">
           </app-procedure-section>
 
           <app-procedure-section *ngSwitchCase="'sp_check_in_passenger'"
             procedureName="sp_check_in_passenger"
             description="Registra el check-in de un pasajero para un vuelo específico."
-            [sqlCode]="proceduresScript.sp_check_in_passenger">
-          </app-procedure-section>
-
-          <app-procedure-section *ngSwitchCase="'sp_cancel_booking'"
+            [sqlCode]="proceduresScript.sp_check_in_passenger"
+            [procedureDetail]="procedureDetails['sp_check_in_passenger']">
+          </app-procedure-section>          <app-procedure-section *ngSwitchCase="'sp_cancel_booking'"
             procedureName="sp_cancel_booking"
             description="Cancela una reserva existente y actualiza el historial."
-            [sqlCode]="proceduresScript.sp_cancel_booking">
+            [sqlCode]="proceduresScript.sp_cancel_booking"
+            [procedureDetail]="procedureDetails['sp_cancel_booking']">
           </app-procedure-section>
 
           <app-procedure-section *ngSwitchCase="'sp_assign_crew'"
             procedureName="sp_assign_crew"
             description="Asigna una tripulación a un vuelo específico."
-            [sqlCode]="proceduresScript.sp_assign_crew">
+            [sqlCode]="proceduresScript.sp_assign_crew"
+            [procedureDetail]="procedureDetails['sp_assign_crew']">
           </app-procedure-section>
 
           <app-procedure-section *ngSwitchCase="'sp_add_payment'"
             procedureName="sp_add_payment"
             description="Registra un pago para una reserva y actualiza el estado de la misma."
-            [sqlCode]="proceduresScript.sp_add_payment">
-          </app-procedure-section>
-
-          <app-procedure-section *ngSwitchCase="'sp_upgrade_seat'"
+            [sqlCode]="proceduresScript.sp_add_payment"
+            [procedureDetail]="procedureDetails['sp_add_payment']">
+          </app-procedure-section>          <app-procedure-section *ngSwitchCase="'sp_upgrade_seat'"
             procedureName="sp_upgrade_seat"
             description="Actualiza la clase de tarifa de un asiento en un ticket."
-            [sqlCode]="proceduresScript.sp_upgrade_seat">
+            [sqlCode]="proceduresScript.sp_upgrade_seat"
+            [procedureDetail]="procedureDetails['sp_upgrade_seat']">
           </app-procedure-section>
 
           <app-procedure-section *ngSwitchCase="'sp_create_flight'"
             procedureName="sp_create_flight"
             description="Crea un nuevo vuelo programado en el sistema."
-            [sqlCode]="proceduresScript.sp_create_flight">
+            [sqlCode]="proceduresScript.sp_create_flight"
+            [procedureDetail]="procedureDetails['sp_create_flight']">
           </app-procedure-section>
 
           <app-procedure-section *ngSwitchCase="'sp_complete_maintenance'"
             procedureName="sp_complete_maintenance"
             description="Marca un registro de mantenimiento como completado."
-            [sqlCode]="proceduresScript.sp_complete_maintenance">
+            [sqlCode]="proceduresScript.sp_complete_maintenance"
+            [procedureDetail]="procedureDetails['sp_complete_maintenance']">
           </app-procedure-section>
 
           <app-procedure-section *ngSwitchCase="'sp_generate_daily_report'"
             procedureName="sp_generate_daily_report"
             description="Genera un reporte diario de ingresos por vuelo."
-            [sqlCode]="proceduresScript.sp_generate_daily_report">
-          </app-procedure-section>
-
-          <!-- Triggers -->
+            [sqlCode]="proceduresScript.sp_generate_daily_report"
+            [procedureDetail]="procedureDetails['sp_generate_daily_report']">
+          </app-procedure-section>          <!-- Triggers -->
           <app-trigger-section *ngSwitchCase="'trg_after_booking_confirm'"
             triggerName="trg_after_booking_confirm"
             description="Registra en la tabla de auditoría cuando se confirma una reserva."
-            [sqlCode]="triggersScript.trg_after_booking_confirm">
+            [sqlCode]="triggersScript.trg_after_booking_confirm"
+            [triggerDetail]="triggerDetails['trg_after_booking_confirm']">
           </app-trigger-section>
 
           <app-trigger-section *ngSwitchCase="'trg_after_payment_insert'"
             triggerName="trg_after_payment_insert"
             description="Confirma automáticamente una reserva cuando se registra un pago."
-            [sqlCode]="triggersScript.trg_after_payment_insert">
+            [sqlCode]="triggersScript.trg_after_payment_insert"
+            [triggerDetail]="triggerDetails['trg_after_payment_insert']">
           </app-trigger-section>
 
           <app-trigger-section *ngSwitchCase="'trg_checkin_auto_bp'"
             triggerName="trg_checkin_auto_bp"
             description="Genera automáticamente una tarjeta de embarque cuando un pasajero hace check-in."
-            [sqlCode]="triggersScript.trg_checkin_auto_bp">
-          </app-trigger-section>
-
-          <app-trigger-section *ngSwitchCase="'trg_after_ticket_insert'"
+            [sqlCode]="triggersScript.trg_checkin_auto_bp"
+            [triggerDetail]="triggerDetails['trg_checkin_auto_bp']">
+          </app-trigger-section>          <app-trigger-section *ngSwitchCase="'trg_after_ticket_insert'"
             triggerName="trg_after_ticket_insert"
             description="Actualiza el inventario de asientos cuando se crea un nuevo boleto."
-            [sqlCode]="triggersScript.trg_after_ticket_insert">
+            [sqlCode]="triggersScript.trg_after_ticket_insert"
+            [triggerDetail]="triggerDetails['trg_after_ticket_insert']">
           </app-trigger-section>
 
           <app-trigger-section *ngSwitchCase="'trg_after_ticket_delete'"
             triggerName="trg_after_ticket_delete"
             description="Actualiza el inventario de asientos cuando se elimina un boleto."
-            [sqlCode]="triggersScript.trg_after_ticket_delete">
+            [sqlCode]="triggersScript.trg_after_ticket_delete"
+            [triggerDetail]="triggerDetails['trg_after_ticket_delete']">
           </app-trigger-section>
 
           <app-trigger-section *ngSwitchCase="'trg_after_maintenance_insert'"
             triggerName="trg_after_maintenance_insert"
             description="Cambia el estado de los vuelos a 'Mantenimiento' cuando se programa un mantenimiento para la aeronave."
-            [sqlCode]="triggersScript.trg_after_maintenance_insert">
-          </app-trigger-section>
-
-          <app-trigger-section *ngSwitchCase="'trg_after_maintenance_complete'"
+            [sqlCode]="triggersScript.trg_after_maintenance_insert"
+            [triggerDetail]="triggerDetails['trg_after_maintenance_insert']">
+          </app-trigger-section>          <app-trigger-section *ngSwitchCase="'trg_after_maintenance_complete'"
             triggerName="trg_after_maintenance_complete"
             description="Restaura el estado de los vuelos a 'Programado' cuando se completa el mantenimiento de la aeronave."
-            [sqlCode]="triggersScript.trg_after_maintenance_complete">
+            [sqlCode]="triggersScript.trg_after_maintenance_complete"
+            [triggerDetail]="triggerDetails['trg_after_maintenance_complete']">
           </app-trigger-section>
 
           <app-trigger-section *ngSwitchCase="'trg_after_loyalty_transaction'"
             triggerName="trg_after_loyalty_transaction"
             description="Actualiza el balance de puntos de lealtad cuando se registran nuevos puntos."
-            [sqlCode]="triggersScript.trg_after_loyalty_transaction">
+            [sqlCode]="triggersScript.trg_after_loyalty_transaction"
+            [triggerDetail]="triggerDetails['trg_after_loyalty_transaction']">
           </app-trigger-section>
 
           <app-trigger-section *ngSwitchCase="'trg_flight_status_update'"
             triggerName="trg_flight_status_update"
             description="Registra en el historial cada cambio de estado de un vuelo."
-            [sqlCode]="triggersScript.trg_flight_status_update">
+            [sqlCode]="triggersScript.trg_flight_status_update"
+            [triggerDetail]="triggerDetails['trg_flight_status_update']">
           </app-trigger-section>
 
           <app-trigger-section *ngSwitchCase="'trg_audit_delete_booking'"
             triggerName="trg_audit_delete_booking"
             description="Registra en la auditoría cuando se elimina una reserva del sistema."
-            [sqlCode]="triggersScript.trg_audit_delete_booking">
-          </app-trigger-section>
-
-          <!-- Vistas -->
+            [sqlCode]="triggersScript.trg_audit_delete_booking"
+            [triggerDetail]="triggerDetails['trg_audit_delete_booking']">
+          </app-trigger-section>          <!-- Vistas -->
           <app-view-section *ngSwitchCase="'vw_upcoming_flights'"
             viewName="vw_upcoming_flights"
             description="Muestra los vuelos futuros con información de origen, destino y estado."
-            [sqlCode]="viewsScript.vw_upcoming_flights">
+            [sqlCode]="viewsScript.vw_upcoming_flights"
+            [viewDetail]="viewDetails['vw_upcoming_flights']">
           </app-view-section>
 
           <app-view-section *ngSwitchCase="'vw_flight_manifest'"
             viewName="vw_flight_manifest"
             description="Lista de pasajeros en un vuelo con sus asientos asignados."
-            [sqlCode]="viewsScript.vw_flight_manifest">
+            [sqlCode]="viewsScript.vw_flight_manifest"
+            [viewDetail]="viewDetails['vw_flight_manifest']">
           </app-view-section>
 
           <app-view-section *ngSwitchCase="'vw_flight_revenue'"
             viewName="vw_flight_revenue"
             description="Calcula los ingresos totales por vuelo."
-            [sqlCode]="viewsScript.vw_flight_revenue">
+            [sqlCode]="viewsScript.vw_flight_revenue"
+            [viewDetail]="viewDetails['vw_flight_revenue']">
           </app-view-section>
 
           <app-view-section *ngSwitchCase="'vw_loyalty_member_points'"
             viewName="vw_loyalty_member_points"
             description="Muestra los puntos acumulados por cada miembro del programa de lealtad."
-            [sqlCode]="viewsScript.vw_loyalty_member_points">
+            [sqlCode]="viewsScript.vw_loyalty_member_points"
+            [viewDetail]="viewDetails['vw_loyalty_member_points']">
           </app-view-section>
 
           <app-view-section *ngSwitchCase="'vw_airport_traffic'"
             viewName="vw_airport_traffic"
             description="Muestra el número de vuelos que salen de cada aeropuerto durante el día actual."
-            [sqlCode]="viewsScript.vw_airport_traffic">
+            [sqlCode]="viewsScript.vw_airport_traffic"
+            [viewDetail]="viewDetails['vw_airport_traffic']">
           </app-view-section>
 
           <app-view-section *ngSwitchCase="'vw_daily_sales'"
             viewName="vw_daily_sales"
             description="Presenta el total de ventas diarias agrupadas por fecha."
-            [sqlCode]="viewsScript.vw_daily_sales">
+            [sqlCode]="viewsScript.vw_daily_sales"
+            [viewDetail]="viewDetails['vw_daily_sales']">
           </app-view-section>
 
           <app-view-section *ngSwitchCase="'vw_crew_schedule'"
             viewName="vw_crew_schedule"
             description="Muestra la programación de la tripulación por vuelo con sus posiciones asignadas."
-            [sqlCode]="viewsScript.vw_crew_schedule">
+            [sqlCode]="viewsScript.vw_crew_schedule"
+            [viewDetail]="viewDetails['vw_crew_schedule']">
           </app-view-section>
 
           <app-view-section *ngSwitchCase="'vw_flight_status_latest'"
             viewName="vw_flight_status_latest"
             description="Proporciona el estado actual de los próximos vuelos programados."
-            [sqlCode]="viewsScript.vw_flight_status_latest">
+            [sqlCode]="viewsScript.vw_flight_status_latest"
+            [viewDetail]="viewDetails['vw_flight_status_latest']">
           </app-view-section>
 
           <app-view-section *ngSwitchCase="'vw_seat_availability'"
             viewName="vw_seat_availability"
             description="Muestra los asientos disponibles por vuelo y clase de tarifa."
-            [sqlCode]="viewsScript.vw_seat_availability">
+            [sqlCode]="viewsScript.vw_seat_availability"
+            [viewDetail]="viewDetails['vw_seat_availability']">
           </app-view-section>
 
           <app-view-section *ngSwitchCase="'vw_booking_summary'"
             viewName="vw_booking_summary"
             description="Presenta un resumen de las reservas con su estado, monto total y número de pasajeros."
-            [sqlCode]="viewsScript.vw_booking_summary">
-          </app-view-section>
-
-          <!-- Eventos -->
+            [sqlCode]="viewsScript.vw_booking_summary"
+            [viewDetail]="viewDetails['vw_booking_summary']">
+          </app-view-section><!-- Eventos -->
           <app-event-section *ngSwitchCase="'ev_archive_old_flights'"
             eventName="ev_archive_old_flights"
             description="Archiva vuelos de más de un año de antigüedad en la tabla de auditoría."
-            [sqlCode]="eventsScript.ev_archive_old_flights">
+            [sqlCode]="eventsScript.ev_archive_old_flights"
+            [eventDetail]="eventDetails['ev_archive_old_flights']">
           </app-event-section>
 
           <app-event-section *ngSwitchCase="'ev_update_flight_status'"
             eventName="ev_update_flight_status"
             description="Actualiza automáticamente el estado de los vuelos a 'Departed' cuando pasa su hora de salida."
-            [sqlCode]="eventsScript.ev_update_flight_status">
+            [sqlCode]="eventsScript.ev_update_flight_status"
+            [eventDetail]="eventDetails['ev_update_flight_status']">
           </app-event-section>
 
           <app-event-section *ngSwitchCase="'ev_cleanup_expired_bookings'"
             eventName="ev_cleanup_expired_bookings"
             description="Elimina automáticamente las reservas pendientes que han caducado (más de 24 horas de antigüedad)."
-            [sqlCode]="eventsScript.ev_cleanup_expired_bookings">
+            [sqlCode]="eventsScript.ev_cleanup_expired_bookings"
+            [eventDetail]="eventDetails['ev_cleanup_expired_bookings']">
           </app-event-section>
 
           <app-event-section *ngSwitchCase="'ev_send_departure_reminders'"
             eventName="ev_send_departure_reminders"
             description="Envía recordatorios automáticos para vuelos que saldrán en las próximas 3 horas."
-            [sqlCode]="eventsScript.ev_send_departure_reminders">
+            [sqlCode]="eventsScript.ev_send_departure_reminders"
+            [eventDetail]="eventDetails['ev_send_departure_reminders']">
           </app-event-section>
 
           <app-event-section *ngSwitchCase="'ev_award_loyalty_monthly'"
             eventName="ev_award_loyalty_monthly"
             description="Actualiza automáticamente los niveles de lealtad de los miembros basado en sus puntos acumulados mensualmente."
-            [sqlCode]="eventsScript.ev_award_loyalty_monthly">
+            [sqlCode]="eventsScript.ev_award_loyalty_monthly"
+            [eventDetail]="eventDetails['ev_award_loyalty_monthly']">
           </app-event-section>
 
           <!-- Seguridad -->
           <app-security-section *ngSwitchCase="'security'"
             securityTitle="Roles y Usuarios"
             description="Configuración de roles, usuarios y privilegios para la gestión segura de la base de datos."
-            [sqlCode]="securityScript">
+            [sqlCode]="securityScript"
+            [securityDetail]="securityDetails">
           </app-security-section>
         </ng-container>
       </main>
@@ -542,14 +602,14 @@ import {
   styles: [
     `:host ::ng-deep pre[class*='language-'],
     :host ::ng-deep code[class*='language-']{background:transparent!important;box-shadow:none!important;}
-    :host ::ng-deep .sidebar-dark-theme{@apply bg-slate-800 text-slate-100 shadow-xl;}
-    :host ::ng-deep .sidebar-dark-theme .p-sidebar-header{@apply bg-slate-900 border-b border-slate-700;}
+    :host ::ng-deep .sidebar-dark-theme{@apply bg-surface-900 text-slate-100 shadow-xl;}
+    :host ::ng-deep .sidebar-dark-theme .p-sidebar-header{@apply bg-surface-900 border-b border-slate-700;}
     :host ::ng-deep .sidebar-menu .p-panelmenu-header>a{@apply bg-transparent text-slate-200 rounded-lg px-4 py-3 font-medium transition;}
-    :host ::ng-deep .sidebar-menu .p-panelmenu-header:not(.p-highlight):not(.p-disabled)>a:hover{@apply bg-slate-700 text-white translate-x-1;}
+    :host ::ng-deep .sidebar-menu .p-panelmenu-header:not(.p-highlight):not(.p-disabled)>a:hover{@apply bg-surface-700 text-white translate-x-1;}
     :host ::ng-deep .sidebar-menu .p-panelmenu-header.p-highlight>a{@apply bg-blue-600/20 text-blue-400;}
     :host ::ng-deep .sidebar-menu .p-panelmenu-content .p-menuitem-link{@apply px-4 py-2 text-slate-300 rounded-md transition;}
-    :host ::ng-deep .sidebar-menu .p-panelmenu-content .p-menuitem-link:hover{@apply bg-slate-700 text-white translate-x-1;}
-    :host ::ng-deep .p-scrollpanel-bar{@apply bg-slate-600 rounded-xl;}
+    :host ::ng-deep .sidebar-menu .p-panelmenu-content .p-menuitem-link:hover{@apply bg-surface-700 text-white translate-x-1;}
+    :host ::ng-deep .p-scrollpanel-bar{@apply bg-surface-600 rounded-xl;}
   `],
 })
 export class AirlineDocComponent implements OnInit, AfterViewInit {
@@ -565,6 +625,13 @@ export class AirlineDocComponent implements OnInit, AfterViewInit {
   public eventsScript = eventsScript;
   public securityScript = securityScript;
   public generalInfo = generalInfo;
+  public generalInfoData = generalInfoData;  public dataDictionary = dataDictionary;
+  public functionDetails = functionDetails;
+  public procedureDetails = procedureDetails;
+  public triggerDetails = triggerDetails;
+  public eventDetails = eventDetails;
+  public viewDetails = viewDetails;
+  public securityDetails = securityDetails;
 
   private toast = inject(MessageService);
 
