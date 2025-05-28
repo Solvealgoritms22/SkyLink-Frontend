@@ -151,8 +151,8 @@ interface DatabaseEngine {
     ]
 })
 export class GeneralInfoSectionComponent {
-    @Input() title = 'Sistema de Reservas de Aerolíneas';
-    @Input() description = 'Documentación detallada del esquema SQL para un sistema completo de reservas de aerolíneas, incluyendo tablas, funciones, procedimientos almacenados, triggers, vistas, eventos y configuración de seguridad.';
+    @Input() title = 'Sistema de Reservacion de Vuelos - Información General';
+    @Input() description = 'Documentación detallada del esquema SQL para un sistema completo de reservas de vuelos, incluyendo tablas, funciones, procedimientos almacenados, triggers, vistas, eventos y configuración de seguridad.';
     @Input() sqlCode = '';
     @Input() dbStats: DatabaseStatistic[] = [];
     @Input() dbEngine?: DatabaseEngine;

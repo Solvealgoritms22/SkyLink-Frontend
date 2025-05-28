@@ -6,27 +6,27 @@
 export const databaseStats = [
   {
     label: 'Tablas',
-    value: 14,
+    value: 23,
     icon: 'pi-table'
   },
   {
     label: 'Relaciones',
-    value: 18,
+    value: 19,
     icon: 'pi-link'
   },
   {
     label: 'Funciones',
-    value: 8,
+    value: 10,
     icon: 'pi-code'
   },
   {
     label: 'Procedimientos',
-    value: 12,
+    value: 10,
     icon: 'pi-cog'
   },
   {
     label: 'Disparadores',
-    value: 6,
+    value: 10,
     icon: 'pi-bolt'
   },
   {
@@ -36,7 +36,7 @@ export const databaseStats = [
   },
   {
     label: 'Eventos',
-    value: 4,
+    value: 5,
     icon: 'pi-calendar'
   }
 ];
