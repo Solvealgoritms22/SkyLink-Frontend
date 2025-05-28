@@ -999,17 +999,22 @@ export const seatInventoryDataDictionary = {
 export const fareClassesDataDictionary = {
   columns: [
     { name: 'fare_class_id', type: 'INT', description: 'Identificador único de la clase de tarifa', isPrimaryKey: true, isNullable: false },
-    { name: 'code', type: 'VARCHAR(10)', description: 'Código de la clase de tarifa (ej. ECON, BUS, FIRST)', isUnique: true, isNullable: false },
-    { name: 'description', type: 'VARCHAR(100)', description: 'Descripción de la clase de tarifa', isNullable: true },
-    { name: 'price_multiplier', type: 'DECIMAL(4,2)', description: 'Multiplicador de precio para la clase de tarifa', isNullable: false, defaultValue: '1.00' }
+    { name: 'code', type: 'CHAR(1)', description: 'Código de la clase de tarifa (E: Economy, B: Business, F: First)', isUnique: true, isNullable: false },
+    { name: 'description', type: 'VARCHAR(50)', description: 'Descripción de la clase de tarifa', isNullable: true },
+    { name: 'multiplier', type: 'DECIMAL(3,2)', description: 'Multiplicador de precio para la clase', isNullable: false }
   ],
-  relations: [],
+  relations: [
+    { type: 'one-to-many', table: 'flight_fares', description: 'Una clase de tarifa puede estar asociada a múltiples tarifas de vuelo', columns: [{local: 'fare_class_id', foreign: 'fare_class_id'}] },
+    { type: 'one-to-many', table: 'booking_passengers', description: 'Una clase de tarifa puede estar asociada a múltiples pasajeros en reservas', columns: [{local: 'fare_class_id', foreign: 'fare_class_id'}] },
+    { type: 'one-to-many', table: 'tickets', description: 'Una clase de tarifa puede estar asociada a múltiples tickets', columns: [{local: 'fare_class_id', foreign: 'fare_class_id'}] },
+    { type: 'one-to-many', table: 'seat_inventory', description: 'Una clase de tarifa puede estar asociada a múltiples inventarios de asientos', columns: [{local: 'fare_class_id', foreign: 'fare_class_id'}] }
+  ],
   indexes: [
     { name: 'PRIMARY', columns: ['fare_class_id'], type: 'PRIMARY KEY', description: 'Índice primario para identificar clases de tarifa únicas' },
     { name: 'idx_code', columns: ['code'], type: 'UNIQUE', description: 'Índice único para códigos de clase de tarifa' }
   ],
   exampleQueries: [
-    { description: 'Listar todas las clases de tarifa', sql: `SELECT fare_class_id, code, description, price_multiplier FROM fare_classes;` }
+    { description: 'Listar todas las clases de tarifa', sql: `SELECT fare_class_id, code, description, multiplier FROM fare_classes;` }
   ]
 };
 
@@ -1019,7 +1024,7 @@ export const flightFaresDataDictionary = {
     { name: 'flight_id', type: 'INT', description: 'ID del vuelo', isPrimaryKey: true, isForeignKey: true, isNullable: false, referencedTable: 'flights', referencedColumn: 'flight_id' },
     { name: 'fare_class_id', type: 'INT', description: 'ID de la clase de tarifa', isPrimaryKey: true, isForeignKey: true, isNullable: false, referencedTable: 'fare_classes', referencedColumn: 'fare_class_id' },
     { name: 'price', type: 'DECIMAL(10,2)', description: 'Precio de la tarifa para el vuelo y clase', isNullable: false },
-    { name: 'seats_available', type: 'INT', description: 'Cantidad de asientos disponibles para la clase en el vuelo', isNullable: false }
+    { name: 'seats_available', type: 'INT', description: 'Cantidad de asientos disponibles para esta clase en el vuelo', isNullable: false }
   ],
   relations: [
     { type: 'many-to-one', table: 'flights', description: 'Tarifa asociada a un vuelo', columns: [{local: 'flight_id', foreign: 'flight_id'}] },
@@ -1029,25 +1034,27 @@ export const flightFaresDataDictionary = {
     { name: 'PRIMARY', columns: ['flight_id', 'fare_class_id'], type: 'PRIMARY KEY', description: 'Índice primario compuesto' }
   ],
   exampleQueries: [
-    { description: 'Consultar tarifas y asientos disponibles para un vuelo', sql: `SELECT flight_id, fare_class_id, price, seats_available FROM flight_fares WHERE flight_id = 1001;` }
+    { description: 'Consultar tarifas de un vuelo', sql: `SELECT flight_id, fare_class_id, price, seats_available FROM flight_fares WHERE flight_id = 101;` }
   ]
 };
 
 // Diccionario de datos para loyalty_programs
 export const loyaltyProgramsDataDictionary = {
   columns: [
-    { name: 'program_id', type: 'INT', description: 'Identificador único del programa de lealtad', isPrimaryKey: true, isNullable: false },
-    { name: 'name', type: 'VARCHAR(50)', description: 'Nombre del programa de lealtad', isUnique: true, isNullable: false },
-    { name: 'tier', type: 'VARCHAR(20)', description: 'Nivel del programa (ej. Silver, Gold, Platinum)', isNullable: false },
+    { name: 'loyalty_id', type: 'INT', description: 'Identificador único del programa de lealtad', isPrimaryKey: true, isNullable: false },
+    { name: 'passenger_id', type: 'INT', description: 'ID del pasajero asociado', isForeignKey: true, isNullable: false, referencedTable: 'passengers', referencedColumn: 'passenger_id' },
+    { name: 'tier', type: "ENUM('Bronze','Silver','Gold','Platinum')", description: 'Nivel de lealtad', isNullable: false, defaultValue: "'Bronze'" },
     { name: 'points_balance', type: 'INT', description: 'Balance de puntos acumulados', isNullable: false, defaultValue: '0' }
   ],
-  relations: [],
+  relations: [
+    { type: 'many-to-one', table: 'passengers', description: 'Programa de lealtad asociado a un pasajero', columns: [{local: 'passenger_id', foreign: 'passenger_id'}] }
+  ],
   indexes: [
-    { name: 'PRIMARY', columns: ['program_id'], type: 'PRIMARY KEY', description: 'Índice primario para identificar programas únicos' },
-    { name: 'idx_name', columns: ['name'], type: 'UNIQUE', description: 'Índice único para nombres de programa' }
+    { name: 'PRIMARY', columns: ['loyalty_id'], type: 'PRIMARY KEY', description: 'Índice primario para identificar programas de lealtad únicos' },
+    { name: 'idx_passenger', columns: ['passenger_id'], type: 'UNIQUE', description: 'Índice único para asegurar un programa de lealtad por pasajero' }
   ],
   exampleQueries: [
-    { description: 'Listar todos los programas de lealtad', sql: `SELECT program_id, name, tier, points_balance FROM loyalty_programs;` }
+    { description: 'Consultar programa de lealtad de un pasajero', sql: `SELECT loyalty_id, tier, points_balance FROM loyalty_programs WHERE passenger_id = 1234;` }
   ]
 };
 

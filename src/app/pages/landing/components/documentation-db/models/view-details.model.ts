@@ -452,53 +452,54 @@ export const viewDetails: { [key: string]: ViewDetail } = {
       { name: 'points_balance', type: 'INT', description: 'Puntos acumulados', sourceTable: 'loyalty_programs', sourceColumn: 'points_balance' }
     ],
     sourceTables: [
-      { name: 'passengers', description: 'Información de los pasajeros' },
-      { name: 'loyalty_programs', joinType: 'INNER JOIN', joinCondition: 'passengers.passenger_id = loyalty_programs.passenger_id', description: 'Programa de lealtad de cada pasajero' }
+      { name: 'passengers', description: 'Datos de los pasajeros' },
+      { name: 'loyalty_programs', joinType: 'INNER JOIN', joinCondition: 'passengers.passenger_id = loyalty_programs.passenger_id', description: 'Programa de lealtad asociado' }
     ],
     useCases: [
-      'Mostrar puntos de lealtad en el perfil del usuario',
-      'Consultar puntos para canje de recompensas'
+      'Consulta de puntos de lealtad por pasajero',
+      'Visualización en el perfil del cliente',
+      'Reportes de fidelización'
     ],
+    performanceNotes: 'Vista simple, rápida para consultas frecuentes.',
     exampleQueries: [
-      { description: 'Consultar puntos de un pasajero', sql: "SELECT * FROM vw_loyalty_member_points WHERE passenger_id = 123;" }
+      { description: 'Obtener puntos de un pasajero', sql: "SELECT * FROM vw_loyalty_member_points WHERE passenger_id = 101;" }
     ]
   },
   vw_airport_traffic: {
     name: 'vw_airport_traffic',
-    description: 'Muestra el tráfico diario de vuelos por aeropuerto de origen.',
+    description: 'Muestra el número de vuelos que salen de cada aeropuerto durante el día actual.',
     columns: [
       { name: 'iata_code', type: 'CHAR(3)', description: 'Código IATA del aeropuerto', sourceTable: 'airports', sourceColumn: 'iata_code' },
-      { name: 'flights_today', type: 'INT', description: 'Cantidad de vuelos que salen hoy', sourceTable: 'COUNT', sourceColumn: 'COUNT(f.flight_id)' }
+      { name: 'flights_today', type: 'INT', description: 'Cantidad de vuelos programados para hoy', sourceTable: 'COUNT', sourceColumn: 'COUNT(f.flight_id)' }
     ],
     sourceTables: [
-      { name: 'airports', description: 'Información de los aeropuertos' },
-      { name: 'routes', joinType: 'INNER JOIN', joinCondition: 'airports.airport_id = routes.origin_id', description: 'Rutas de vuelo' },
+      { name: 'airports', description: 'Aeropuertos disponibles' },
       { name: 'flights', joinType: 'INNER JOIN', joinCondition: 'flights.route_id = routes.route_id', description: 'Vuelos programados' }
     ],
-    whereConditions: 'DATE(flights.departure_time) = CURDATE()',
     useCases: [
-      'Monitorear tráfico aeroportuario diario',
-      'Planificación de recursos aeroportuarios'
+      'Monitoreo de tráfico aeroportuario',
+      'Reportes operativos diarios'
     ],
+    performanceNotes: 'Vista agregada, requiere índices en fechas.',
     exampleQueries: [
-      { description: 'Ver tráfico de hoy', sql: "SELECT * FROM vw_airport_traffic ORDER BY flights_today DESC;" }
+      { description: 'Tráfico de vuelos hoy', sql: "SELECT * FROM vw_airport_traffic;" }
     ]
   },
   vw_daily_sales: {
     name: 'vw_daily_sales',
-    description: 'Muestra las ventas diarias totales de boletos.',
+    description: 'Presenta el total de ventas diarias agrupadas por fecha.',
     columns: [
       { name: 'sale_date', type: 'DATE', description: 'Fecha de la venta', sourceTable: 'payments', sourceColumn: 'payment_date' },
-      { name: 'daily_total', type: 'DECIMAL(12,2)', description: 'Total vendido en el día', sourceTable: 'SUM', sourceColumn: 'SUM(amount)' }
+      { name: 'daily_total', type: 'DECIMAL(12,2)', description: 'Total de ventas del día', sourceTable: 'SUM', sourceColumn: 'SUM(amount)' }
     ],
     sourceTables: [
-      { name: 'payments', description: 'Pagos realizados por reservas' }
+      { name: 'payments', description: 'Pagos realizados' }
     ],
-    whereConditions: "status='Completed'",
     useCases: [
       'Reportes de ventas diarias',
-      'Análisis de tendencias de ingresos'
+      'Análisis de ingresos por fecha'
     ],
+    performanceNotes: 'Vista agregada, rápida para fechas recientes.',
     exampleQueries: [
       { description: 'Ventas de la última semana', sql: "SELECT * FROM vw_daily_sales WHERE sale_date >= CURDATE() - INTERVAL 7 DAY;" }
     ]
@@ -508,21 +509,22 @@ export const viewDetails: { [key: string]: ViewDetail } = {
     description: 'Muestra la programación de la tripulación por vuelo con sus posiciones asignadas.',
     columns: [
       { name: 'flight_number', type: 'VARCHAR(10)', description: 'Número de vuelo', sourceTable: 'flights', sourceColumn: 'flight_number' },
-      { name: 'first_name', type: 'VARCHAR(50)', description: 'Nombre del miembro de la tripulación', sourceTable: 'staff', sourceColumn: 'first_name' },
-      { name: 'last_name', type: 'VARCHAR(50)', description: 'Apellido del miembro de la tripulación', sourceTable: 'staff', sourceColumn: 'last_name' },
-      { name: 'position', type: 'VARCHAR(20)', description: 'Posición asignada', sourceTable: 'crew_assignments', sourceColumn: 'position' }
+      { name: 'first_name', type: 'VARCHAR(50)', description: 'Nombre del tripulante', sourceTable: 'staff', sourceColumn: 'first_name' },
+      { name: 'last_name', type: 'VARCHAR(50)', description: 'Apellido del tripulante', sourceTable: 'staff', sourceColumn: 'last_name' },
+      { name: 'position', type: 'VARCHAR(50)', description: 'Posición asignada', sourceTable: 'crew_assignments', sourceColumn: 'position' }
     ],
     sourceTables: [
       { name: 'crew_assignments', description: 'Asignaciones de tripulación' },
       { name: 'flights', joinType: 'INNER JOIN', joinCondition: 'crew_assignments.flight_id = flights.flight_id', description: 'Vuelos programados' },
-      { name: 'staff', joinType: 'INNER JOIN', joinCondition: 'crew_assignments.staff_id = staff.staff_id', description: 'Información del personal' }
+      { name: 'staff', joinType: 'INNER JOIN', joinCondition: 'crew_assignments.staff_id = staff.staff_id', description: 'Datos del personal' }
     ],
     useCases: [
       'Planificación de tripulación',
       'Visualización de roles por vuelo'
     ],
+    performanceNotes: 'Vista de consulta frecuente, optimizada para JOINs.',
     exampleQueries: [
-      { description: 'Ver tripulación de un vuelo', sql: "SELECT * FROM vw_crew_schedule WHERE flight_number = 'SL5501';" }
+      { description: 'Tripulación de un vuelo', sql: "SELECT * FROM vw_crew_schedule WHERE flight_number = 'SL5501';" }
     ]
   },
   vw_flight_status_latest: {
@@ -530,19 +532,19 @@ export const viewDetails: { [key: string]: ViewDetail } = {
     description: 'Proporciona el estado actual de los próximos vuelos programados.',
     columns: [
       { name: 'flight_number', type: 'VARCHAR(10)', description: 'Número de vuelo', sourceTable: 'flights', sourceColumn: 'flight_number' },
-      { name: 'status', type: 'ENUM', description: 'Estado actual del vuelo', sourceTable: 'flights', sourceColumn: 'status' },
+      { name: 'status', type: 'ENUM', description: 'Estado actual', sourceTable: 'flights', sourceColumn: 'status' },
       { name: 'departure_time', type: 'DATETIME', description: 'Fecha y hora de salida', sourceTable: 'flights', sourceColumn: 'departure_time' }
     ],
     sourceTables: [
-      { name: 'flights', description: 'Información de vuelos programados' }
+      { name: 'flights', description: 'Vuelos programados' }
     ],
-    whereConditions: 'flights.departure_time >= NOW()',
     useCases: [
-      'Monitoreo de vuelos próximos',
-      'Pantallas de información en aeropuertos'
+      'Pantallas de información en aeropuerto',
+      'Seguimiento de vuelos en tiempo real'
     ],
+    performanceNotes: 'Vista ligera, ideal para dashboards.',
     exampleQueries: [
-      { description: 'Ver próximos vuelos', sql: "SELECT * FROM vw_flight_status_latest WHERE departure_time >= NOW();" }
+      { description: 'Estados de vuelos próximos', sql: "SELECT * FROM vw_flight_status_latest WHERE departure_time > NOW();" }
     ]
   },
   vw_seat_availability: {
@@ -550,7 +552,7 @@ export const viewDetails: { [key: string]: ViewDetail } = {
     description: 'Muestra los asientos disponibles por vuelo y clase de tarifa.',
     columns: [
       { name: 'flight_number', type: 'VARCHAR(10)', description: 'Número de vuelo', sourceTable: 'flights', sourceColumn: 'flight_number' },
-      { name: 'fare_class', type: 'VARCHAR(10)', description: 'Clase de tarifa', sourceTable: 'fare_classes', sourceColumn: 'code' },
+      { name: 'fare_class', type: 'VARCHAR(50)', description: 'Clase de tarifa', sourceTable: 'fare_classes', sourceColumn: 'code' },
       { name: 'seats_available', type: 'INT', description: 'Cantidad de asientos disponibles', sourceTable: 'seat_inventory', sourceColumn: 'seats_total - seats_sold' }
     ],
     sourceTables: [
@@ -560,31 +562,34 @@ export const viewDetails: { [key: string]: ViewDetail } = {
     ],
     useCases: [
       'Consulta de disponibilidad en el sistema de reservas',
-      'Visualización de asientos por clase'
+      'Alertas de baja disponibilidad'
     ],
+    performanceNotes: 'Vista rápida, requiere actualización frecuente.',
     exampleQueries: [
-      { description: 'Ver asientos disponibles para un vuelo', sql: "SELECT * FROM vw_seat_availability WHERE flight_number = 'SL5501';" }
+      { description: 'Disponibilidad para un vuelo', sql: "SELECT * FROM vw_seat_availability WHERE flight_number = 'SL5501';" }
     ]
   },
   vw_booking_summary: {
     name: 'vw_booking_summary',
     description: 'Presenta un resumen de las reservas con su estado, monto total y número de pasajeros.',
     columns: [
-      { name: 'booking_code', type: 'VARCHAR(8)', description: 'Código de la reserva', sourceTable: 'bookings', sourceColumn: 'booking_code' },
-      { name: 'status', type: 'VARCHAR(20)', description: 'Estado de la reserva', sourceTable: 'bookings', sourceColumn: 'status' },
-      { name: 'total_amount', type: 'DECIMAL(10,2)', description: 'Monto total de la reserva', sourceTable: 'bookings', sourceColumn: 'total_amount' },
-      { name: 'pax_count', type: 'INT', description: 'Cantidad de pasajeros en la reserva', sourceTable: 'COUNT', sourceColumn: 'COUNT(bp.passenger_id)' }
+      { name: 'booking_code', type: 'VARCHAR(20)', description: 'Código de reserva', sourceTable: 'bookings', sourceColumn: 'booking_code' },
+      { name: 'status', type: 'ENUM', description: 'Estado de la reserva', sourceTable: 'bookings', sourceColumn: 'status' },
+      { name: 'total_amount', type: 'DECIMAL(12,2)', description: 'Monto total de la reserva', sourceTable: 'bookings', sourceColumn: 'total_amount' },
+      { name: 'pax_count', type: 'INT', description: 'Cantidad de pasajeros', sourceTable: 'COUNT', sourceColumn: 'COUNT(bp.passenger_id)' }
     ],
     sourceTables: [
-      { name: 'bookings', description: 'Reservas de vuelos' },
+      { name: 'bookings', description: 'Reservas registradas' },
       { name: 'booking_passengers', joinType: 'INNER JOIN', joinCondition: 'bookings.booking_id = booking_passengers.booking_id', description: 'Pasajeros asociados a la reserva' }
     ],
     useCases: [
-      'Resumen de reservas para reportes',
-      'Visualización rápida de ocupación y ventas'
+      'Reportes de reservas',
+      'Panel de control de ventas',
+      'Análisis de ocupación por reserva'
     ],
+    performanceNotes: 'Vista agregada, útil para dashboards.',
     exampleQueries: [
-      { description: 'Ver resumen de reservas', sql: "SELECT * FROM vw_booking_summary WHERE status = 'Confirmed';" }
+      { description: 'Resumen de reservas confirmadas', sql: "SELECT * FROM vw_booking_summary WHERE status = 'Confirmed';" }
     ]
   }
 };

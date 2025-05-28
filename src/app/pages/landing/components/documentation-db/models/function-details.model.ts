@@ -400,5 +400,49 @@ export const functionDetails: { [key: string]: FunctionDetail } = {
         result: "+-------------+-------------+-------------+\n| dollars     | euros       | pounds      |\n+-------------+-------------+-------------+\n| $1,234.56   | €1,234.56   | £1,234.56   |\n+-------------+-------------+-------------+"
       }
     ]
+  },
+  
+  fn_loyalty_tier: {
+    name: 'fn_loyalty_tier',
+    description: 'Determina el nivel de lealtad de un miembro según la cantidad de puntos acumulados. Asigna un nivel (Bronze, Silver, Gold, Platinum) en función de los umbrales de puntos.',
+    parameters: [
+      {
+        name: 'points',
+        type: 'INT',
+        description: 'Cantidad de puntos acumulados por el miembro.'
+      }
+    ],
+    returnType: 'VARCHAR(10)',
+    returnTypeDescription: 'Nivel de lealtad asignado: Bronze, Silver, Gold o Platinum.',
+    relatedTables: [
+      {
+        tableName: 'loyalty_members',
+        relationship: 'Consulta',
+        description: 'Se utiliza para obtener el saldo de puntos de cada miembro.'
+      },
+      {
+        tableName: 'loyalty_programs',
+        relationship: 'Actualización',
+        description: 'Se actualiza el nivel de lealtad del miembro en base al resultado de la función.'
+      }
+    ],
+    implementationNotes: 'La función utiliza una estructura CASE para asignar el nivel de lealtad según los umbrales de puntos: Platinum (>=75000), Gold (>=40000), Silver (>=15000), Bronze (<15000). Es determinística y puede usarse en triggers o actualizaciones masivas.',
+    useCases: [
+      'Actualizar automáticamente el nivel de lealtad al modificar el saldo de puntos.',
+      'Mostrar el nivel de lealtad en el perfil del usuario.',
+      'Filtrar o segmentar clientes por nivel de lealtad en reportes.',
+      'Aplicar beneficios o promociones según el nivel de lealtad.'
+    ],
+    exampleUsages: [
+      {
+        description: 'Obtener el nivel de lealtad para un miembro con 42,000 puntos.',
+        sql: "SELECT fn_loyalty_tier(42000) AS loyalty_tier;",
+        result: "+--------------+\n| loyalty_tier |\n+--------------+\n| Gold         |\n+--------------+"
+      },
+      {
+        description: 'Actualizar el nivel de todos los miembros en la tabla loyalty_programs.',
+        sql: "UPDATE loyalty_programs SET tier = fn_loyalty_tier(points_balance);"
+      }
+    ]
   }
 };
