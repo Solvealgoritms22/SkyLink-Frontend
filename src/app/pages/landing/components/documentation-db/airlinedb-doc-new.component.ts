@@ -28,7 +28,6 @@ import { RippleModule } from 'primeng/ripple';
 import { ScrollPanelModule } from 'primeng/scrollpanel';
 import { ToastModule } from 'primeng/toast';
 
-import { CodeCardComponent } from './code-card.component';
 import { TableSectionComponent } from './sections/table-section.component';
 import { FunctionSectionComponent } from './sections/function-section.component';
 import { ProcedureSectionComponent } from './sections/procedure-section.component';
@@ -80,7 +79,7 @@ import {
   ],
   providers: [MessageService],
   template: `
-    <div class="documentation-dark-theme">
+    <div>
       <div class="flex h-screen font-sans bg-surface-900 text-slate-100">
         <!-- Botón hamburguesa / atajo Ctrl+B -->
         <button pButton type="button" title="Menú (Ctrl+B)"
@@ -94,9 +93,8 @@ import {
         <p-sidebar [(visible)]="sidebarVisible"
                    [modal]="!isDesktop"
                    [dismissible]="false"
-                   [showCloseIcon]="true"              
-                   [baseZIndex]="1000"
-                   styleClass="dark sidebar-dark-theme">
+                   [showCloseIcon]="true"
+                   [baseZIndex]="1000">
           <ng-template pTemplate="content">
             <div class="p-3 h-full flex flex-col">
               <header class="flex items-center gap-3 mb-6 select-none">
@@ -105,7 +103,7 @@ import {
               </header>
               <p-scrollPanel [ngStyle]="{'width': '100%', 'flex': '1 1 auto'}">
                 <p-panelMenu [model]="menuItems" [style]="{'border':'none','width':'100%'}"
-                             styleClass="sidebar-menu"></p-panelMenu>
+                             ></p-panelMenu>
               </p-scrollPanel>
             </div>
           </ng-template>
@@ -600,18 +598,18 @@ import {
       <p-toast position="bottom-center"></p-toast>
     </div>
   `,
-  styleUrls: ['./documentation-dark-theme.scss'],
   styles: [
     `:host ::ng-deep pre[class*='language-'],
     :host ::ng-deep code[class*='language-']{background:transparent!important;box-shadow:none!important;}
-    :host ::ng-deep .sidebar-dark-theme{@apply bg-slate-800 text-slate-100 shadow-xl;}
-    :host ::ng-deep .sidebar-dark-theme .p-sidebar-header{@apply bg-slate-900 border-b border-slate-700;}
-    :host ::ng-deep .sidebar-menu .p-panelmenu-header>a{@apply bg-transparent text-slate-200 rounded-lg px-4 py-3 font-medium transition;}
-    :host ::ng-deep .sidebar-menu .p-panelmenu-header:not(.p-highlight):not(.p-disabled)>a:hover{@apply bg-slate-700 text-white translate-x-1;}
-    :host ::ng-deep .sidebar-menu .p-panelmenu-header.p-highlight>a{@apply bg-blue-600/20 text-blue-400;}
-    :host ::ng-deep .sidebar-menu .p-panelmenu-content .p-menuitem-link{@apply px-4 py-2 text-slate-300 rounded-md transition;}
-    :host ::ng-deep .sidebar-menu .p-panelmenu-content .p-menuitem-link:hover{@apply bg-slate-700 text-white translate-x-1;}
-    :host ::ng-deep .p-scrollpanel-bar{@apply bg-slate-600 rounded-xl;}
+    :host ::ng-deep .p-drawer {background: var(--bg-surface-900); border: var(--border-b); border-color: var(--border-slate-700);}
+    :host ::ng-deep .p-drawer-header {background: var(--bg-surface-900); border-bottom: var(--border-b); border-color: var(--border-slate-700);}
+    :host ::ng-deep .p-drawer-content {background: var(--bg-surface-900); border: var(--border-b); border-color: var(--border-slate-700);}
+    :host ::ng-deep .p-scrollpanel {background: var(--bg-surface-900); border: var(--border-b); border-color: var(--border-slate-700);}
+    :host ::ng-deep .p-scrollpanel-content-container {background: var(--bg-surface-900); border: var(--border-b); border-color: var(--border-slate-700);}
+    :host ::ng-deep .p-scrollpanel-content {background: var(--bg-surface-900); border: var(--border-b); border-color: var(--border-slate-700);}
+    :host ::ng-deep .sidebar-menu {background: var(--bg-surface-900); border: var(--border-b); border-color: var(--border-slate-700);}
+    :host ::ng-deep .p-panelmenu {background: var(--bg-surface-900); border: var(--border-b); border-color: var(--border-slate-700);}
+    :host ::ng-deep .p-panelmenu-content {background: var(--bg-surface-900); border: var(--border-b); border-color: var(--border-slate-700);}
   `],
 })
 export class AirlineDocComponent implements OnInit, AfterViewInit {

@@ -228,163 +228,131 @@ export const procedureDetails: { [key: string]: ProcedureDetail } = {
   },
   sp_check_in_passenger: {
     name: 'sp_check_in_passenger',
-    description: 'Registra el check-in de un pasajero para un ticket específico, inicializando el conteo de equipaje en cero.',
+    description: 'Registra el check-in de un pasajero para un vuelo específico.',
     parameters: [
-      { name: 'p_ticket_id', type: 'INT', direction: 'IN', description: 'ID del ticket del pasajero a registrar' }
+      { name: 'p_ticket_id', type: 'INT', direction: 'IN', description: 'ID del ticket del pasajero' }
     ],
     tableOperations: [
-      { tableName: 'checkins', operation: 'INSERT', description: 'Crea un registro de check-in para el ticket con equipaje inicial en 0' }
+      { tableName: 'checkins', operation: 'INSERT', description: 'Crea un registro de check-in para el ticket' }
     ],
     transactionInfo: { usesTransaction: false },
     errorHandling: { handlesErrors: false },
-    flowDiagram: { steps: [
-      { step: 1, description: 'Insertar registro de check-in para el ticket' }
-    ] },
     exampleUsages: [
-      { description: 'Registrar check-in para el ticket 555', sql: 'CALL sp_check_in_passenger(555);', result: 'Registro insertado en checkins para ticket_id=555' }
+      { description: 'Check-in para el ticket 9876', sql: 'CALL sp_check_in_passenger(9876);' }
     ]
   },
   sp_cancel_booking: {
     name: 'sp_cancel_booking',
-    description: 'Cancela una reserva existente, actualizando su estado y registrando el cambio en el historial.',
+    description: 'Cancela una reserva existente y actualiza el historial.',
     parameters: [
-      { name: 'p_booking_code', type: 'CHAR(6)', direction: 'IN', description: 'Código de la reserva a cancelar' }
+      { name: 'p_booking_code', type: 'VARCHAR(8)', direction: 'IN', description: 'Código de la reserva a cancelar' }
     ],
     tableOperations: [
-      { tableName: 'bookings', operation: 'UPDATE', description: 'Actualiza el estado de la reserva a "Cancelled"', condition: 'booking_code = p_booking_code' },
+      { tableName: 'bookings', operation: 'UPDATE', description: 'Actualiza el estado de la reserva a "Cancelled"' },
       { tableName: 'reservations_history', operation: 'INSERT', description: 'Registra el cambio de estado en el historial' }
     ],
-    transactionInfo: { usesTransaction: true, isolationLevel: 'READ COMMITTED', rollbackConditions: [ 'Reserva no encontrada', 'Error al actualizar estado', 'Error al insertar en historial' ] },
-    errorHandling: { handlesErrors: true, errorCodes: [ { code: '45004', description: 'Reserva no encontrada' } ], strategy: 'Rollback si la reserva no existe o falla la actualización' },
-    flowDiagram: { steps: [
-      { step: 1, description: 'Verificar existencia de la reserva' },
-      { step: 2, description: 'Actualizar estado a "Cancelled"' },
-      { step: 3, description: 'Registrar cambio en historial' }
-    ] },
+    transactionInfo: { usesTransaction: true, isolationLevel: 'READ COMMITTED' },
+    errorHandling: { handlesErrors: true },
     exampleUsages: [
-      { description: 'Cancelar reserva con código SL7X45Z', sql: "CALL sp_cancel_booking('SL7X45Z');", result: 'Reserva SL7X45Z cancelada y registrada en historial' }
+      { description: 'Cancelar la reserva con código SL7X45Z', sql: "CALL sp_cancel_booking('SL7X45Z');" }
     ]
   },
   sp_assign_crew: {
     name: 'sp_assign_crew',
-    description: 'Asigna un miembro de tripulación a un vuelo en una posición específica, evitando duplicados.',
+    description: 'Asigna una tripulación a un vuelo específico.',
     parameters: [
       { name: 'p_flight_id', type: 'INT', direction: 'IN', description: 'ID del vuelo' },
-      { name: 'p_staff_id', type: 'INT', direction: 'IN', description: 'ID del miembro de tripulación' },
-      { name: 'p_position', type: 'VARCHAR(20)', direction: 'IN', description: 'Posición asignada (ej: Piloto, Copiloto, Asistente)' }
+      { name: 'p_staff_id', type: 'INT', direction: 'IN', description: 'ID del empleado' },
+      { name: 'p_position', type: 'VARCHAR(20)', direction: 'IN', description: 'Posición asignada' }
     ],
     tableOperations: [
-      { tableName: 'crew_assignments', operation: 'INSERT', description: 'Asigna el staff al vuelo y posición, ignorando duplicados' }
+      { tableName: 'crew_assignments', operation: 'INSERT', description: 'Asigna el empleado al vuelo en la posición indicada' }
     ],
     transactionInfo: { usesTransaction: false },
     errorHandling: { handlesErrors: false },
-    flowDiagram: { steps: [
-      { step: 1, description: 'Insertar asignación de tripulación si no existe' }
-    ] },
     exampleUsages: [
-      { description: 'Asignar staff 42 como Piloto al vuelo 101', sql: "CALL sp_assign_crew(101, 42, 'Piloto');", result: 'Asignación insertada o ignorada si ya existía' }
+      { description: 'Asignar tripulación', sql: 'CALL sp_assign_crew(123, 45, "Captain");' }
     ]
   },
   sp_add_payment: {
     name: 'sp_add_payment',
-    description: 'Registra un pago para una reserva, actualiza el monto total y marca el pago como completado.',
+    description: 'Registra un pago para una reserva y actualiza el estado de la misma.',
     parameters: [
-      { name: 'p_booking_code', type: 'CHAR(6)', direction: 'IN', description: 'Código de la reserva a pagar' },
+      { name: 'p_booking_code', type: 'CHAR(6)', direction: 'IN', description: 'Código de la reserva' },
       { name: 'p_amount', type: 'DECIMAL(10,2)', direction: 'IN', description: 'Monto del pago' },
-      { name: 'p_method', type: 'VARCHAR(20)', direction: 'IN', description: 'Método de pago (ej: Tarjeta, Efectivo)' }
+      { name: 'p_method', type: 'VARCHAR(20)', direction: 'IN', description: 'Método de pago' }
     ],
     tableOperations: [
-      { tableName: 'bookings', operation: 'SELECT', description: 'Obtiene el ID de la reserva' },
-      { tableName: 'payments', operation: 'INSERT', description: 'Registra el pago como completado' },
+      { tableName: 'payments', operation: 'INSERT', description: 'Registra el pago en la tabla de pagos' },
       { tableName: 'bookings', operation: 'UPDATE', description: 'Actualiza el monto total de la reserva' }
     ],
-    transactionInfo: { usesTransaction: true, isolationLevel: 'READ COMMITTED', rollbackConditions: [ 'Reserva no encontrada', 'Error al insertar pago' ] },
-    errorHandling: { handlesErrors: true, errorCodes: [ { code: '45005', description: 'Reserva no encontrada' } ], strategy: 'Rollback si la reserva no existe o falla el pago' },
-    flowDiagram: { steps: [
-      { step: 1, description: 'Obtener ID de la reserva' },
-      { step: 2, description: 'Insertar pago' },
-      { step: 3, description: 'Actualizar monto total' }
-    ] },
+    transactionInfo: { usesTransaction: true, isolationLevel: 'READ COMMITTED' },
+    errorHandling: { handlesErrors: true },
     exampleUsages: [
-      { description: 'Registrar pago de $1000 en efectivo para reserva SL7X45Z', sql: "CALL sp_add_payment('SL7X45Z', 1000, 'Efectivo');", result: 'Pago registrado y monto actualizado' }
+      { description: 'Registrar pago', sql: "CALL sp_add_payment('SL7X45Z', 100.00, 'CreditCard');" }
     ]
   },
   sp_upgrade_seat: {
     name: 'sp_upgrade_seat',
-    description: 'Actualiza la clase de tarifa de un ticket para reflejar un upgrade de asiento.',
+    description: 'Actualiza la clase de tarifa de un asiento en un ticket.',
     parameters: [
-      { name: 'p_ticket_id', type: 'INT', direction: 'IN', description: 'ID del ticket a actualizar' },
-      { name: 'p_new_fare_class_id', type: 'INT', direction: 'IN', description: 'Nuevo ID de clase de tarifa' }
+      { name: 'p_ticket_id', type: 'INT', direction: 'IN', description: 'ID del ticket' },
+      { name: 'p_new_fare_class_id', type: 'INT', direction: 'IN', description: 'Nueva clase de tarifa' }
     ],
     tableOperations: [
       { tableName: 'tickets', operation: 'UPDATE', description: 'Actualiza la clase de tarifa del ticket' }
     ],
     transactionInfo: { usesTransaction: false },
     errorHandling: { handlesErrors: false },
-    flowDiagram: { steps: [
-      { step: 1, description: 'Actualizar clase de tarifa del ticket' }
-    ] },
     exampleUsages: [
-      { description: 'Actualizar ticket 555 a clase Business', sql: 'CALL sp_upgrade_seat(555, 2);', result: 'Clase de tarifa actualizada para ticket 555' }
+      { description: 'Actualizar clase de ticket', sql: 'CALL sp_upgrade_seat(555, 2);' }
     ]
   },
   sp_create_flight: {
     name: 'sp_create_flight',
-    description: 'Crea un nuevo vuelo con los datos de ruta, aeronave, horario y secuencia, generando el número de vuelo.',
+    description: 'Crea un nuevo vuelo programado en el sistema.',
     parameters: [
       { name: 'p_route_id', type: 'INT', direction: 'IN', description: 'ID de la ruta' },
       { name: 'p_aircraft_id', type: 'INT', direction: 'IN', description: 'ID de la aeronave' },
       { name: 'p_departure', type: 'DATETIME', direction: 'IN', description: 'Fecha y hora de salida' },
       { name: 'p_arrival', type: 'DATETIME', direction: 'IN', description: 'Fecha y hora de llegada' },
-      { name: 'p_seq', type: 'INT', direction: 'IN', description: 'Secuencia para el número de vuelo' }
+      { name: 'p_seq', type: 'INT', direction: 'IN', description: 'Número secuencial del vuelo' }
     ],
     tableOperations: [
-      { tableName: 'airlines', operation: 'SELECT', description: 'Obtiene el código IATA de la aerolínea' },
-      { tableName: 'flights', operation: 'INSERT', description: 'Crea el registro del vuelo con número generado' }
+      { tableName: 'flights', operation: 'INSERT', description: 'Crea el registro del vuelo programado' }
     ],
-    transactionInfo: { usesTransaction: true, isolationLevel: 'READ COMMITTED', rollbackConditions: [ 'Error al insertar vuelo' ] },
-    errorHandling: { handlesErrors: true, errorCodes: [ { code: '45006', description: 'Error al crear vuelo' } ], strategy: 'Rollback si falla la inserción' },
-    flowDiagram: { steps: [
-      { step: 1, description: 'Obtener código IATA de aerolínea' },
-      { step: 2, description: 'Generar número de vuelo' },
-      { step: 3, description: 'Insertar vuelo' }
-    ] },
+    transactionInfo: { usesTransaction: true, isolationLevel: 'READ COMMITTED' },
+    errorHandling: { handlesErrors: true },
     exampleUsages: [
-      { description: 'Crear vuelo para ruta 10, aeronave 5, salida 2025-06-01 08:00, llegada 2025-06-01 12:00, secuencia 3', sql: "CALL sp_create_flight(10, 5, '2025-06-01 08:00', '2025-06-01 12:00', 3);", result: 'Vuelo creado con número generado' }
+      { description: 'Crear vuelo', sql: 'CALL sp_create_flight(1, 2, "2025-07-01 10:00:00", "2025-07-01 14:00:00", 101);' }
     ]
   },
   sp_complete_maintenance: {
     name: 'sp_complete_maintenance',
-    description: 'Marca como completada una tarea de mantenimiento en los registros.',
+    description: 'Marca un registro de mantenimiento como completado.',
     parameters: [
-      { name: 'p_log_id', type: 'INT', direction: 'IN', description: 'ID del registro de mantenimiento a completar' }
+      { name: 'p_log_id', type: 'INT', direction: 'IN', description: 'ID del registro de mantenimiento' }
     ],
     tableOperations: [
-      { tableName: 'maintenance_logs', operation: 'UPDATE', description: 'Actualiza el estado del registro a "Completed"' }
+      { tableName: 'maintenance_logs', operation: 'UPDATE', description: 'Actualiza el estado del mantenimiento a "Completed"' }
     ],
     transactionInfo: { usesTransaction: false },
     errorHandling: { handlesErrors: false },
-    flowDiagram: { steps: [
-      { step: 1, description: 'Actualizar estado del registro de mantenimiento' }
-    ] },
     exampleUsages: [
-      { description: 'Completar mantenimiento con log_id 77', sql: 'CALL sp_complete_maintenance(77);', result: 'Registro actualizado a Completed' }
+      { description: 'Completar mantenimiento', sql: 'CALL sp_complete_maintenance(123);' }
     ]
   },
   sp_generate_daily_report: {
     name: 'sp_generate_daily_report',
-    description: 'Genera un reporte diario de ingresos por vuelo, sumando el total pagado en tickets para el día actual.',
+    description: 'Genera un reporte diario de ingresos por vuelo.',
     parameters: [],
     tableOperations: [
-      { tableName: 'tickets', operation: 'SELECT', description: 'Consulta los tickets del día actual y suma ingresos por vuelo' }
+      { tableName: 'tickets', operation: 'SELECT', description: 'Consulta los ingresos diarios por vuelo' }
     ],
     transactionInfo: { usesTransaction: false },
     errorHandling: { handlesErrors: false },
-    flowDiagram: { steps: [
-      { step: 1, description: 'Consultar y agrupar ingresos por vuelo del día' }
-    ] },
     exampleUsages: [
-      { description: 'Generar reporte diario', sql: 'CALL sp_generate_daily_report();', result: 'Lista de vuelos y sus ingresos del día' }
+      { description: 'Generar reporte diario', sql: 'CALL sp_generate_daily_report();' }
     ]
   }
 };
