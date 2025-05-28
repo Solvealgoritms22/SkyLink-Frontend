@@ -80,6 +80,7 @@ import {
   providers: [MessageService],
   template: `
     <div>
+    <div>
       <div class="flex h-screen font-sans bg-surface-900 text-slate-100">
         <!-- Botón hamburguesa / atajo Ctrl+B -->
         <button pButton type="button" title="Menú (Ctrl+B)"
