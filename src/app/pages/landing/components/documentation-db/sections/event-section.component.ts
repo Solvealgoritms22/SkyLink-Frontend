@@ -40,7 +40,7 @@ interface EventExecutionHistory {
         <p-tabPanel header="Detalles">
           <!-- Programación -->
           <div class="mb-6">
-            <h4 class="text-xl font-medium text-slate-200 mb-3">Programación:</h4>
+            <h4 class="text-xl font-medium text-secondary-400 mb-3">Programación:</h4>
             <div class="bg-surface-700 p-4 rounded-lg">
               <div class="grid grid-cols-1 md:grid-cols-2 gap-4">                <div>
                   <p class="text-md font-medium text-gray-300">Tipo:</p>
@@ -51,7 +51,7 @@ interface EventExecutionHistory {
                 </div>
                 <div>
                   <p class="text-md font-medium text-gray-300">Expresión de Programación:</p>
-                  <p class="text-lg font-mono text-slate-200">{{ eventSchedule.schedule }}</p>
+                  <p class="text-lg font-mono">{{ eventSchedule.schedule }}</p>
                 </div>
                 <div *ngIf="eventSchedule.startDate">
                   <p class="text-md font-medium text-gray-300">Fecha de Inicio:</p>
@@ -68,13 +68,13 @@ interface EventExecutionHistory {
             </div>
           </div>          <!-- Funcionalidad -->
           <div class="mb-6">
-            <h4 class="text-xl font-medium text-slate-200 mb-3">Funcionalidad:</h4>
+            <h4 class="text-xl font-medium text-secondary-400 mb-3">Funcionalidad:</h4>
             <div class="bg-surface-700 p-4 rounded-lg">
               <p class="text-slate-300 whitespace-pre-line">{{ eventFunctionality }}</p>
             </div>
           </div>          <!-- Tablas Afectadas -->
           <div *ngIf="eventAffectedTables && eventAffectedTables.length > 0" class="mb-6">
-            <h4 class="text-xl font-medium text-slate-200 mb-3">Tablas Afectadas:</h4>
+            <h4 class="text-xl font-medium text-secondary-400 mb-3">Tablas Afectadas:</h4>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div *ngFor="let table of eventAffectedTables" class="bg-surface-700 p-4 rounded-lg border-l-4"
                 [ngClass]="{
@@ -84,7 +84,7 @@ interface EventExecutionHistory {
                   'border-red-500': table.operation === 'DELETE'
                 }">
                 <div class="flex items-center gap-2 mb-2">
-                  <span class="font-semibold text-slate-200">{{ table.name }}</span>
+                  <span class="font-semibold">{{ table.name }}</span>
                   <p-chip 
                     [label]="table.operation" 
                     [styleClass]="table.operation === 'INSERT' ? 'bg-green-600' : 
@@ -97,13 +97,13 @@ interface EventExecutionHistory {
             </div>
           </div>          <!-- Requisitos de Preservación -->
           <div *ngIf="eventPreservationRequirements" class="mb-6">
-            <h4 class="text-xl font-medium text-slate-200 mb-3">Requisitos de Preservación:</h4>
+            <h4 class="text-xl font-medium text-secondary-400 mb-3">Requisitos de Preservación:</h4>
             <div class="bg-surface-700 p-4 rounded-lg">
               <p class="text-slate-300 whitespace-pre-line">{{ eventPreservationRequirements }}</p>
             </div>
           </div>          <!-- Notas de Mantenimiento -->
           <div *ngIf="eventMaintenanceNotes" class="mb-6">
-            <h4 class="text-xl font-medium text-slate-200 mb-3">Notas de Mantenimiento:</h4>
+            <h4 class="text-xl font-medium text-secondary-400 mb-3">Notas de Mantenimiento:</h4>
             <div class="bg-surface-700 p-4 rounded-lg">
               <p class="text-slate-300 whitespace-pre-line">{{ eventMaintenanceNotes }}</p>
             </div>
@@ -119,7 +119,7 @@ interface EventExecutionHistory {
             <ng-template pTemplate="content" let-event>
               <div class="bg-surface-700 p-4 rounded-lg mb-3">
                 <div class="flex items-center justify-between mb-2">
-                  <p class="font-medium text-slate-200">{{ event.date }}</p>
+                  <p class="font-medium">{{ event.date }}</p>
                   <p-chip 
                     [label]="event.status" 
                     [styleClass]="event.status === 'SUCCESS' ? 'bg-green-600' : 
@@ -134,9 +134,9 @@ interface EventExecutionHistory {
               <div class="flex items-center justify-end">
                 <span class="text-xs px-2 py-1 rounded-full"
                      [ngClass]="{
-                       'bg-green-500/30 text-green-400': event.status === 'SUCCESS',
-                       'bg-red-500/30 text-red-400': event.status === 'FAILED',
-                       'bg-gray-500/30 text-gray-400': event.status === 'SKIPPED'
+                       'bg-green-900/30 text-green-400': event.status === 'SUCCESS',
+                       'bg-red-900/30 text-red-400': event.status === 'FAILED',
+                       'bg-gray-900/30 text-gray-400': event.status === 'SKIPPED'
                      }">
                   {{ event.status === 'SUCCESS' ? '✓' : event.status === 'FAILED' ? '✗' : '-' }}
                 </span>
@@ -167,10 +167,6 @@ interface EventExecutionHistory {
     :host ::ng-deep .p-timeline-event-content {
       flex: 1;
     }
-    :host ::ng-deep .p-tabpanels {
-      background: var(--surface-800);
-      border-radius: 0.5rem;
-    } 
   `]
 })
 export class EventSectionComponent {

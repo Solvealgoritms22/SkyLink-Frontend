@@ -38,7 +38,8 @@ interface SecurityAuditPolicy {
   imports: [CommonModule, CodeCardComponent, TabViewModule, DividerModule, TooltipModule, CardModule, ChipModule, AccordionModule],
   template: `
     <section class="mb-12 bg-surface-800 rounded-xl p-6 shadow-lg">      <h2 class="text-primary text-2xl font-semibold mb-4">
-        Seguridad
+        Seguridad:
+        <span class="text-sm px-2 py-1 rounded-md font-mono bg-red-400/10 text-red-400">{{ getSecurityName }}</span>
       </h2>
       <p class="text-slate-300 mb-4">{{ securityDescription }}</p>
 
@@ -46,10 +47,10 @@ interface SecurityAuditPolicy {
         <!-- Información general -->
         <p-tabPanel header="Información General">          <!-- Usuarios -->
           <div *ngIf="securityUsers && securityUsers.length > 0" class="mb-6">
-            <h4 class="text-xl font-medium text-slate-200 mb-3">Usuarios del Sistema:</h4>
+            <h4 class="text-xl font-medium text-secondary-400 mb-3">Usuarios del Sistema:</h4>
             <div *ngFor="let user of securityUsers" class="mb-3 bg-surface-700 p-4 rounded-lg">
               <div class="flex flex-col md:flex-row md:items-center justify-between gap-2 mb-2">
-                <h5 class="text-lg font-semibold font-mono text-slate-300">{{ user.username }}</h5>
+                <h5 class="text-lg font-semibold font-mono">{{ user.username }}</h5>
                 <div class="flex flex-wrap gap-1">
                   <p-chip *ngFor="let role of user.roles" [label]="role" styleClass="bg-blue-600 text-xs"></p-chip>
                 </div>
@@ -59,20 +60,20 @@ interface SecurityAuditPolicy {
           </div>
 
           <!-- Roles y Permisos -->          <div *ngIf="securityRoles && securityRoles.length > 0" class="mb-6">
-            <h4 class="text-xl font-medium text-slate-200 mb-3">Roles y Permisos:</h4>
+            <h4 class="text-xl font-medium text-secondary-400 mb-3">Roles y Permisos:</h4>
             <p-accordion>
               <p-accordionTab *ngFor="let role of securityRoles" [header]="role.name">
-                <p class="text-slate-600 mb-3">{{ role.description }}</p>
+                <p class="text-slate-300 mb-3">{{ role.description }}</p>
                 <div class="overflow-x-auto">
                   <table class="w-full border-collapse table-auto">
-                    <thead class="bg-surface-600 text-slate-200">
+                    <thead class="bg-surface-600">
                       <tr>
                         <th class="border border-surface-500 p-2 text-left">Tabla/Objeto</th>
                         <th class="border border-surface-500 p-2 text-left">Privilegios</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr *ngFor="let perm of role.permissions" class="hover:bg-surface-200">
+                      <tr *ngFor="let perm of role.permissions" class="hover:bg-surface-600">
                         <td class="border border-surface-500 p-2 font-mono">{{ perm.table }}</td>
                         <td class="border border-surface-500 p-2">
                           <div class="flex flex-wrap gap-1">
@@ -95,7 +96,7 @@ interface SecurityAuditPolicy {
             </p-accordion>
           </div>          <!-- Políticas de Contraseñas -->
           <div *ngIf="securityPasswordPolicy && securityPasswordPolicy.length > 0" class="mb-6">
-            <h4 class="text-xl font-medium text-slate-200 mb-3">Política de Contraseñas:</h4>
+            <h4 class="text-xl font-medium text-secondary-400 mb-3">Política de Contraseñas:</h4>
             <div class="bg-surface-700 p-4 rounded-lg">
               <ul class="list-disc list-inside pl-4">
                 <li *ngFor="let policy of securityPasswordPolicy" class="mb-2 text-slate-300">{{ policy }}</li>
@@ -103,9 +104,9 @@ interface SecurityAuditPolicy {
             </div>
           </div>          <!-- Auditoría -->
           <div *ngIf="securityAuditPolicies && securityAuditPolicies.length > 0" class="mb-6">
-            <h4 class="text-xl font-medium text-slate-200 mb-3">Políticas de Auditoría:</h4>
+            <h4 class="text-xl font-medium text-secondary-400 mb-3">Políticas de Auditoría:</h4>
             <div *ngFor="let policy of securityAuditPolicies" class="mb-3 bg-surface-700 p-4 rounded-lg">
-              <h5 class="text-lg font-semibold mb-2 text-slate-200">{{ policy.name }}</h5>
+              <h5 class="text-lg font-semibold mb-2">{{ policy.name }}</h5>
               <p class="text-sm text-slate-300 mb-2">{{ policy.description }}</p>
               <div class="mb-2">
                 <p class="text-md font-medium text-gray-300">Tablas Auditadas:</p>
@@ -124,7 +125,7 @@ interface SecurityAuditPolicy {
 
           <!-- Mejores Prácticas de Seguridad -->
           <div *ngIf="securityBestPractices && securityBestPractices.length > 0" class="mb-6">
-            <h4 class="text-xl font-medium text-slate-200 mb-3">Mejores Prácticas de Seguridad:</h4>
+            <h4 class="text-xl font-medium text-secondary-400 mb-3">Mejores Prácticas de Seguridad:</h4>
             <div class="bg-surface-700 p-4 rounded-lg">
               <ul class="list-disc list-inside pl-4">
                 <li *ngFor="let practice of securityBestPractices" class="mb-2 text-slate-300">{{ practice }}</li>
@@ -171,9 +172,6 @@ interface SecurityAuditPolicy {
       color: var(--text-color);
       border-color: var(--surface-500);
     }
-    :host ::ng-deep .p-tabpanels {
-      background: var(--surface-800);
-      border-color: var(--surface-700);}
   `]
 })
 export class SecuritySectionComponent {

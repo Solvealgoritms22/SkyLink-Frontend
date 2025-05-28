@@ -28,6 +28,7 @@ import { RippleModule } from 'primeng/ripple';
 import { ScrollPanelModule } from 'primeng/scrollpanel';
 import { ToastModule } from 'primeng/toast';
 
+import { CodeCardComponent } from './code-card.component';
 import { TableSectionComponent } from './sections/table-section.component';
 import { FunctionSectionComponent } from './sections/function-section.component';
 import { ProcedureSectionComponent } from './sections/procedure-section.component';
@@ -599,17 +600,18 @@ import {
       <p-toast position="bottom-center"></p-toast>
     </div>
   `,
+  styleUrls: ['./documentation-dark-theme.scss'],
   styles: [
     `:host ::ng-deep pre[class*='language-'],
     :host ::ng-deep code[class*='language-']{background:transparent!important;box-shadow:none!important;}
-    :host ::ng-deep .sidebar-dark-theme{@apply bg-surface-900 text-slate-100 shadow-xl;}
-    :host ::ng-deep .sidebar-dark-theme .p-sidebar-header{@apply bg-surface-900 border-b border-slate-700;}
+    :host ::ng-deep .sidebar-dark-theme{@apply bg-slate-800 text-slate-100 shadow-xl;}
+    :host ::ng-deep .sidebar-dark-theme .p-sidebar-header{@apply bg-slate-900 border-b border-slate-700;}
     :host ::ng-deep .sidebar-menu .p-panelmenu-header>a{@apply bg-transparent text-slate-200 rounded-lg px-4 py-3 font-medium transition;}
-    :host ::ng-deep .sidebar-menu .p-panelmenu-header:not(.p-highlight):not(.p-disabled)>a:hover{@apply bg-surface-700 text-white translate-x-1;}
+    :host ::ng-deep .sidebar-menu .p-panelmenu-header:not(.p-highlight):not(.p-disabled)>a:hover{@apply bg-slate-700 text-white translate-x-1;}
     :host ::ng-deep .sidebar-menu .p-panelmenu-header.p-highlight>a{@apply bg-blue-600/20 text-blue-400;}
     :host ::ng-deep .sidebar-menu .p-panelmenu-content .p-menuitem-link{@apply px-4 py-2 text-slate-300 rounded-md transition;}
-    :host ::ng-deep .sidebar-menu .p-panelmenu-content .p-menuitem-link:hover{@apply bg-surface-700 text-white translate-x-1;}
-    :host ::ng-deep .p-scrollpanel-bar{@apply bg-surface-600 rounded-xl;}
+    :host ::ng-deep .sidebar-menu .p-panelmenu-content .p-menuitem-link:hover{@apply bg-slate-700 text-white translate-x-1;}
+    :host ::ng-deep .p-scrollpanel-bar{@apply bg-slate-600 rounded-xl;}
   `],
 })
 export class AirlineDocComponent implements OnInit, AfterViewInit {
