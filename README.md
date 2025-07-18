@@ -138,7 +138,7 @@ SkyLink trabaja con las siguientes aerolíneas para ofrecer la mejor experiencia
 
 <div align="center">
   <p><strong>Página de Inicio</strong></p>
-  <img src="src/assets/img/hero-background.jpg" alt="Página de Inicio" width="600"/>
+  <img src="src/assets/img/skylink.png" alt="Página de Inicio" width="600"/>
   
   <p><strong>Búsqueda de Vuelos</strong></p>
   <em>Interfaz intuitiva para encontrar el vuelo perfecto</em>
