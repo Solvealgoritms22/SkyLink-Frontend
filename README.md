@@ -181,7 +181,6 @@ Este proyecto está licenciado bajo la Licencia MIT - ver el archivo [LICENSE.md
   <p>Desarrollado con ❤️ por darling.dev</p>
   <p>
     <a href="https://github.com/tu-usuario/SkyLink-Frontend">GitHub</a> •
-    <a href="https://skylink-vuelos.com">Website</a> •
-    <a href="mailto:info@skylink-vuelos.com">Contacto</a>
+    <a href="mailto:info@darlingf1998@gmail.com">Contacto</a>
   </p>
 </div>
