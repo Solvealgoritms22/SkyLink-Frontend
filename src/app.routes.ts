@@ -6,7 +6,7 @@ import { Landing } from './app/pages/landing/landing';
 import { Notfound } from './app/pages/notfound/notfound';
 import { AuthGuard } from './app/core/guards/auth.guard';
 import { AirlineDemoComponent } from './app/pages/airline-demo/AirlineDemoComponent';
-import { AirlineDocComponent } from './app/pages/landing/components/documentation-db/airlinedb-doc-new.component';
+
 
 export const appRoutes: Routes = [
     { path: '', component: Landing },
@@ -22,7 +22,6 @@ export const appRoutes: Routes = [
     },
     { path: 'notfound', component: Notfound },
     { path: 'airlinedemo', component: AirlineDemoComponent },
-    { path: 'airlinedbdoc', component: AirlineDocComponent },
     { path: 'auth', loadChildren: () => import('./app/pages/auth/auth.routes') },
     { path: '**', redirectTo: '/notfound' }
 ];
