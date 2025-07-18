@@ -7,7 +7,7 @@
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
 
 <div align="center">
-  <img src="src/assets/logos/skylink/skylink-logo-1-transparent.png" alt="SkyLink Logo" width="300"/>
+  <img src="src/assets/logos/skylink/skylink-logo-3.png" alt="SkyLink Logo" width="300"/>
   <p><em>Tu conexión al cielo, simplificada</em></p>
 </div>
 
@@ -35,7 +35,7 @@ SkyLink es una plataforma web moderna para la reservación de vuelos que conecta
 - 🎫 **Visualización detallada** de vuelos disponibles con información completa
 - 💺 **Selector interactivo de asientos** con diferentes clases y precios
 - 👤 **Gestión de perfiles** de usuario y pasajeros
-- 💳 **Sistema de pago** seguro e integrado
+- 💳 **Sistema de pago simulado** integrado
 - 📱 **Diseño responsive** adaptado a todos los dispositivos
 - 🌐 **Soporte multiidioma** (Español e Inglés)
 - 🔒 **Autenticación segura** de usuarios
@@ -147,7 +147,7 @@ SkyLink trabaja con las siguientes aerolíneas para ofrecer la mejor experiencia
   <em>Elige tu asiento ideal con nuestra interfaz interactiva</em>
   
   <p><strong>Proceso de Pago</strong></p>
-  <em>Proceso de pago seguro y transparente</em>
+  <em>Proceso de pago simulado</em>
 </div>
 
 ## 🔌 API y Servicios
@@ -178,7 +178,7 @@ Este proyecto está licenciado bajo la Licencia MIT - ver el archivo [LICENSE.md
 ---
 
 <div align="center">
-  <p>Desarrollado con ❤️ por el equipo de SkyLink</p>
+  <p>Desarrollado con ❤️ por darling.dev</p>
   <p>
     <a href="https://github.com/tu-usuario/SkyLink-Frontend">GitHub</a> •
     <a href="https://skylink-vuelos.com">Website</a> •
